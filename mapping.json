@@ -1,0 +1,18 @@
+{
+  "common": {
+    "scripts": "~/scripts",
+    "shell/zshrc": "~/.zshrc",
+    "tmux/tmux.conf": "~/.tmux.conf",
+    "neovim": "~/.config/nvim",
+    "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
+    "music/ncmpcpp/config": "~/.ncmpcpp/config",
+    "neofetch": "~/.config/neofetch"
+  },
+  "kde": {
+    "kde/konsole/colorscheme/*": "~/.local/share/konsole/*",
+    "kde/konsole/Shell.profile": "~/.local/share/konsole/Shell.profile",
+    "kde/My Layout.layout.latte": "~/.config/latte/My Layout.layout.latte"
+  },
+  "macos": {
+  }
+}

@@ -1,0 +1,12 @@
+ncmpcpp_directory = ~/.ncmpcpp
+mpd_host = localhost
+mpd_port = 6600
+mpd_music_dir = "~/Music"
+progressbar_look = ==
+user_interface = alternative
+media_library_primary_tag = performer
+generate_win32_compatible_filenames = yes
+mouse_support = yes
+empty_tag_marker = <>
+external_editor = nvim
+

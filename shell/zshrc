@@ -1,0 +1,66 @@
+# Start tmux on startup
+if [[ -z "$TMUX" ]] ;then
+    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
+    if [[ -z "$ID" ]] ;then # if not available create a new one
+        tmux new-session
+    else
+        tmux attach-session -t "$ID" # if available attach to it
+    fi
+fi
+
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=/home/umi/.oh-my-zsh
+
+export EDITOR=nvim
+
+# Theme
+ZSH_THEME="lambda-mod"
+
+# Auto-correction.
+ENABLE_CORRECTION="true"
+
+# Display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-ff"
+
+# Plugins
+plugins=(git python fancy-ctrl-z thefuck themes)
+
+source $ZSH/oh-my-zsh.sh
+
+# better LS
+LS_COLORS=$(ls_colors_generator)
+
+run_ls() {
+	ls-i --color=auto -w $(tput cols) "$@"
+}
+
+run_dir() {
+	dir-i --color=auto -w $(tput cols) "$@"
+}
+
+run_vdir() {
+	vdir-i --color=auto -w $(tput cols) "$@"
+}
+alias ls="run_ls"
+alias dir="run_dir"
+alias vdir="run_vdir"
+
+# Alias
+eval $(thefuck --alias fuck)
+
+alias zshrc='nvim ~/.zshrc'
+alias reload='source ~/.zshrc'
+alias rc='python ~/scripts/rc.py'
+alias sudo='sudo '
+alias HDD='cd /run/media/umi/HDD'
+alias rurisay='cowsay -f ~/scripts/ruri.cow'
+alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
+alias aur='pacaur'

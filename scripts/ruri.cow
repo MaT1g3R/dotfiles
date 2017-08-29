@@ -1,0 +1,24 @@
+# #RURISQUAD
+#
+# You'll need to edit the cowsay script to handle UTF-8 characters
+# (run `which cowsay` to find the exact path)
+# Add the following after "use Text::CharWidth qw(mbswidth);"
+#   use Encode `decode`;
+# and the following after "print @balloon_lines;":
+#   $the_cow = decode('UTF-8', $the_cow);
+# All credit goes to sasairc: https://gist.github.com/sasairc/5b880e0f257e5364841d
+#
+# ASCII art modified from http://anime.en.utf8art.com/arc/ore_no_imoto_ga_konna_ni_kawaii_wake_ga_nai_27.html
+#
+$thoughts = '/';
+$the_cow = <<EOC;
+             $thoughts
+            $thoughts
+　　_＿_
+(ﾂ'´ ￣ `'(ﾂ
+ |　|_｣L｣|｣
+ |(i｣ﾟ ｰﾟｿ｣
+ |_/ |笊|\\
+  く/†__†\\〉
+    └u-u┘
+EOC
