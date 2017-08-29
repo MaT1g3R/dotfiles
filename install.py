@@ -45,10 +45,11 @@ def main():
         '-f', '--force', help='Force mode, remove existing configs',
         action='store_true'
     )
-    for key in mapping:
+    for key, val in mapping.items():
+        name = val.pop('name', key)
         parse.add_argument(
             '-{}'.format(key),
-            help='Install {} dotfiles'.format(prettify(key)),
+            help='Install {} dotfiles'.format(name),
             action='store_true'
         )
 
@@ -68,16 +69,6 @@ def main():
     print('Done!')
 
 
-def prettify(s):
-    if s == 'linux':
-        return 'GNU/Linux'
-    if s == 'macos':
-        return 'macOS'
-    if s == 'kde':
-        return 'KDE'
-    return s
-
-
 def link(verbose, force, files):
     for src, dest in files.items():
         dest = dest.replace('~', home)
@@ -95,23 +86,22 @@ def link_one(verbose, force, src, dest):
     if not isinstance(dest, Path):
         dest = Path(dest).absolute()
 
-    is_dir = src.is_dir()
     parent = Path(dest.parent)
     if not parent.exists():
         parent.mkdir(parents=True)
 
-    if force and dest.is_dir() and not dest.is_symlink():
-        dest.rmdir()
-    elif force:
-        dest.unlink()
-
-    if force:
+    if dest.exists() and force:
+        if dest.is_dir() and not dest.is_symlink():
+            dest.rmdir()
+        else:
+            dest.unlink()
         print('Removed {}'.format(dest), file=out)
+
     try:
-        dest.symlink_to(src, is_dir)
-    except OSError:
+        dest.symlink_to(src, src.is_dir())
+    except OSError as e:
         if force:
-            raise
+            raise e
         print('{} already exists, skipping'.format(dest), file=out)
     else:
         print('Made symlink from {} to {}'.format(src, dest), file=out)
