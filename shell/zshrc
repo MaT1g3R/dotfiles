@@ -58,7 +58,6 @@ eval $(thefuck --alias fuck)
 
 alias zshrc='nvim ~/.zshrc'
 alias reload='source ~/.zshrc'
-alias rc='python ~/scripts/rc.py'
 alias sudo='sudo '
 alias HDD='cd /run/media/umi/HDD'
 alias rurisay='cowsay -f ~/scripts/ruri.cow'

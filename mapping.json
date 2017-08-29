@@ -1,5 +1,6 @@
 {
   "common": {
+    "bin": "~/bin",
     "scripts": "~/scripts",
     "shell/zshrc": "~/.zshrc",
     "tmux/tmux.conf": "~/.tmux.conf",
