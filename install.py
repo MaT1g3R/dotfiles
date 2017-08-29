@@ -106,7 +106,7 @@ def link_many(verbose, force, src, dest):
         file = Path(file)
         link_one(
             verbose, force, file.resolve(),
-            Path(dest.strip('*')).joinpath(file.name).resolve()
+            Path(dest.strip('*')).joinpath(file.name).absolute()
         )
 
 
