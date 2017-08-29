@@ -13,6 +13,9 @@
     "kde/konsole/Shell.profile": "~/.local/share/konsole/Shell.profile",
     "kde/My Layout.layout.latte": "~/.config/latte/My Layout.layout.latte"
   },
+  "linux": {
+    "font/freetype2.sh": "/etc/profile.d/freetype2.sh"
+  },
   "macos": {
   }
 }

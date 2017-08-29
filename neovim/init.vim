@@ -15,3 +15,6 @@ set clipboard=unnamedplus
 
 " Ftplugins
 filetype plugin indent on
+
+" Line length
+set colorcolumn=79
