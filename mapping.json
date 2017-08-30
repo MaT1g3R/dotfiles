@@ -8,7 +8,8 @@
     "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
     "music/ncmpcpp/config": "~/.ncmpcpp/config",
     "neofetch": "~/.config/neofetch",
-    "git/.gitignore_global": "~/.gitignore_global"
+    "git/.gitignore_global": "~/.gitignore_global",
+    "vscode": "~/.config/Code/User"
   },
   "linux": {
     "name": "GNU/Linux",
