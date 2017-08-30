@@ -25,16 +25,21 @@ SOFTWARE.
 """
 
 from argparse import ArgumentParser
+from codecs import decode
 from collections import OrderedDict
 from json import load
 from os import devnull
 from pathlib import Path
+from subprocess import PIPE, Popen, STDOUT
 
 here = Path(Path(__file__).parent)
 home = str(Path.home())
 
 
 def main():
+    """
+    Main function.
+    """
     with here.joinpath('mapping.json').open() as f:
         mapping = load(f, object_pairs_hook=OrderedDict)
     parse = ArgumentParser(description='Dotfiles installer')
@@ -66,10 +71,51 @@ def main():
     for key, val in types.items():
         if val:
             link(verbose, force, mapping[key])
+    shell_command('git config --get core.excludesfile ~/.gitignore_global')
     print('Done!')
 
 
+def shell_command(cmd, print_output=True):
+    """
+    Run a shell command and prints its output to stdout
+
+    Parameters
+    ----------
+    cmd
+        the shell command
+    print_output
+        if True this will print the output to stdout.
+    Returns
+    -------
+        The output lines
+    """
+    if print_output:
+        print('$ {}'.format(cmd))
+    process = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
+    lines = []
+    for line in process.stdout:
+        res = decode(line)
+        if print_output:
+            print(res)
+        else:
+            lines.append(res)
+    return lines
+
+
 def link(verbose, force, files):
+    """
+    Make symlinks from a set of files.
+
+    Parameters
+    ----------
+    verbose
+        True for verbose mode
+    force
+        True to remove existing files on the file system
+    files
+        The set of files
+
+    """
     for src, dest in files.items():
         dest = dest.replace('~', home)
         if src.endswith('*'):
@@ -79,6 +125,20 @@ def link(verbose, force, files):
 
 
 def link_one(verbose, force, src, dest):
+    """
+    Make one symlink
+
+    Parameters
+    ----------
+    verbose
+        True for verbose mode
+    force
+        True to remove existing files on the file system
+    src
+        The source file
+    dest
+        The destination path
+    """
     out = None if verbose else open(devnull, 'w')
 
     if not isinstance(src, Path):
@@ -108,6 +168,20 @@ def link_one(verbose, force, src, dest):
 
 
 def link_many(verbose, force, src, dest):
+    """
+    Make many symlinks (to handle wild cards)
+
+    Parameters
+    ----------
+    verbose
+        True for verbose mode
+    force
+        True to remove existing files on the file system
+    src
+        The source directory
+    dest
+        The destination directory path
+    """
     for file in Path(src.strip('*')).iterdir():
         file = Path(file)
         link_one(
