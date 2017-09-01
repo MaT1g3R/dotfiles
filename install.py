@@ -30,7 +30,7 @@ from json import load
 from os import devnull
 from pathlib import Path
 
-from sh.sh import git
+from sh import sh
 
 here = Path(Path(__file__).parent)
 home = Path.home()
@@ -71,9 +71,11 @@ def main():
     for key, val in types.items():
         if val:
             link(verbose, force, mapping[key])
+        if key == 'macos' and val:
+            print(sh.bash(here.joinpath('macos').joinpath('macos')))
 
     print(
-        git.config(
+        sh.git.config(
             '--get', 'core.excludesfile',
             str(home.joinpath('.gitignore_global'))
         )
