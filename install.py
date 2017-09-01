@@ -25,15 +25,15 @@ SOFTWARE.
 """
 
 from argparse import ArgumentParser
-from codecs import decode
 from collections import OrderedDict
 from json import load
 from os import devnull
 from pathlib import Path
-from subprocess import PIPE, Popen, STDOUT
+
+from sh.sh import git
 
 here = Path(Path(__file__).parent)
-home = str(Path.home())
+home = Path.home()
 
 
 def main():
@@ -71,35 +71,15 @@ def main():
     for key, val in types.items():
         if val:
             link(verbose, force, mapping[key])
-    shell_command('git config --get core.excludesfile ~/.gitignore_global')
+
+    print(
+        git.config(
+            '--get', 'core.excludesfile',
+            str(home.joinpath('.gitignore_global'))
+        )
+    )
+
     print('Done!')
-
-
-def shell_command(cmd, print_output=True):
-    """
-    Run a shell command and prints its output to stdout
-
-    Parameters
-    ----------
-    cmd
-        the shell command
-    print_output
-        if True this will print the output to stdout.
-    Returns
-    -------
-        The output lines
-    """
-    if print_output:
-        print('$ {}'.format(cmd))
-    process = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
-    lines = []
-    for line in process.stdout:
-        res = decode(line)
-        if print_output:
-            print(res)
-        else:
-            lines.append(res)
-    return lines
 
 
 def link(verbose, force, files):
@@ -117,7 +97,7 @@ def link(verbose, force, files):
 
     """
     for src, dest in files.items():
-        dest = dest.replace('~', home)
+        dest = dest.replace('~', str(home))
         if src.endswith('*'):
             link_many(verbose, force, src, dest)
         else:
