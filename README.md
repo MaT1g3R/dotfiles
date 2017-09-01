@@ -54,3 +54,4 @@ be printed on the screen by the help message for each category.
 * Latte-dock: https://github.com/psifidotos/Latte-Dock
 * Custom cowsay files: https://github.com/WolfgangAxel/Random-Projects/blob/master/ruri.cow
 * KWin tile script: https://github.com/Jazqa/kwin-quarter-tiling
+* Modified macOS install script from here: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
