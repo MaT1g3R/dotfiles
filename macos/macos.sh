@@ -2,6 +2,11 @@
 
 # ~/.macos — https://mths.be/macos
 
+# Homebrew
+curl https://raw.githubusercontent.com/Homebrew/install/master/install -o brew_install
+/usr/bin/ruby -e brew_install
+rm brew_install
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'

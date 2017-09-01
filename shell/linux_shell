@@ -1,0 +1,6 @@
+alias HDD='cd /run/media/umi/HDD'
+alias aur='pacaur'
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+source $SCRIPTPATH/zshrc

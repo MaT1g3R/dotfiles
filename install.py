@@ -30,7 +30,11 @@ from json import load
 from os import devnull
 from pathlib import Path
 
+import pip
+
 from sh import sh
+
+assert pip is not None
 
 here = Path(Path(__file__).parent)
 home = Path.home()
@@ -38,7 +42,7 @@ home = Path.home()
 
 def main():
     """
-    Main function.
+    Main function. Parse the cli arguments.
     """
     with here.joinpath('mapping.json').open() as f:
         mapping = load(f, object_pairs_hook=OrderedDict)
@@ -48,6 +52,10 @@ def main():
     )
     parse.add_argument(
         '-f', '--force', help='Force mode, remove existing configs',
+        action='store_true'
+    )
+    parse.add_argument(
+        '-i', '--init', help='Init mode, do some initial setup',
         action='store_true'
     )
     for key, val in mapping.items():
@@ -62,26 +70,76 @@ def main():
     types = vars(args)
     verbose = types.pop('verbose')
     force = types.pop('force')
+    init = types.pop('init')
     if not any(types.values()):
         print('You must choose at lesat one type of dotfiles to install.')
         parse.print_help()
-        return
+    else:
+        install(types, init, verbose, force, mapping)
 
+
+def install(types, init, verbose, force, mapping):
+    """
+    Install function.
+
+    Parameters
+    ----------
+    types
+        Types of dotfiles to be installed.
+    init
+        True to run the init scripts
+    verbose
+        True for verbose mode
+    force
+        True to remove existing files on the file system
+    mapping
+        Symlink mapping dictionary
+    """
     print('Installing...')
+    common_commands(verbose, force, init)
     for key, val in types.items():
         if val:
+            if key == 'macos':
+                mac_commands(init)
             link(verbose, force, mapping[key])
-        if key == 'macos' and val:
-            print(sh.bash(here.joinpath('macos').joinpath('macos')))
-
-    print(
-        sh.git.config(
-            '--get', 'core.excludesfile',
-            str(home.joinpath('.gitignore_global'))
-        )
-    )
-
     print('Done!')
+
+
+def common_commands(verbose, force, init):
+    """
+    Shell commands for all installation types.
+
+    Parameters
+    ----------
+    verbose
+        True for verbose mode
+    force
+        True to remove existing files on the file system
+    init
+        True to run the init scripts
+    """
+    if init:
+        if not home.joinpath('.oh-my-zsh').is_dir():
+            print(sh.sh(str(here.joinpath('shell').joinpath('oh-my-zsh'))))
+
+    global_gitig_path = home.joinpath('.gitignore_global').absolute()
+    link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
+    print(sh.git.config('--get', 'core.excludesfile', str(global_gitig_path)))
+
+
+def mac_commands(init):
+    """
+    Shell commands for macOS
+
+    Parameters
+    ----------
+    init
+        True to run the init scripts
+    """
+    mac = here.joinpath('macos')
+    if init:
+        print(sh.bash(mac.joinpath('macos.sh')))
+        print(sh.bash(mac.joinpath('brew.sh')))
 
 
 def link(verbose, force, files):
@@ -96,7 +154,6 @@ def link(verbose, force, files):
         True to remove existing files on the file system
     files
         The set of files
-
     """
     for src, dest in files.items():
         dest = dest.replace('~', str(home))

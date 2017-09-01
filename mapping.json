@@ -2,21 +2,21 @@
   "common": {
     "bin": "~/bin",
     "scripts": "~/scripts",
-    "shell/zshrc": "~/.zshrc",
     "tmux/tmux.conf": "~/.tmux.conf",
     "neovim": "~/.config/nvim",
     "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
     "music/ncmpcpp/config": "~/.ncmpcpp/config",
     "neofetch": "~/.config/neofetch",
-    "git/.gitignore_global": "~/.gitignore_global",
-    "vscode": "~/.config/Code/User"
+    "vscode": "~/.config/Code/User",
+    "shell/lambda-mod.zsh-theme": "~/.oh-my-zsh/themes/lambda-mod.zsh-theme"
   },
   "linux": {
     "name": "GNU/Linux",
-    "font/freetype2.sh": "/etc/profile.d/freetype2.sh"
+    "shell/linux_shell": "~/.zshrc"
   },
   "macos": {
-    "name": "macOS"
+    "name": "macOS",
+    "shell/macos_shell": "~/.zshrc"
   },
   "kde": {
     "name": "KDE",
