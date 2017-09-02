@@ -124,7 +124,12 @@ def common_commands(verbose, force, init):
 
     global_gitig_path = home.joinpath('.gitignore_global')
     link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
-    print(sh.git.config('--get', 'core.excludesfile', str(global_gitig_path)))
+    try:
+        print(
+            sh.git.config('--get', 'core.excludesfile', str(global_gitig_path))
+        )
+    except sh.ErrorReturnCode:
+        pass
 
 
 def mac_commands(init):
