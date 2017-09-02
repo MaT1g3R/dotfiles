@@ -122,7 +122,7 @@ def common_commands(verbose, force, init):
         if not home.joinpath('.oh-my-zsh').is_dir():
             print(sh.sh(str(here.joinpath('shell').joinpath('oh-my-zsh'))))
 
-    global_gitig_path = home.joinpath('.gitignore_global').absolute()
+    global_gitig_path = home.joinpath('.gitignore_global')
     link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
     print(sh.git.config('--get', 'core.excludesfile', str(global_gitig_path)))
 
