@@ -138,8 +138,8 @@ def mac_commands(init):
     """
     mac = here.joinpath('macos')
     if init:
-        print(sh.bash(mac.joinpath('macos.sh')))
         print(sh.bash(mac.joinpath('brew.sh')))
+        print(sh.bash(mac.joinpath('macos.sh')))
 
 
 def link(verbose, force, files):
