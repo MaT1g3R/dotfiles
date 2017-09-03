@@ -6,19 +6,20 @@
     "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
     "music/ncmpcpp/config": "~/.ncmpcpp/config",
     "neofetch": "~/.config/neofetch",
-    "vscode": "~/.config/Code/User",
     "shell/lambda-mod.zsh-theme": "~/.oh-my-zsh/themes/lambda-mod.zsh-theme"
   },
   "linux": {
     "name": "GNU/Linux",
     "shell/linux_shell": "~/.zshrc",
-    "tmux/tmux_linux.conf": "~/.tmux.conf"
+    "tmux/tmux_linux.conf": "~/.tmux.conf",
+    "vscode": "~/.config/Code/User"
   },
   "macos": {
     "name": "macOS",
     "shell/macos_shell": "~/.zshrc",
-    "tmux/tmux_mac.conf": "~/.tmux.conf"
-  },
+    "tmux/tmux_mac.conf": "~/.tmux.conf",
+    "vscode": "~/Library/Application Support/Code/User"
+    },
   "kde": {
     "name": "KDE",
     "kde/konsole/colorscheme/*": "~/.local/share/konsole/*",
