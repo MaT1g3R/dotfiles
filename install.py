@@ -23,16 +23,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
 from argparse import ArgumentParser
+from codecs import decode
 from collections import OrderedDict
 from json import load
 from os import devnull
 from pathlib import Path
+from subprocess import PIPE, Popen, STDOUT
 
 import pip
-
-from sh import sh
 
 assert pip is not None
 
@@ -120,16 +119,37 @@ def common_commands(verbose, force, init):
     """
     if init:
         if not home.joinpath('.oh-my-zsh').is_dir():
-            print(sh.sh(str(here.joinpath('shell').joinpath('oh-my-zsh'))))
+            sh('sh {}'.format(here.joinpath('shell').joinpath('oh-my-zsh')))
 
     global_gitig_path = home.joinpath('.gitignore_global')
     link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
-    try:
-        print(
-            sh.git.config('--get', 'core.excludesfile', str(global_gitig_path))
-        )
-    except sh.ErrorReturnCode:
-        pass
+    sh('git config --get core.excludesfile {}'.format(global_gitig_path))
+
+
+def sh(cmd, print_output=True):
+    """
+    Run a shell command and prints its output to stdout
+
+    Parameters
+    ----------
+    cmd
+        the shell command
+    print_output
+        if True this will print the output
+
+    Returns
+    -------
+    The captured output
+    """
+    process = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
+    lines = []
+    for line in process.stdout:
+        res = decode(line)
+        if print_output:
+            print(res)
+        else:
+            lines.append(res)
+    return lines
 
 
 def mac_commands(init):
@@ -143,8 +163,8 @@ def mac_commands(init):
     """
     mac = here.joinpath('macos')
     if init:
-        print(sh.bash(mac.joinpath('brew.sh')))
-        print(sh.bash(mac.joinpath('macos.sh')))
+        sh('bash {}'.format(mac.joinpath('brew.sh')))
+        sh('bash {}'.format(mac.joinpath('macos.sh')))
 
 
 def link(verbose, force, files):
