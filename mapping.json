@@ -2,7 +2,6 @@
   "common": {
     "bin": "~/bin",
     "scripts": "~/scripts",
-    "tmux/tmux.conf": "~/.tmux.conf",
     "neovim": "~/.config/nvim",
     "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
     "music/ncmpcpp/config": "~/.ncmpcpp/config",
@@ -12,11 +11,13 @@
   },
   "linux": {
     "name": "GNU/Linux",
-    "shell/linux_shell": "~/.zshrc"
+    "shell/linux_shell": "~/.zshrc",
+    "tmux/tmux_linux.conf": "~/.tmux.conf"
   },
   "macos": {
     "name": "macOS",
-    "shell/macos_shell": "~/.zshrc"
+    "shell/macos_shell": "~/.zshrc",
+    "tmux/tmux_mac.conf": "~/.tmux.conf"
   },
   "kde": {
     "name": "KDE",

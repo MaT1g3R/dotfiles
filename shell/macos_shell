@@ -1,1 +1,3 @@
 source ~/dotfiles/shell/zshrc
+PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
