@@ -1,5 +1,6 @@
+source ~/dotfiles/shell/zshrc
 # better LS
-LS_COLORS=$(ls_colors_generator)
+export LS_COLORS=$(ls_colors_generator)
 
 run_ls() {
 	ls-i --color=auto -w $(tput cols) "$@"
@@ -18,4 +19,3 @@ alias vdir="run_vdir"
 
 alias HDD='cd /run/media/umi/HDD'
 alias aur='pacaur'
-source ~/dotfiles/shell/zshrc

@@ -1,3 +1,1 @@
-SCRIPT=`realpath $0`
-SCRIPTPATH=`dirname $SCRIPT`
-source $SCRIPTPATH/zshrc
+source ~/dotfiles/shell/zshrc
