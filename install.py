@@ -125,10 +125,15 @@ def common_commands(verbose, force, init):
     link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
     sh('git config --get core.excludesfile {}'.format(global_gitig_path))
 
+    with here.joinpath('vscode').joinpath('extensions').open() as f:
+        code_pkgs = f.read().splitlines()
+    for pkg in code_pkgs:
+        sh('code --install-extension {}'.format(pkg))
+
 
 def sh(cmd, print_output=True):
     """
-    Run a shell command and prints its output to stdout
+    Run a shell command.
 
     Parameters
     ----------
