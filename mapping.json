@@ -18,7 +18,9 @@
     "name": "macOS",
     "shell/macos_shell": "~/.zshrc",
     "tmux/tmux_mac.conf": "~/.tmux.conf",
-    "vscode": "~/Library/Application Support/Code/User"
+    "vscode": "~/Library/Application Support/Code/User",
+    "macos/.chunkwmrc": "~/.chunkwmrc",
+    "macos/.skhdrc": "~/.skhdrc"
     },
   "kde": {
     "name": "KDE",
