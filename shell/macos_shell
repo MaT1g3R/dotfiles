@@ -1,13 +1,13 @@
 source ~/dotfiles/shell/zshrc
 
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 export LS_COLORS=$(ls_colors_generator)
 
-run_ls() {
-	ls-i --color=auto -w $(tput cols) "$@"
-}
+# run_ls() {
+#	ls-i --color=auto -w $(tput cols) "$@"
+# }
 
 # run_dir() {
 #	dir-i --color=auto -w $(tput cols) "$@"
@@ -18,4 +18,5 @@ run_ls() {
 #}
 # alias ls="run_ls"
 # alias dir="run_dir"
-# alias vdir="run_vdir"
+# alias vdir="run_vdir"A
+alias gcc='gcc-7'
