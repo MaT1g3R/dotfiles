@@ -12,7 +12,8 @@
     "name": "GNU/Linux",
     "shell/linux_shell": "~/.zshrc",
     "tmux/tmux_linux.conf": "~/.tmux.conf",
-    "vscode": "~/.config/Code/User"
+    "vscode": "~/.config/Code/User",
+    "nvim_extra/clang_complete_linux.vim": "~/.clang_complete.vim"
   },
   "macos": {
     "name": "macOS",
@@ -20,7 +21,8 @@
     "tmux/tmux_mac.conf": "~/.tmux.conf",
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
-    "macos/.skhdrc": "~/.skhdrc"
+    "macos/.skhdrc": "~/.skhdrc",
+    "nvim_extra/clang_complete_mac.vim": "~/.clang_complete.vim"
     },
   "kde": {
     "name": "KDE",
