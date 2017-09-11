@@ -6,7 +6,8 @@
     "music/mpd/mpd.conf": "~/.config/mpd/mpd.conf",
     "music/ncmpcpp/config": "~/.ncmpcpp/config",
     "neofetch": "~/.config/neofetch",
-    "shell/lambda-mod.zsh-theme": "~/.oh-my-zsh/themes/lambda-mod.zsh-theme"
+    "shell/lambda-mod.zsh-theme": "~/.oh-my-zsh/themes/lambda-mod.zsh-theme",
+    "C/gdbinit": "~/.gdbinit"
   },
   "linux": {
     "name": "GNU/Linux",
