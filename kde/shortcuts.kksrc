@@ -1,13 +1,31 @@
-[KDE Keyboard Layout Switcher][Global Shortcuts]
-Disable Touchpad=Touchpad Off
-Enable Touchpad=Touchpad On
-Switch to Next Keyboard Layout=Ctrl+Alt+K
-Toggle Touchpad=Touchpad Toggle
-{418b53f6-1195-46e7-9057-9fffbcff66fe}=Shift+Print
-{9669e406-c001-4369-850c-38c62471f37d}=Meta+Print
-{a0cbe2eb-0042-4ded-86fa-07a366288eb9}=Meta+Shift+Print
-{d03619b6-9b3c-48cc-9d9c-a2aadb485550}=Search
-{e78e3ee5-1dd9-4726-bb6e-c12c7972f715}=Print
+[ActivityManager][Global Shortcuts]
+activate task manager entry 1=none
+activate task manager entry 10=none
+activate task manager entry 2=none
+activate task manager entry 3=none
+activate task manager entry 4=none
+activate task manager entry 5=none
+activate task manager entry 6=none
+activate task manager entry 7=none
+activate task manager entry 8=none
+activate task manager entry 9=none
+activate widget 2=Alt+F1
+clear-history=none
+clipboard_action=Ctrl+Alt+X
+cycleNextAction=none
+cyclePrevAction=none
+edit_clipboard=none
+manage activities=Meta+A
+next activity=Meta+Tab
+previous activity=Meta+Shift+Tab
+repeat_action=Ctrl+Alt+R
+show dashboard=Ctrl+F12
+show-barcode=none
+show-on-mouse-pos=none
+stop current activity=Meta+S
+switch-to-activity-485f46bd-b889-4872-a367-204be3185824=none
+switch-to-activity-a3a42483-5b05-4f23-8767-6a5fa9225cfd=none
+switch-to-activity-fe57bc17-f2e0-4023-8f61-8061a8581822=none
 
 [kaccess][Global Shortcuts]
 Toggle Screen Reader On and Off=Meta+Alt+S
@@ -23,6 +41,17 @@ Show System Activity=none
 Sleep=Sleep
 Toggle Keyboard Backlight=Keyboard Light On/Off
 display=Display; Meta+P
+
+[khotkeys][Global Shortcuts]
+Disable Touchpad=Touchpad Off
+Enable Touchpad=Touchpad On
+Switch to Next Keyboard Layout=Ctrl+Alt+K
+Toggle Touchpad=Touchpad Toggle
+{418b53f6-1195-46e7-9057-9fffbcff66fe}=Shift+Print
+{9669e406-c001-4369-850c-38c62471f37d}=Meta+Print
+{a0cbe2eb-0042-4ded-86fa-07a366288eb9}=Meta+Shift+Print
+{d03619b6-9b3c-48cc-9d9c-a2aadb485550}=Search
+{e78e3ee5-1dd9-4726-bb6e-c12c7972f715}=Print
 
 [kmix][Global Shortcuts]
 decrease_microphone_volume=Microphone Volume Down
@@ -159,7 +188,7 @@ Window Lower=none
 Window Maximize=none
 Window Maximize Horizontal=none
 Window Maximize Vertical=none
-Window Minimize=none
+Window Minimize=Meta+E
 Window Move=none
 Window No Border=none
 Window On All Desktops=none
@@ -257,35 +286,6 @@ show-on-mouse-pos=none
 NewTab=none
 NewWindow=none
 _launch=Meta+Return; Meta+Num+Enter
-
-[plasmashell][Global Shortcuts]
-activate task manager entry 1=none
-activate task manager entry 10=none
-activate task manager entry 2=none
-activate task manager entry 3=none
-activate task manager entry 4=none
-activate task manager entry 5=none
-activate task manager entry 6=none
-activate task manager entry 7=none
-activate task manager entry 8=none
-activate task manager entry 9=none
-activate widget 2=Alt+F1
-clear-history=none
-clipboard_action=Ctrl+Alt+X
-cycleNextAction=none
-cyclePrevAction=none
-edit_clipboard=none
-manage activities=Meta+A
-next activity=Meta+Tab
-previous activity=Meta+Shift+Tab
-repeat_action=Ctrl+Alt+R
-show dashboard=Ctrl+F12
-show-barcode=none
-show-on-mouse-pos=none
-stop current activity=Meta+S
-switch-to-activity-485f46bd-b889-4872-a367-204be3185824=none
-switch-to-activity-a3a42483-5b05-4f23-8767-6a5fa9225cfd=none
-switch-to-activity-fe57bc17-f2e0-4023-8f61-8061a8581822=none
 
 [yakuake][Global Shortcuts]
 toggle-window-state=Meta+D

@@ -19,7 +19,7 @@ set clipboard=unnamedplus
 filetype plugin indent on
 
 " Line length
-set colorcolumn=79
+set colorcolumn=80
 
 " Clang completion
 source ~/.clang_complete.vim
