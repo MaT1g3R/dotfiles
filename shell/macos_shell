@@ -20,3 +20,4 @@ export LS_COLORS=$(ls_colors_generator)
 # alias dir="run_dir"
 # alias vdir="run_vdir"A
 alias gcc='gcc-7'
+alias yolo='brew update && brew upgrade'
