@@ -10,6 +10,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>CommandSelection</key>
+	<false/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>base16-atelierseaside.dark.256</key>
@@ -1020,6 +1022,8 @@
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>526108908.91592503</real>
 	<key>OpenArrangementAtStartup</key>
@@ -1074,7 +1078,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-09-03T05:37:49Z</date>
+	<date>2017-09-14T16:48:56Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>TabStyle</key>
@@ -1088,6 +1092,6 @@
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.1.20170903-nightly</string>
+	<string>3.1.20170909-nightly</string>
 </dict>
 </plist>
