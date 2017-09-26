@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+
+from sys import argv
+
+boiler_plate = r"""\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{framed}
+\usepackage{multicol}
+\usepackage{parallel}
+\usepackage{enumitem}
+\usepackage{amsthm}
+
+\begin{document}
+\end{document}
+"""
+
+if __name__ == '__main__':
+    if len(argv) != 2:
+        print('Please provide a file name.')
+        exit(1)
+    fname = argv[1]
+    with open(fname, 'w+') as f:
+        f.write(boiler_plate)

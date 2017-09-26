@@ -6,11 +6,15 @@ Plug 'lervag/vimtex'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'vivien/vim-linux-coding-style'
+Plug 'vhda/verilog_systemverilog.vim'
 call plug#end()
 call deoplete#enable()
 
 " Show line numbers
 set number
+
+" Modeline
+set modeline
 
 " Clipboard
 set clipboard=unnamedplus
