@@ -65,7 +65,7 @@ brew install chunkwm
 
 # Casks
 brew cask install iterm2
-brew cask install firefox
+brew cask install firefoxnightly
 brew cask install visual-studio-code
 brew cask install jetbrains-toolbox
 brew cask install gitkraken
