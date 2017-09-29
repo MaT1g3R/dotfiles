@@ -9,4 +9,4 @@ generate_win32_compatible_filenames = yes
 mouse_support = yes
 empty_tag_marker = <>
 external_editor = nvim
-
+allow_for_physical_item_deletion = yes
