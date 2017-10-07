@@ -31,3 +31,6 @@ source ~/.clang_complete.vim
 if filereadable("vimrc_local")
     source vimrc_local
 endif
+
+" Supertab
+source ~/.config/nvim/supertab.vim
