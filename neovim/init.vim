@@ -7,6 +7,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 Plug 'vivien/vim-linux-coding-style'
 Plug 'vhda/verilog_systemverilog.vim'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 call deoplete#enable()
 
@@ -34,3 +35,12 @@ endif
 
 " Supertab
 source ~/.config/nvim/supertab.vim
+
+" Leader key
+let mapleader = ","
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
