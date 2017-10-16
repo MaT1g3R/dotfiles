@@ -12,11 +12,12 @@
 # alias ls="run_ls"
 # alias dir="run_dir"
 # alias vdir="run_vdir"A
+
+source ~/dotfiles/shell/zshrc
+export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 alias gcc='gcc-7'
 alias yolo='brew update && brew upgrade'
 
-source ~/dotfiles/shell/zshrc
 export LS_COLORS=$(ls_colors_generator)
 
-export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
