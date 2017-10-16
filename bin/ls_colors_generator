@@ -1,58 +1,43 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-# View this file with a 4-space-to-tab ratio.
 def get_colors():
-	
+	ARCHIVE_COLOR 	= 85
+	IMAGE_COLOR 	= 196
+	CODE_COLOR		= 223
+	TEXT_COLOR		= 118
+	EXEC_COLOR		= 163
+	LIBRARY_COLOR	= 226
+	DATA_COLOR 		= 27
+	FONT_COLOR		= 84
+
 	FORMAT_COLORS = {
-		LEFT		: "",			# Sequence to print *before* outputting a file name.
-		RIGHT		: "",			# Sequence to print *after* outputting a file name.
-		END			: "\x1b[0m",	# Sequence to print *after* the command executes.
-		RESET		: "\x1b[0m"		# Sequence to print *after* the command executes. (functionally identical)
+		LEFT		: "",
+		RIGHT		: "",
+		END			: "\x1b[0m",
+		RESET		: "\x1b[0m"
 	}
 
-	# The color_char(fg, bg, char, other) function takes arguments and formats them into a valid
-	# LS_COLORS format specifier. FG denotes foreground (it is required). BG denotes background;
-	# in order to disable the background set it to -1. The char argument is the character code for
-	# the character that must be printed before the filename in ls. The "other" argument denotes
-	# any escape codes to print after the main fg/bg sequence (e.g. bold, italic formatters).
-	# ^^cc is an alias for color_char.
 	SPECIAL = {
-		NORMAL 		: "",							# Should be left blank. Used as a fallback for everything else.
-		FILE		: color_char(48,-1,0xE612),		# Normal file, or one that does not have a color associated with it.
-		DIRECTORY	: color_char(29,-1,0xE5FE),		# A folder.
-		LINK		: color_char(147,-1,0xF178),	# Any kind of link.
-		ORPHAN		: color_char(232, 197, 0xF12A),	# An "orphaned" inode. Should be set to an error condition.
-		MISSING		: color_char(232, 197,ord("?")),# A "missing" inode. Should be set to an error condition.
-		PIPE		: color_char(115,-1,0xF25A),	# A named pipe.
-		SOCKET		: color_char(140,-1,0xF135),	# Honestly not sure what this is, so it must not appear much. Not needed probably.
-		BLOCKDEV	: color_char(178,-1,0xF069),	# A block device (e.g. /dev/sda)
-		CHARDEV		: color_char(178,-1,0xF069),	# A character device (e.g. /dev/random)
-		DOOR		: color_char(84,-1,0xE5FE),		# Client-server communication door. Not needed.
-		EXEC		: color_char(27,-1,0xF135),		# An executable file.
-		SETUID		: "",							# Set UID upon execution			
-		SETGID		: "",							# Set GID upon execution
-		STICKY		: color_char(230,-1,0xE612),	# Sticky bit set.
-		OTHERWRITE	: color_char(230,-1,0xE612),	# Writable by others than the owner + root.
-		STOTHERWRITE: color_char(230,-1,0xE612),	# Sticky, but writable by others than the owner + root.
+		NORMAL 		: "",
+		FILE		: color_char(48,-1,0xE612),
+		DIRECTORY	: color_char(29,-1,0xE5FE),
+		LINK		: color_char(147,-1,0xF178),
+		ORPHAN		: color_char(197,-1,0xE609),
+		MISSING		: color_char(208,-1,ord("?")),
+		PIPE		: color_char(115,-1,0xF25A),
+		SOCKET		: color_char(140,-1,0xF135),
+		BLOCKDEV	: color_char(178,-1,0xF069),
+		CHARDEV		: color_char(178,-1,0xF069),
+		DOOR		: color_char(84,-1,0xE5FE),
+		EXEC		: color_char(27,-1,0xF135),
+		SETUID		: "",
+		SETGID		: "",
+		STICKY		: color_char(230,-1,0xE612),
+		OTHERWRITE	: color_char(230,-1,0xE612),
+		STOTHERWRITE: color_char(230,-1,0xE612),
 	}
-	
+
 	EXTENSION_LIST = {
-		"*bin":			cc(155, -1, 0xF471),
-		"*boot":			cc(27,	-1,	0xF0A0),
-		"*dev":			cc(220,	-1, 0xE5FC),
-		"*etc":			cc(55,	-1, 0xF0AD),
-		"*home":			cc(226,	-1, 0xF015),
-		"*lost+found":	cc(165,	-1, 0xF118),
-		"*mnt":			cc(129,	-1, 0xF0A0),
-		"*opt":			cc(195,	-1, 0xF0AD),
-		"*proc":			cc(250,	-1,	0xF0AD),
-		"*root":			cc(199,	-1,	0xE26E),
-		"*sbin":			cc(160, -1, 0xF471),
-		"*sys":			cc(254, -1,	0xF2DB),
-		"*usr":			cc(189, -1, 0xF0C0),
-		"*var":			cc(120, -1, ord("?")),
-		
 		"*README":		cc(220, -1, 0xE714),
 		"*README.rst":	cc(220, -1, 0xE714),
 		"*LICENSE":		cc(220, -1, 0xE714),
@@ -89,8 +74,8 @@ def get_colors():
 		".cbz":			cc(141, -1, 0xE299),
 		".chm":			cc(141, -1, 0xE299),
 		".djvu":		cc(141, -1, 0xE299),
-		".pdf":			cc(141, -1, 0xE299),
-		".PDF":			cc(141, -1, 0xE299),
+		".pdf":			cc(141, -1, 0xF411),
+		".PDF":			cc(141, -1, 0xF411),
 		".docm":		cc(111, -1, 0xF1C2, other="4"),
 		".doc":			cc(111, -1, 0xF1C2),
 		".docx":		cc(111, -1, 0xF1C2),
@@ -123,7 +108,7 @@ def get_colors():
 		".psf":			cc(1, -1, 0xF0AD),
 		".git":			cc(197, -1, 0xE702),
 		".gitignore":	cc(240, -1, 0xE702),
-		".gitattributes":cc(240, -1, 0xE702),
+		".gitattributes":	cc(240, -1, 0xE702),
 		".gitmodules":	cc(240, -1, 0xE702),
 		".awk":			cc(172, -1, 0xF120),
 		".bash":		cc(172, -1, 0xF120),
@@ -821,7 +806,7 @@ def get_colors():
 		".pi":			cc(7, -1, 0xF10B),
 		".plt":			cc(7, -1, 0xF10B),
 		".pm":			cc(7, -1, 0xF10B),
-		".rb":			cc(1, -1, 0xE739),
+		".rb":			cc(7, -1, 0xF10B),
 		".rdf":			cc(7, -1, 0xF10B),
 		".rst":			cc(7, -1, 0xF10B),
 		".ru":			cc(7, -1, 0xF10B),
@@ -837,19 +822,18 @@ def get_colors():
 		".vcf":			cc(7, -1, 0xF10B),
 		".xln":			cc(7, -1, 0xF10B)
 
-		
+
 	}
-		
+
 	return FORMAT_COLORS, SPECIAL, EXTENSION_LIST
 
-# Formats arguments into an LS_COLORS-complete escape sequence.
+def cc(*args,**kwargs):
+	return color_char(*args,**kwargs)
+
 def color_char(f,b,c,other=""):
-	return "m%s\x1b" % ("%s%s " % (color_seq(f,b,other),get_unicode(c)))
+	return char_prefix("%s%s " % (color_seq_256(f,b,other),shell_unicode(c)))
 
-cc = color_char
-
-# Formats fg and bg into an escape sequence.
-def color_seq(f,b,other):
+def color_seq_256(f,b,other):
 	if b != -1:
 		if other != "":
 			return "\x1b[38;5;%i;48;5;%i;%sm" % (f, b, other)
@@ -861,36 +845,36 @@ def color_seq(f,b,other):
 		else:
 			return "\x1b[38;5;%im" % f
 
-# Return a unicode character. Python 2 and 3 complete.
-def get_unicode(ch):
+def shell_unicode(ch):
 	try:
 		return unichr(ch)
 	except:
 		return chr(ch)
 
+def char_prefix(s):
+	return "m%s\x1b" % s
 
 LEFT 	= "lc"
 RIGHT 	= "rc"
 END 	= "ec"
 RESET 	= "rs"
 
-# LS_COLORS special file codes.
-NORMAL 		= "no"
-FILE		= "fi"
-DIRECTORY	= "di"
-LINK		= "ln"
-ORPHAN		= "or"
-MISSING		= "mi"
-PIPE		= "pi"
-SOCKET		= "so"
-BLOCKDEV	= "bd"
-CHARDEV		= "cd"
-DOOR		= "do"
-EXEC		= "ex"
-SETUID		= "su"
-SETGID		= "sg"
-STICKY		= "st"
-OTHERWRITE	= "ow"
+NORMAL 			= "no"
+FILE			= "fi"
+DIRECTORY		= "di"
+LINK			= "ln"
+ORPHAN			= "or"
+MISSING			= "mi"
+PIPE			= "pi"
+SOCKET			= "so"
+BLOCKDEV		= "bd"
+CHARDEV			= "cd"
+DOOR			= "do"
+EXEC			= "ex"
+SETUID			= "su"
+SETGID			= "sg"
+STICKY			= "st"
+OTHERWRITE		= "ow"
 STOTHERWRITE	= "tw"
 
 if __name__ == "__main__":
@@ -899,35 +883,27 @@ if __name__ == "__main__":
 	lsc = ""
 	formcol, special, exten = get_colors()
 	try:
-		if sys.argv[1] == "test": # generate a test directory with all file extensions
+		if sys.argv[1] == "test":
 			os.system("mkdir test")
-			os.system("touch" + " ".join("test/"+ext for ext in exten.keys()))
-			sys.exit()
+			cmd = "touch "
+			for ext in exten.keys():
+				cmd += "test/%s " % ext.replace("*","")
+			os.system(cmd)
 	except:
 		pass
-	
-	# Format left/right/exit/reset color codes.
 	for compname in formcol.keys():
 		comp = formcol[compname]
 		if comp != "":
 			lsc += compname+"="+comp+":"
-	# Format default file/folder colors.
 	for compname in special.keys():
 		comp = special[compname]
 		if comp != "":
 			lsc += compname+"="+comp+":"
-	# Format extensions.
 	for compname in sorted(exten.keys()):
 		comp = exten[compname]
 		if comp != "":
 			if compname.startswith("*"):
 				lsc += compname+"="+comp+":"
-			elif compname.startswith("-"):
-				lsc += compname+"="+comp+":"
 			else:
 				lsc += "*."+compname.lstrip("*.")+"="+comp+":"
-	try:
-		sys.stdout.buffer.write(lsc.encode('utf-8'))
-	except:
-		print(lsc.encode('utf-8')) # python2
-	
+	sys.stdout.buffer.write(lsc.encode('utf-8'))
