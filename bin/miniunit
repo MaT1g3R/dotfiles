@@ -1,2 +1,3 @@
 #!/usr/bin/env sh
 cp -v ~/dotfiles/C/mini_unit.h ./
+cp -v ~/dotfiles/C/mini_unit.c ./
