@@ -47,7 +47,7 @@ be printed on the screen by the help message for each category.
 * [Tmux](https://github.com/tmux/tmux) and 
   [Powerline](https://github.com/powerline/powerline)
 * Tmux config borrowed from: https://github.com/tony/tmux-config
-* [Patched Hack font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack) 
+* [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode) 
   for the terminal
 * [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont) 
   for rest of the system
