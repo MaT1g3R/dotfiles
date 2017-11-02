@@ -21,7 +21,7 @@ COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-ff"
 
 # Plugins
-plugins=(git python fancy-ctrl-z thefuck)
+plugins=(git python fancy-ctrl-z thefuck wd)
 
 source $ZSH/oh-my-zsh.sh
 
