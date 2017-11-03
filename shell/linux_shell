@@ -17,8 +17,6 @@ alias ls="run_ls"
 alias dir="run_dir"
 alias vdir="run_vdir"
 
-alias HDD='cd /run/media/umi/HDD'
-alias work='cd /run/media/umi/HDD/Projects'
 alias aur='pacaur'
 alias yolo='pacaur -Syu'
 alias pacmirror='sudo pacman-mirrors -m rank -f 60'
