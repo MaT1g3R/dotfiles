@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "mini_unit.h"
+
 
 int process_results(char *result, int tests_run)
 {
