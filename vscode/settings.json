@@ -11,5 +11,8 @@
     "[markdown]": {
         "editor.wordWrap": "on",
         "editor.quickSuggestions": true
-    }
+    },
+    "vim.enableNeovim": true,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "keyboard.dispatch": "keyCode"
 }
