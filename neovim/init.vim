@@ -8,6 +8,7 @@ Plug 'zchee/deoplete-clang'
 Plug 'vivien/vim-linux-coding-style'
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'w0rp/ale'
 call plug#end()
 call deoplete#enable()
 
