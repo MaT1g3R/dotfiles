@@ -12,6 +12,9 @@ Plug 'w0rp/ale'
 call plug#end()
 call deoplete#enable()
 
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+
 " Show line numbers
 set number
 
