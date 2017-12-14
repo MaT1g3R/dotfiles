@@ -19,5 +19,5 @@ alias vdir="run_vdir"
 
 alias aur='pacaur'
 alias yolo='pacaur -Syu'
-alias pacmirror='sudo pacman-mirrors -m rank -f 60'
+alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
 alias open='xdg-open'
