@@ -9,6 +9,7 @@ Plug 'vivien/vim-linux-coding-style'
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
+Plug 'eagletmt/neco-ghc'
 call plug#end()
 call deoplete#enable()
 
