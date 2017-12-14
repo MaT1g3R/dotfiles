@@ -5,7 +5,18 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH=$HOME/.oh-my-zsh
 
 export EDITOR=nvim
-# export DISABLE_LS_COLORS="true"
+export DISABLE_LS_COLORS="true"
+
+# add Cabal's bin directory to the executable search PATH if it exists
+if [ -d "$HOME/.cabal/bin" ] ; then
+    export PATH="$HOME/.cabal/bin:$PATH"
+fi
+
+# add Stack's bin directory to the executable search PATH if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi 
+
 # Theme
 ZSH_THEME="lambda-mod"
 
