@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+from os import getenv
+from sys import argv
+from time import sleep
+from pathlib import Path
+from subprocess import Popen
+import re
+
+
+HOME = getenv('HOME')
+SETTINGS_FILE = Path(HOME) / '.config' / 'kglobalshortcutsrc'
+
+
+def replace(matched):
+    new_letter = 'H' if matched.group('LETTER') == 'L' else 'L'
+    return matched.group('FIRST') + new_letter + matched.group('LAST')
+
+
+def swap(line):
+    regex = re.compile(r'^(?P<FIRST>Quarter:\sMove\sto\s'
+                       r'(Next Screen|Previous Screen)'
+                       r'=Meta\+Shift\+)(?P<LETTER>H|L)(?P<LAST>,none,Quarter:'
+                       r'\sMove\sto\s(Next Screen|Previous Screen))$')
+    match = regex.match(line)
+    if not match:
+        return line
+    return re.sub(regex, replace, line)
+
+
+def main():
+    print('Writing new config...')
+    new_lines = [swap(line) for line in SETTINGS_FILE.read_text().splitlines()]
+    new_lines.append('')
+    SETTINGS_FILE.write_text('\n'.join(new_lines))
+    print('New config Written!')
+
+    print('Reloading...')
+    with Popen(('kquitapp5', 'kglobalaccel')) as proc:
+        proc.wait()
+    sleep(2)
+    Popen(('kglobalaccel5',),)
+    print('Done!')
+
+
+def test():
+    lines_0 = ['Quarter: Move to Next Screen=Meta+Shift+H,none,Quarter: Move to Next Screen',
+               'Quarter: Move to Previous Screen=Meta+Shift+L,none,Quarter: Move to Previous Screen']
+
+    lines_1 = ['Quarter: Move to Next Screen=Meta+Shift+L,none,Quarter: Move to Next Screen',
+               'Quarter: Move to Previous Screen=Meta+Shift+H,none,Quarter: Move to Previous Screen']
+    
+    for line0, line1 in zip(lines_0, lines_1):
+        assert swap(line0) == line1
+        assert swap(line1) == line0
+        assert swap(line0[:-1]) not in lines_0 + lines_1
+        assert swap(line1[:-1]) not in lines_0 + lines_1
+    print("All tests passed")
+
+
+if __name__ == '__main__':
+    if argv[-1] == 'test':
+        test()
+    else:
+        main()
