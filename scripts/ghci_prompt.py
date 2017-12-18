@@ -5,14 +5,22 @@ Dynamically generate GHCI prompt based on pwd
 """
 from pathlib import Path
 from os import getcwd
+from sys import argv
 from shutil import which
 from subprocess import Popen
 
-GREEN = r'\ESC[32m\STX'
-YELLOW = r'\ESC[33m\STX'
-PURPLE = r'\ESC[35m\STX'
-CYAN = r'\ESC[36m\STX'
-RESET = r'\ESC[0m\STX'
+BASE = r'\ESC[{}m\STX'
+COLOUR = BASE.format
+GREY = COLOUR(30)
+RED = COLOUR(31)
+GREEN = COLOUR(32)
+YELLOW = COLOUR(33)
+BLUE = COLOUR(34)
+PURPLE = COLOUR(35)
+CYAN = COLOUR(36)
+WHITE = COLOUR(37)
+RESET = COLOUR(0)
+
 
 BOILER_PLATE = '''\
 import qualified IPPrint
@@ -33,9 +41,9 @@ FILE = Path().cwd() / '.ghci'
 def main():
     pwd = getcwd().replace(str(Path.home()), '~').split('/')[-3:]
     pwd = '/'.join(pwd)
-    prompt = f':set prompt "{GREEN}λ {YELLOW}ghci {PURPLE}[{pwd}] {CYAN}→ {RESET}"'
+    prompt = f':set prompt "{CYAN}λ {WHITE}ghci {BLUE}{pwd} {RESET}"'
     FILE.write_text(BOILER_PLATE + prompt)
-    with Popen([which('ghci')]) as proc:
+    with Popen([which('ghci')] + argv[1:]) as proc:
         proc.wait()
     FILE.unlink()
 
