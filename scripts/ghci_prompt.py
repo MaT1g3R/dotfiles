@@ -3,7 +3,6 @@
 """
 Dynamically generate GHCI prompt based on pwd
 """
-from time import sleep
 from pathlib import Path
 from os import getcwd
 from shutil import which
@@ -28,7 +27,7 @@ let myPrint = putStrLn . HsColour.hscolour (HsColour.TTYg HsColour.XTerm256Compa
 :set -interactive-print=myPrint
 '''
 
-FILE = Path().home() / '.ghci'
+FILE = Path().cwd() / '.ghci'
 
 
 def main():
