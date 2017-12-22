@@ -32,6 +32,6 @@
     "name": "KDE",
     "kde/konsole/colorscheme/*": "~/.local/share/konsole/*",
     "kde/konsole/Shell.profile": "~/.local/share/konsole/Shell.profile",
-    "kde/My Layout.layout.latte": "~/.config/latte/My Layout.layout.latte"
+    "kde/My Layout.layout.latte": "~/.config/latte/Default.layout.latte"
   }
 }
