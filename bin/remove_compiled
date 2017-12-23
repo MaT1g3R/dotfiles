@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from sys import argv
+
+
+if __name__ == '__main__':
+    if len(argv) != 2:
+        print('Usage: remove_compiled <suffix>')
+        exit(1)
+    HERE = Path.cwd()
+    SUF = argv[-1]
+    ALL_FILES = {f.name for f in HERE.iterdir() if f.is_file()}
+    TO_DEL = {f for f in ALL_FILES if f + SUF in ALL_FILES}
+    for f in TO_DEL:
+        try:
+            (HERE / f).unlink()
+            print(f'Deleted {f}')
+        except OSError as e:
+            print(e)
