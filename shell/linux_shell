@@ -18,6 +18,6 @@ alias dir="run_dir"
 alias vdir="run_vdir"
 
 alias aur='pacaur'
-alias yolo='pacaur -Syu'
+alias yolo='pacaur -Syu; bash ~/scripts/update_quarter_tiling.sh'
 alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
 alias open='xdg-open'
