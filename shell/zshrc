@@ -54,4 +54,4 @@ alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
 alias pp='git pull; git push'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
-if [ -z "$TMUX" ]; then when m; fi
+if [ -z "$TMUX" ]; then task list; fi
