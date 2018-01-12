@@ -6,27 +6,30 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'lervag/vimtex'
 Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-clang'
-Plug 'vivien/vim-linux-coding-style'
-Plug 'vhda/verilog_systemverilog.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
-Plug 'eagletmt/neco-ghc'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
+Plug 'reedes/vim-lexical'
+
+" File plugins
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
+Plug 'vivien/vim-linux-coding-style', {'for': 'c'}
+Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
 call plug#end()
 call deoplete#enable()
 
 " Colour schemes
-colorscheme base16-oceanicnext
 set termguicolors
+colorscheme base16-oceanicnext
 
 " Airline
     " Theme
     let g:airline_theme='base16_oceanicnext'
-    
+
     " Symbols
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
@@ -111,3 +114,13 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+" vim-lexical
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType tex call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+let g:lexical#spelllang = ['en_ca']
