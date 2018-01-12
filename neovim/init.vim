@@ -1,5 +1,6 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lervag/vimtex'
@@ -12,6 +13,9 @@ Plug 'w0rp/ale'
 Plug 'eagletmt/neco-ghc'
 call plug#end()
 call deoplete#enable()
+
+colorscheme base16-oceanicnext
+set termguicolors
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
