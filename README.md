@@ -4,9 +4,9 @@
 
 # Install
 
-**Warning**: Before you proceed with the installation, please review the code 
-beforehand. Optionally, fork this repository and remove things you don't want. 
-Don’t blindly use my settings unless you know what that entails. 
+**Warning**: Before you proceed with the installation, please review the code
+beforehand. Optionally, fork this repository and remove things you don't want.
+Don’t blindly use my settings unless you know what that entails.
 Use at your own risk!
 
 After you have reviewed the code, clone the repo, then run the install script:
@@ -16,7 +16,7 @@ chmod +x install.py
 ./install.py -h
 ```
 
-The `-h` flag will display the help message, and you can proceed to run the 
+The `-h` flag will display the help message, and you can proceed to run the
 script again with the options you want. An example might be like this:
 
 ```bash
@@ -34,22 +34,21 @@ The keys under the categories are the paths to the config file/directory source
 relative to the `dotfiles` directory, the values are the absolute paths on the
 file system to symbolic link the config files to.
 
-Optionally, you may provide a key called `name` to specify the name that will 
+Optionally, you may provide a key called `name` to specify the name that will
 be printed on the screen by the help message for each category.
 
 # Credits and software used
 
-* [zsh](http://www.zsh.org/) with 
+* [zsh](http://www.zsh.org/) with
   [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 * Lambda-mod zsh theme: https://github.com/halfo/lambda-mod-zsh-theme
 * Even-better-ls: https://github.com/illinoisjackson/even-better-ls
 * Base16 colour theme: https://github.com/chriskempson/base16
-* [Tmux](https://github.com/tmux/tmux) and 
-  [Powerline](https://github.com/powerline/powerline)
-* Tmux config borrowed from: https://github.com/tony/tmux-config
-* [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode) 
+* [Tmux](https://github.com/tmux/tmux)
+* Tmux config borrowed from: https://github.com/gpakosz/.tmux
+* [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode)
   for the terminal
-* [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont) 
+* [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont)
   for rest of the system
 * Latte-dock: https://github.com/psifidotos/Latte-Dock
 * Custom cowsay files: https://github.com/WolfgangAxel/Random-Projects/blob/master/ruri.cow

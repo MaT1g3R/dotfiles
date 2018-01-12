@@ -8,12 +8,13 @@
     "neofetch": "~/.config/neofetch",
     "shell/lambda-mod.zsh-theme": "~/.oh-my-zsh/themes/lambda-mod.zsh-theme",
     "C/gdbinit": "~/.gdbinit",
-    "Python/pylintrc": "~/.pylintrc"
+    "Python/pylintrc": "~/.pylintrc",
+    "tmux/tmux.conf": "~/.tmux.conf",
+    "tmux/tmux.conf.local": "~/.tmux.conf.local"
   },
   "linux": {
     "name": "GNU/Linux",
     "shell/linux_shell": "~/.zshrc",
-    "tmux/tmux_linux.conf": "~/.tmux.conf",
     "vscode": "~/.config/Code/User",
     "nvim_extra/clang_complete_linux.vim": "~/.clang_complete.vim",
     "shell/warprc_linux": "~/.warprc"
@@ -21,7 +22,6 @@
   "macos": {
     "name": "macOS",
     "shell/macos_shell": "~/.zshrc",
-    "tmux/tmux_mac.conf": "~/.tmux.conf",
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
