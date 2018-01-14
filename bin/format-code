@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+
+from argparse import ArgumentParser
+from pathlib import Path
+
+RED = '\x1b[31m'
+RESET = '\x1b[0m'
+
+
+class MyParser(ArgumentParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.options = {}
+
+    def get_optionals(self, parsed):
+        return {name: func for name, func in self.options.items()
+                if vars(parsed).get(name)}
+
+
+def colour_print(colour, text, *args, **kwargs):
+    print(f'{colour}{text}{RESET}', *args, **kwargs)
+
+
+def parse_args():
+    parser = MyParser()
+    parser.add_argument('file', help='The file to format.', type=Path)
+    group = parser.add_argument_group('formatting options')
+
+    def _add_option(name, func, *args, **kwargs):
+        group.add_argument(*args, **kwargs)
+        parser.options[name] = func
+
+    group.add_option = _add_option
+    group.add_option('strip', lambda lines: [l.rstrip() + '\n' for l in lines],
+                     '-s', '--strip', help='Strip trailing white space',
+                     action='store_true')
+    return parser
+
+
+def main():
+    parser = parse_args()
+    args = parser.parse_args()
+    options = parser.get_optionals(args)
+    path = args.file
+
+    if not path.is_file():
+        colour_print(RED, f'File {path} does not exist.')
+        parser.print_usage()
+        exit(1)
+
+    if not options:
+        colour_print(RED, 'Please choose at least formatting option.')
+        parser.print_usage()
+        exit(1)
+
+    with open(args.file) as f:
+        lines = [line for line in f]
+
+    for option in options.values():
+        lines = option(lines)
+
+    with open(args.file, 'w') as w:
+        w.writelines(lines)
+
+    print('Done!')
+
+
+if __name__ == '__main__':
+    main()
