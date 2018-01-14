@@ -163,7 +163,7 @@ tmux_conf_theme_status_right='#{username}#{root} | #{hostname} | #{prefix}#{pair
 # status left style
 tmux_conf_theme_status_left_fg='#1b2b34,#d8dee9,#f99157'  # black, white , orange
 tmux_conf_theme_status_left_bg='#99c794,#4f5b66,#343d46'  # green, grey, grey
-tmux_conf_theme_status_left_attr='bold,none,bold'
+tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
 tmux_conf_theme_status_right_fg='#f99157,#d8dee9,#1b2b34,#d75f00,#870000'  # orange, white, black, orange, red
