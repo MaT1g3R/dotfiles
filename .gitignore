@@ -4,3 +4,4 @@ ls-i
 dir-i
 vdir-i
 neovim/.netrwhist
+bin/stack
