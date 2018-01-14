@@ -23,7 +23,7 @@ def colour_print(colour, text, *args, **kwargs):
 
 def parse_args():
     parser = MyParser()
-    parser.add_argument('file', help='The file to format.', type=Path)
+    parser.add_argument('file', help='the file to format.', type=Path)
     group = parser.add_argument_group('formatting options')
 
     def _add_option(name, func, *args, **kwargs):
@@ -32,7 +32,7 @@ def parse_args():
 
     group.add_option = _add_option
     group.add_option('strip', lambda lines: [l.rstrip() + '\n' for l in lines],
-                     '-s', '--strip', help='Strip trailing white space',
+                     '-s', '--strip', help='strip trailing white space',
                      action='store_true')
     return parser
 
