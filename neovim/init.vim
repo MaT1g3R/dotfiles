@@ -14,6 +14,7 @@ Plug 'tpope/vim-git'
 Plug 'reedes/vim-lexical'
 
 " File plugins
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
@@ -146,8 +147,8 @@ if filereadable("vimrc_local")
     source vimrc_local
 endif
 
-" Supertab
-source ~/.config/nvim/supertab.vim
+" Convert between spaces and tabs
+source ~/.config/nvim/space_tab.vim
 
 " Leader key
 let mapleader = ","
@@ -167,3 +168,14 @@ augroup lexical
   autocmd FileType text call lexical#init({ 'spell': 0 })
 augroup END
 let g:lexical#spelllang = ['en_ca']
+
+" jedi-vim
+let g:jedi#auto_initialization = 1
+let g:jedi#use_splits_not_buffers = "top"
+let g:jedi#goto_command = "<leader>b"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<leader><space>"
+let g:jedi#rename_command = "<leader>r"
