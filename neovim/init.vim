@@ -33,18 +33,34 @@ call deoplete#enable()
     tnoremap <Esc> <C-\><C-n>
     
     " Moveing around windows
-    tnoremap <C-Left> <C-\><C-N><C-w>h
-    tnoremap <C-Down> <C-\><C-N><C-w>j
-    tnoremap <C-Up> <C-\><C-N><C-w>k
-    tnoremap <C-Right> <C-\><C-N><C-w>l
-    inoremap <C-Left> <C-\><C-N><C-w>h
-    inoremap <C-Down> <C-\><C-N><C-w>j
-    inoremap <C-Up> <C-\><C-N><C-w>k
-    inoremap <C-Right> <C-\><C-N><C-w>l
-    nnoremap <C-Left> <C-w>h
-    nnoremap <C-Down> <C-w>j
-    nnoremap <C-Up> <C-w>k
-    nnoremap <C-Right> <C-w>l
+    if has('macunix')
+        tnoremap <C-Left> <C-\><C-N><C-w>h
+        tnoremap <C-Down> <C-\><C-N><C-w>j
+        tnoremap <C-Up> <C-\><C-N><C-w>k
+        tnoremap <C-Right> <C-\><C-N><C-w>l
+        inoremap <C-Left> <C-\><C-N><C-w>h
+        inoremap <C-Down> <C-\><C-N><C-w>j
+        inoremap <C-Up> <C-\><C-N><C-w>k
+        inoremap <C-Right> <C-\><C-N><C-w>l
+        nnoremap <C-Left> <C-w>h
+        nnoremap <C-Down> <C-w>j
+        nnoremap <C-Up> <C-w>k
+        nnoremap <C-Right> <C-w>l
+    else
+        tnoremap <A-h> <C-\><C-N><C-w>h
+        tnoremap <A-j> <C-\><C-N><C-w>j
+        tnoremap <A-k> <C-\><C-N><C-w>k
+        tnoremap <A-l> <C-\><C-N><C-w>l
+        inoremap <A-h> <C-\><C-N><C-w>h
+        inoremap <A-j> <C-\><C-N><C-w>j
+        inoremap <A-k> <C-\><C-N><C-w>k
+        inoremap <A-l> <C-\><C-N><C-w>l
+        nnoremap <A-h> <C-w>h
+        nnoremap <A-j> <C-w>j
+        nnoremap <A-k> <C-w>k
+        nnoremap <A-l> <C-w>l
+    endif
+
     map <C-q> <C-w>q
     map <C-t> :vsp<CR>
 
