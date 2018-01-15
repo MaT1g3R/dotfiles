@@ -25,6 +25,10 @@ call plug#end()
 call deoplete#enable()
 
 " Shortcuts
+
+    " Leader key
+    let mapleader = ","
+
     " Map C-x to C-w to do window stuff easier
     map <C-x> <C-w>
     " Map C-/ to toggle comments
@@ -153,9 +157,6 @@ endif
 
 " Convert between spaces and tabs
 source ~/.config/nvim/space_tab.vim
-
-" Leader key
-let mapleader = ","
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
