@@ -16,7 +16,6 @@
     "name": "GNU/Linux",
     "shell/linux_shell": "~/.zshrc",
     "vscode": "~/.config/Code/User",
-    "nvim_extra/clang_complete_linux.vim": "~/.clang_complete.vim",
     "shell/warprc_linux": "~/.warprc"
   },
   "macos": {
@@ -25,7 +24,6 @@
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
-    "nvim_extra/clang_complete_mac.vim": "~/.clang_complete.vim",
     "shell/warprc_mac": "~/.warprc"
     },
   "kde": {
