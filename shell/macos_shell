@@ -22,3 +22,4 @@ alias yolo='brew update && brew upgrade'
 alias ls="run_ls"
 alias dir="run_dir"
 alias vdir="run_vdir"
+alias nvim='nvim --cmd "so ~/dotfiles/neovim/init.vim"'
