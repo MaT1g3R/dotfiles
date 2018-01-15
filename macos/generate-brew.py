@@ -46,29 +46,23 @@ formulaes.wait()
 casks.wait()
 
 
-def convert_to_special(s):
-    arg = specials.get(s)
-    if not arg:
-        return s
-    return f'{s} {arg}'
+def brew_list(is_cask):
+    lst = []
+    it = casks.stdout if is_cask else formulaes.stdout
+    install = 'brew cask install' if is_cask else 'brew install'
+    for f in it:
+        f = f.decode().rstrip()
+        spec = specials.get(f)
+        if spec:
+            yield f'{install} {f} {spec}'
+        else:
+            lst.append(f'{install} {f}')
+    yield from lst
 
 
-def special_key(s):
-    if s.split()[0] in specials:
-        return 0
-    return 1
-
-
-formulaes = [convert_to_special(s.decode().rstrip()) for s in formulaes.stdout]
-casks = [convert_to_special(s.decode().rstrip()) for s in casks.stdout]
-
-formulaes.sort(key=special_key)
-casks.sort(key=special_key)
-
-formulaes = [f'brew install {f}' for f in formulaes]
-casks = [f'brew cask install {f}' for f in casks]
-
-brew_file = BP.format(brew='\n'.join(formulaes), cask='\n'.join(casks))
+formulae_list = list(brew_list(False))
+cask_list = list(brew_list(True))
+brew_file = BP.format(brew='\n'.join(formulae_list), cask='\n'.join(cask_list))
 
 with open('brew.sh', 'w') as f:
     f.writelines(brew_file)
@@ -76,4 +70,4 @@ with open('brew.sh', 'w') as f:
 with Popen('chmod +x brew.sh', shell=True) as proc:
     proc.wait()
 
-print(f'Done! Total of {len(formulaes)} formulaes and {len(casks)} casks.')
+print(f'Done! Total of {len(formulae_list)} formulaes and {len(cask_list)} casks.')
