@@ -10,17 +10,16 @@
     "C/gdbinit": "~/.gdbinit",
     "Python/pylintrc": "~/.pylintrc",
     "tmux/tmux.conf": "~/.tmux.conf",
-    "tmux/tmux.conf.local": "~/.tmux.conf.local"
+    "tmux/tmux.conf.local": "~/.tmux.conf.local",
+    "shell/zshrc": "~/.zshrc"
   },
   "linux": {
     "name": "GNU/Linux",
-    "shell/linux_shell": "~/.zshrc",
     "vscode": "~/.config/Code/User",
     "shell/warprc_linux": "~/.warprc"
   },
   "macos": {
     "name": "macOS",
-    "shell/macos_shell": "~/.zshrc",
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
