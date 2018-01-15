@@ -11,6 +11,13 @@ brew update
 brew upgrade
 brew cask upgrade
 
+# Notes:
+# GNU core utilities: Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+# GNU `find`, `locate`, `updatedb`, and `xargs` are `g`-prefixed.
+# GNU `sed` overwrites the built-in `sed`.
+# Bash: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
+# Wget: with IRI support.
+
 # Brew
 {brew}
 
@@ -65,3 +72,8 @@ brew_file = BP.format(brew='\n'.join(formulaes), cask='\n'.join(casks))
 
 with open('brew.sh', 'w') as f:
     f.writelines(brew_file)
+
+with Popen('chmod +x brew.sh', shell=True) as proc:
+    proc.wait()
+
+print(f'Done! Total of {len(formulaes)} formulaes and {len(casks)} casks.')
