@@ -18,7 +18,7 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 alias gcc='gcc-7'
 alias cc='gcc-7'
-alias yolo='brew update && brew upgrade'
+alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup; ~/scripts/update_pip.sh'
 alias ls="run_ls"
 alias dir="run_dir"
 alias vdir="run_vdir"
