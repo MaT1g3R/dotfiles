@@ -1,11 +1,30 @@
+export ZSH=$HOME/.oh-my-zsh
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
 
 export EDITOR=nvim
+export VISUAL=nvim
+
+# Better ls
 export DISABLE_LS_COLORS="true"
+export LS_COLORS=$(ls_colors_generator)
+run_ls() {
+	ls-i --color=auto -w $(tput cols) "$@"
+}
+
+run_dir() {
+	dir-i --color=auto -w $(tput cols) "$@"
+}
+
+run_vdir() {
+	vdir-i --color=auto -w $(tput cols) "$@"
+}
+alias ls="run_ls"
+alias dir="run_dir"
+alias vdir="run_vdir"
 
 #GPG stuff
 export GPG_TTY=$(tty)
@@ -39,8 +58,6 @@ HIST_STAMPS="yyyy-mm-ff"
 # Plugins
 plugins=(git python fancy-ctrl-z thefuck wd stack)
 
-source $ZSH/oh-my-zsh.sh
-
 
 # Evals
 eval $(thefuck --alias fuck)
@@ -56,3 +73,20 @@ alias pp='git pull; git push'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
 if [ -z "$TMUX" ]; then task; fi
+
+source $ZSH/oh-my-zsh.sh
+
+# OS dependent config
+if [ `uname` = 'Linux' ]; then # Linux    
+    alias aur='pacaur'
+    alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh;sudo bash ~/scripts/update_pip.sh'
+    alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
+    alias open='xdg-open'
+else # Macos
+    export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export LS_COLORS=$(ls_colors_generator)
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    alias gcc='gcc-7'
+    alias cc='gcc-7'
+    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup; ~/scripts/update_pip.sh'
+fi
