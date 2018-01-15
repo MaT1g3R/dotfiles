@@ -23,24 +23,31 @@ call plug#end()
 call deoplete#enable()
 
 " Shortcuts
-map <C-x> <C-w>
-" Vim sees / as _ for some reason
-map <C-_> <leader>c<space>
+    " Map C-x to C-w to do window stuff easier
+    map <C-x> <C-w>
+    " Map C-/ to toggle comments
+    " Vim sees / as _ for some reason
+    map <C-_> <leader>c<space>
+    
+    " Esc to exit terminal mode
+    tnoremap <Esc> <C-\><C-n>
+    
+    " Moveing around windows
+    tnoremap <C-Left> <C-\><C-N><C-w>h
+    tnoremap <C-Down> <C-\><C-N><C-w>j
+    tnoremap <C-Up> <C-\><C-N><C-w>k
+    tnoremap <C-Right> <C-\><C-N><C-w>l
+    inoremap <C-Left> <C-\><C-N><C-w>h
+    inoremap <C-Down> <C-\><C-N><C-w>j
+    inoremap <C-Up> <C-\><C-N><C-w>k
+    inoremap <C-Right> <C-\><C-N><C-w>l
+    nnoremap <C-Left> <C-w>h
+    nnoremap <C-Down> <C-w>j
+    nnoremap <C-Up> <C-w>k
+    nnoremap <C-Right> <C-w>l
+    map <C-q> <C-w>q
+    map <C-t> :vsp<CR>
 
-tnoremap <Esc> <C-\><C-n>
-
-tnoremap <C-Left> <C-\><C-N><C-w>h
-tnoremap <C-Down> <C-\><C-N><C-w>j
-tnoremap <C-Up> <C-\><C-N><C-w>k
-tnoremap <C-Right> <C-\><C-N><C-w>l
-inoremap <C-Left> <C-\><C-N><C-w>h
-inoremap <C-Down> <C-\><C-N><C-w>j
-inoremap <C-Up> <C-\><C-N><C-w>k
-inoremap <C-Right> <C-\><C-N><C-w>l
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Down> <C-w>j
-nnoremap <C-Up> <C-w>k
-nnoremap <C-Right> <C-w>l
 
 " Colour schemes
 set termguicolors
