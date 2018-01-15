@@ -47,6 +47,7 @@ eval $(thefuck --alias fuck)
 
 # Alias
 alias zshrc='nvim ~/.zshrc'
+alias vimrc='nvim ~/dotfiles/neovim/init.vim'
 alias reload='source ~/.zshrc'
 alias sudo='sudo '
 alias rurisay='cowsay -f ~/scripts/ruri.cow'
