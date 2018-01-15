@@ -12,6 +12,7 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'reedes/vim-lexical'
+Plug 'ervandew/supertab'
 
 " File plugins
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
@@ -141,11 +142,14 @@ filetype plugin indent on
 set colorcolumn=80
 
 " Clang completion
-source ~/.clang_complete.vim
-
-if filereadable("vimrc_local")
-    source vimrc_local
+if has('macunix')
+    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang/'
+else
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 endif
+
 
 " Convert between spaces and tabs
 source ~/.config/nvim/space_tab.vim
@@ -179,3 +183,12 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<leader><space>"
 let g:jedi#rename_command = "<leader>r"
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "<C-n>"
+let g:SuperTabContextDefaultCompletionType = "<C-n>"
+
+" Source local vimrc if there's any
+if filereadable("vimrc_local")
+    source vimrc_local
+endif
