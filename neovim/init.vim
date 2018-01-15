@@ -22,6 +22,11 @@ Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
 call plug#end()
 call deoplete#enable()
 
+" Shortcuts
+map <C-x> <C-w>
+" Vim sees / as _ for some reason
+map <C-_> <leader>c<space>
+
 " Colour schemes
 set termguicolors
 colorscheme base16-oceanicnext
