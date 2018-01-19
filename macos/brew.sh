@@ -120,6 +120,7 @@ brew cask install iterm2-nightly
 brew cask install java
 brew cask install jetbrains-toolbox
 brew cask install karabiner-elements
+brew cask install kdiff3
 brew cask install kicad
 brew cask install mactex
 brew cask install nextcloud
