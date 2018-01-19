@@ -176,6 +176,7 @@ let g:lexical#spelllang = ['en_ca']
 
 " jedi-vim
 let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "top"
 let g:jedi#goto_command = "<leader>b"
 let g:jedi#goto_assignments_command = "<leader>g"
