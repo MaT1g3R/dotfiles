@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+from json import loads
+from random import choice
+
+print(choice(loads(
+    Path.home().joinpath('dotfiles/data/pokemon_names.json').read_text()
+)))
