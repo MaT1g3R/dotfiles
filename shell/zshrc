@@ -74,12 +74,14 @@ alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
 alias vim='nvim'
 alias die='shutdown now'
+alias coala='~/venv/coala/bin/coala'
 if [ -z "$TMUX" ]; then task; fi
 
 source $ZSH/oh-my-zsh.sh
 
 # OS dependent config
-if [ `uname` = 'Linux' ]; then # Linux    
+if [ `uname` = 'Linux' ]; then # Linux
+    export PATH="${HOME}/.gem/ruby/2.5.0/bin:$PATH"
     alias aur='pacaur'
     alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh;sudo bash ~/scripts/update_pip.sh'
     alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
