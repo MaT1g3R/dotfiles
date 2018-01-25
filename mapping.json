@@ -23,7 +23,8 @@
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
-    "shell/warprc_mac": "~/.warprc"
+    "shell/warprc_mac": "~/.warprc",
+    "ubersicht/*": "~/Library/Application Support/Übersicht/widgets/*"
     },
   "kde": {
     "name": "KDE",
