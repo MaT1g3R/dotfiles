@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+from sys import argv, stderr
+from pathlib import Path
+from subprocess import Popen, PIPE
+
+FILE = Path.home() / 'scripts' / 'zscore.py'
+VENV = Path.home() / 'venv' / 'stats' / 'bin' / 'python'
+
+
+with Popen([str(VENV), str(FILE)] + argv[1:], stdout=PIPE, stderr=PIPE) as proc:
+    out, err = map(lambda x: x.decode().rstrip(), proc.communicate())
+    proc.wait()
+    status = proc.poll()
+
+if out:
+    print(out)
+if err:
+    print(err, file=stderr)
+
+exit(status)
