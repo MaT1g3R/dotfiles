@@ -83,7 +83,9 @@ source $ZSH/oh-my-zsh.sh
 if [ `uname` = 'Linux' ]; then # Linux
     export PATH="${HOME}/.gem/ruby/2.5.0/bin:$PATH"
     alias aur='pacaur'
-    alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh;sudo bash ~/scripts/update_pip.sh'
+    alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh'
+    alias pac-optimize='sudo pacman -Sc; sudo pacman-optimize'
+    alias pac-orphans='sudo pacman -Rns $(pacman -Qtdq)'
     alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
     alias open='xdg-open'
 else # Macos
