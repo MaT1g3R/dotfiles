@@ -13,9 +13,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'reedes/vim-lexical'
 Plug 'ervandew/supertab'
+Plug 'davidhalter/jedi-vim'
 
 " File plugins
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
@@ -175,6 +175,7 @@ augroup END
 let g:lexical#spelllang = ['en_ca']
 
 " jedi-vim
+let g:pymode_rope = 0
 let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "top"

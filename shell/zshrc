@@ -73,6 +73,7 @@ alias pp='git pull; git push'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
 alias vim='nvim'
+alias vi='nvim'
 alias die='shutdown now'
 alias coala='~/venv/coala/bin/coala'
 if [ -z "$TMUX" ]; then task; fi
