@@ -90,10 +90,10 @@ if [ `uname` = 'Linux' ]; then # Linux
     alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
     alias open='xdg-open'
 else # Macos
-    export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     export LS_COLORS=$(ls_colors_generator)
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias gcc='gcc-7'
     alias cc='gcc-7'
-    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup; ~/scripts/update_pip.sh'
+    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;' 
 fi
