@@ -15,15 +15,13 @@
   },
   "linux": {
     "name": "GNU/Linux",
-    "vscode": "~/.config/Code/User",
-    "shell/warprc_linux": "~/.warprc"
+    "vscode": "~/.config/Code/User"
   },
   "macos": {
     "name": "macOS",
     "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
-    "shell/warprc_mac": "~/.warprc",
     "ubersicht/*": "~/Library/Application Support/Übersicht/widgets/*"
     },
   "kde": {
