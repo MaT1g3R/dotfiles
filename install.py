@@ -29,11 +29,8 @@ from collections import OrderedDict
 from json import load
 from os import devnull
 from pathlib import Path
-from subprocess import PIPE, Popen, STDOUT
+from subprocess import PIPE, Popen, STDOUT, run
 
-import pip
-
-assert pip is not None
 
 here = Path(Path(__file__).parent)
 home = Path.home()
@@ -73,8 +70,9 @@ def main():
     if not any(types.values()):
         print('You must choose at lesat one type of dotfiles to install.')
         parse.print_help()
-    else:
-        install(types, init, verbose, force, mapping)
+        return 1
+    install(types, init, verbose, force, mapping)
+    return 0
 
 
 def install(types, init, verbose, force, mapping):
@@ -144,17 +142,13 @@ def sh(cmd, print_output=True):
 
     Returns
     -------
-    The captured output
+    The process return code
     """
-    process = Popen(cmd, stdout=PIPE, stderr=STDOUT, shell=True)
-    lines = []
-    for line in process.stdout:
-        res = decode(line)
-        if print_output:
-            print(res)
-        else:
-            lines.append(res)
-    return lines
+    res = run(cmd, shell=True, stdout=PIPE, stderr=STDOUT)
+    out = decode(res.stdout)
+    if print_output:
+        print(out)
+    return res.returncode
 
 
 def mac_commands(init):
@@ -260,4 +254,4 @@ def link_many(verbose, force, src, dest):
 
 
 if __name__ == '__main__':
-    main()
+    exit(main())
