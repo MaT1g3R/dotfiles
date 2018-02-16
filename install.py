@@ -144,10 +144,9 @@ def sh(cmd, print_output=True):
     -------
     The process return code
     """
-    res = run(cmd, shell=True, stdout=PIPE, stderr=STDOUT)
-    out = decode(res.stdout)
+    res = run(cmd, shell=True, stdout=PIPE, stderr=STDOUT, encoding='utf8')
     if print_output:
-        print(out)
+        print(res.stdout)
     return res.returncode
 
 
