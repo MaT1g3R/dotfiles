@@ -83,6 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # OS dependent config
 if [ `uname` = 'Linux' ]; then # Linux
     export PATH="${HOME}/.gem/ruby/2.5.0/bin:$PATH"
+    alias buku='~/venv/buku/bin/buku'
     alias aur='pacaur'
     alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh'
     alias pac-optimize='sudo pacman -Sc; sudo pacman-optimize'
