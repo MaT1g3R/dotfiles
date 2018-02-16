@@ -24,12 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from argparse import ArgumentParser
-from codecs import decode
 from collections import OrderedDict
 from json import load
 from os import devnull
 from pathlib import Path
-from subprocess import PIPE, Popen, STDOUT, run
+from subprocess import PIPE, STDOUT, run
 
 
 here = Path(Path(__file__).parent)
