@@ -88,7 +88,7 @@ if [ `uname` = 'Linux' ]; then # Linux
     alias yolo='pacaur -Syu;bash ~/scripts/update_quarter_tiling.sh'
     alias pac-optimize='sudo pacman -Sc; sudo pacman-optimize'
     alias pac-orphans='sudo pacman -Rns $(pacman -Qtdq)'
-    alias pacmirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
+    alias pac-mirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
     alias open='xdg-open'
 else # Macos
     export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
