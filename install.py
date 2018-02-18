@@ -3,7 +3,7 @@
 """
 MIT License
 
-Copyright (c) 2017 MaT1g3R
+Copyright (c) 2017-2018 MaT1g3R
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,80 +24,66 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from argparse import ArgumentParser
-from collections import OrderedDict
-from json import load
-from os import devnull
+from glob import glob
+from json import loads
 from pathlib import Path
 from subprocess import PIPE, STDOUT, run
 
 
-here = Path(Path(__file__).parent)
-home = Path.home()
+HERE = Path(__file__).parent
+HOME = Path.home()
 
 
 def main():
     """
     Main function. Parse the cli arguments.
     """
-    with here.joinpath('mapping.json').open() as f:
-        mapping = load(f, object_pairs_hook=OrderedDict)
-    parse = ArgumentParser(description='Dotfiles installer')
+    mapping = loads((HERE / 'mapping.json').read_text())
+    parse = ArgumentParser(description='Dotfiles Installer')
     parse.add_argument(
-        '-v', '--verbose', help='Verbose mode', action='store_true'
+        '-v', '--verbose', help='verbose mode', action='store_true'
     )
     parse.add_argument(
-        '-f', '--force', help='Force mode, remove existing configs',
+        '-f', '--force', help='force mode, remove existing configs',
         action='store_true'
     )
     parse.add_argument(
-        '-i', '--init', help='Init mode, do some initial setup',
+        '-i', '--init', help='init mode, do some initial setup',
         action='store_true'
     )
-    for key, val in mapping.items():
-        name = val.pop('name', key)
-        parse.add_argument(
-            '-{}'.format(key),
-            help='Install {} dotfiles'.format(name),
-            action='store_true'
-        )
-
+    parse.add_argument(
+        'targets', help='installation targets', choices=mapping, nargs='+'
+    )
     args = parse.parse_args()
-    types = vars(args)
-    verbose = types.pop('verbose')
-    force = types.pop('force')
-    init = types.pop('init')
-    if not any(types.values()):
-        print('You must choose at lesat one type of dotfiles to install.')
-        parse.print_help()
-        return 1
-    install(types, init, verbose, force, mapping)
+    install(args.verbose, args.force, args.init, args.targets, mapping)
     return 0
 
 
-def install(types, init, verbose, force, mapping):
+def install(verbose, force, init, targets, mapping):
     """
     Install function.
 
     Parameters
     ----------
-    types
-        Types of dotfiles to be installed.
-    init
-        True to run the init scripts
     verbose
         True for verbose mode
     force
-        True to remove existing files on the file system
+        True to remove existing files
+    init
+        True to run the init scripts
+    targets
+        Installation targets
     mapping
         Symlink mapping dictionary
     """
     print('Installing...')
     common_commands(verbose, force, init)
-    for key, val in types.items():
-        if val:
-            if key == 'macos':
-                mac_commands(init)
-            link(verbose, force, mapping[key])
+    for key, val in filter(lambda x: x[0] in targets, mapping.items()):
+        if key == 'macos' and init:
+            mac = HERE / 'macos'
+            sh(f'bash {(mac / "brew.sh")}')
+            sh(f'bash {(mac / "macos.sh")}')
+        link(verbose, force, val)
     print('Done!')
 
 
@@ -115,17 +101,18 @@ def common_commands(verbose, force, init):
         True to run the init scripts
     """
     if init:
-        if not home.joinpath('.oh-my-zsh').is_dir():
-            sh('sh {}'.format(here.joinpath('shell').joinpath('oh-my-zsh')))
+        if not (HOME / '.oh-my-zsh').is_dir():
+            sh(f'sh {(HERE / "shell" / "oh-my-zsh")}')
 
-    global_gitig_path = home.joinpath('.gitignore_global')
-    link_one(verbose, force, 'git/.gitignore_global', global_gitig_path)
-    sh('git config --get core.excludesfile {}'.format(global_gitig_path))
+    global_gitig_path = HOME / '.gitignore_global'
+    link_one(
+        verbose, force, Path('git') / '.gitignore_global', global_gitig_path
+    )
+    sh(f'git config --get core.excludesfile {global_gitig_path}')
 
-    with here.joinpath('vscode').joinpath('extensions').open() as f:
-        code_pkgs = f.read().splitlines()
-    for pkg in code_pkgs:
-        sh('code --install-extension {}'.format(pkg))
+    with open(HERE / 'vscode' / 'extensions') as f:
+        for pkg in f:
+            sh(f'code --install-extension {pkg.rstrip()}')
 
 
 def sh(cmd, print_output=True):
@@ -149,19 +136,18 @@ def sh(cmd, print_output=True):
     return res.returncode
 
 
-def mac_commands(init):
+def maybe_print(s, verbose):
     """
-    Shell commands for macOS
-
+    Print string ``s`` if verbose
     Parameters
     ----------
-    init
-        True to run the init scripts
+    s
+        the string to print
+    verbose
+        wether to print or not
     """
-    mac = here.joinpath('macos')
-    if init:
-        sh('bash {}'.format(mac.joinpath('brew.sh')))
-        sh('bash {}'.format(mac.joinpath('macos.sh')))
+    if verbose:
+        print(s)
 
 
 def link(verbose, force, files):
@@ -178,7 +164,7 @@ def link(verbose, force, files):
         The set of files
     """
     for src, dest in files.items():
-        dest = dest.replace('~', str(home))
+        dest = dest.replace('~', str(HOME))
         if src.endswith('*'):
             link_many(verbose, force, src, dest)
         else:
@@ -200,32 +186,29 @@ def link_one(verbose, force, src, dest):
     dest
         The destination path
     """
-    out = None if verbose else open(devnull, 'w')
-
     if not isinstance(src, Path):
-        src = here.joinpath(src).resolve()
+        src = (HERE / src).resolve()
     if not isinstance(dest, Path):
         dest = Path(dest).absolute()
 
-    parent = Path(dest.parent)
-    if not parent.exists():
-        parent.mkdir(parents=True)
+    if not dest.parent.exists():
+        dest.parent.mkdir(parents=True)
 
     if dest.exists() and force:
         if dest.is_dir() and not dest.is_symlink():
             dest.rmdir()
         else:
             dest.unlink()
-        print('Removed {}'.format(dest), file=out)
+        maybe_print(f'Removed {dest}', verbose)
 
     try:
         dest.symlink_to(src, src.is_dir())
     except OSError as e:
         if force:
             raise e
-        print('{} already exists, skipping'.format(dest), file=out)
+        maybe_print(f'{dest} already exists, skipping', verbose)
     else:
-        print('Made symlink from {} to {}'.format(src, dest), file=out)
+        maybe_print(f'Made symlink from {src} to {dest}', verbose)
 
 
 def link_many(verbose, force, src, dest):
@@ -243,11 +226,11 @@ def link_many(verbose, force, src, dest):
     dest
         The destination directory path
     """
-    for file in Path(src.strip('*')).iterdir():
+    for file in glob(src):
         file = Path(file)
         link_one(
             verbose, force, file.resolve(),
-            Path(dest.strip('*')).joinpath(file.name).absolute()
+            (Path(dest.strip('*')) / file.name).absolute()
         )
 
 
