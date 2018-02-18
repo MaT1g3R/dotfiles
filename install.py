@@ -27,6 +27,7 @@ from argparse import ArgumentParser
 from glob import glob
 from json import loads
 from pathlib import Path
+from os.path import expanduser, basename, join
 from subprocess import PIPE, STDOUT, run
 
 
@@ -139,6 +140,7 @@ def sh(cmd, print_output=True):
 def maybe_print(s, verbose):
     """
     Print string ``s`` if verbose
+
     Parameters
     ----------
     s
@@ -148,6 +150,27 @@ def maybe_print(s, verbose):
     """
     if verbose:
         print(s)
+
+
+def process_paths(files):
+    """
+    Process source, destination pairs
+
+    Parameters
+    ----------
+    files
+        A dictionary of {src: dest} file paths
+
+    Returns
+    -------
+    A generator of resolved file paths
+    """
+    for src, dest in files.items():
+        for file in glob(src):
+            if dest.endswith('*'):
+                yield file, join(expanduser(dest.rstrip('*')), basename(file))
+            else:
+                yield file, dest
 
 
 def link(verbose, force, files):
@@ -163,12 +186,8 @@ def link(verbose, force, files):
     files
         The set of files
     """
-    for src, dest in files.items():
-        dest = dest.replace('~', str(HOME))
-        if src.endswith('*'):
-            link_many(verbose, force, src, dest)
-        else:
-            link_one(verbose, force, src, dest)
+    for src, dest in process_paths(files):
+        link_one(verbose, force, src, dest)
 
 
 def link_one(verbose, force, src, dest):
@@ -208,30 +227,7 @@ def link_one(verbose, force, src, dest):
             raise e
         maybe_print(f'{dest} already exists, skipping', verbose)
     else:
-        maybe_print(f'Made symlink from {src} to {dest}', verbose)
-
-
-def link_many(verbose, force, src, dest):
-    """
-    Make many symlinks (to handle wild cards)
-
-    Parameters
-    ----------
-    verbose
-        True for verbose mode
-    force
-        True to remove existing files on the file system
-    src
-        The source directory
-    dest
-        The destination directory path
-    """
-    for file in glob(src):
-        file = Path(file)
-        link_one(
-            verbose, force, file.resolve(),
-            (Path(dest.strip('*')) / file.name).absolute()
-        )
+        maybe_print(f'{src} -> {dest}', verbose)
 
 
 if __name__ == '__main__':
