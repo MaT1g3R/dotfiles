@@ -21,6 +21,8 @@ Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
 Plug 'vivien/vim-linux-coding-style', {'for': 'c'}
 Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 call plug#end()
 call deoplete#enable()
 
@@ -154,6 +156,11 @@ else
     let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 endif
 
+" Rust completion
+if has('macunix')
+    let g:deoplete#sources#rust#racer_binary='/Users/umi/.cargo/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path='/Users/umi/rust/src'
+endif
 
 " Convert between spaces and tabs
 source ~/.config/nvim/space_tab.vim
