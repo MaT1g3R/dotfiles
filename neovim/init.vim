@@ -160,6 +160,9 @@ endif
 if has('macunix')
     let g:deoplete#sources#rust#racer_binary='/Users/umi/.cargo/bin/racer'
     let g:deoplete#sources#rust#rust_source_path='/Users/umi/rust/src'
+else
+    let g:deoplete#sources#rust#racer_binary='/home/umi/.cargo/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path='/home/umi/rust/src'
 endif
 
 " Convert between spaces and tabs
