@@ -103,6 +103,7 @@ if [ `uname` = 'Linux' ]; then # Linux
     alias open='xdg-open'
 else # Macos
     export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="$HOME/Library/Python/3.6/bin:$PATH"
     export LS_COLORS=$(ls_colors_generator)
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias gcc='gcc-7'
