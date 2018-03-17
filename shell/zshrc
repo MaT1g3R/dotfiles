@@ -88,6 +88,8 @@ alias vi='nvim'
 alias die='shutdown now'
 alias coala='~/venv/coala/bin/coala'
 alias what-the-commit='git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"'
+alias gpa='git pushall'
+
 if [ -z "$TMUX" ]; then task; fi
 
 source $ZSH/oh-my-zsh.sh
