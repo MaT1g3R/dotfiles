@@ -90,7 +90,10 @@ alias coala='~/venv/coala/bin/coala'
 alias what-the-commit='git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"'
 alias gpa='git pushall'
 
-if [ -z "$TMUX" ]; then task; fi
+if [ -z "$TMUX" ]; then 
+    curl -s wttr.in/Toronto | head -n 17;
+    task;
+fi
 
 source $ZSH/oh-my-zsh.sh
 
