@@ -105,9 +105,9 @@ if [ `uname` = 'Linux' ]; then # Linux
     alias buku='~/venv/buku/bin/buku'
     alias aur='trizen'
     alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'
-    alias pac-optimize='sudo pacman -Sc; sudo pacman-optimize'
-    alias pac-orphans='sudo pacman -Rns $(pacman -Qtdq)'
-    alias pac-mirror='sudo pacman-mirrors -f 0 && sudo pacman -Syy'
+    alias pac-optimize='trizen -Sc; sudo pacman-optimize'
+    alias pac-orphans='trizen -Rns $(trizen -Qtdq)'
+    alias pac-mirror='sudo pacman-mirrors -f 0 && trizen -Syy'
     alias open='xdg-open'
     alias play='sudo mount -a;mpd;ncmpcpp'
 else # Macos
