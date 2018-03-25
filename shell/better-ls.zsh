@@ -1,17 +1,14 @@
 # Better ls
 export DISABLE_LS_COLORS="true"
 export LS_COLORS=$(ls_colors_generator)
-run_ls() {
+ls() {
 	ls-i --color=auto -w $(tput cols) "$@"
 }
 
-run_dir() {
+dir() {
 	dir-i --color=auto -w $(tput cols) "$@"
 }
 
-run_vdir() {
+vdir() {
 	vdir-i --color=auto -w $(tput cols) "$@"
 }
-alias ls="run_ls"
-alias dir="run_dir"
-alias vdir="run_vdir"
