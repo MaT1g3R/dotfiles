@@ -18,6 +18,9 @@ alias ll='ls -l'
 alias la='ls -la'
 
 if [ `uname` = 'Linux' ]; then # Linux
+    wd() {
+        . /usr/share/wd/wd.sh
+    }
     alias buku='~/venv/buku/bin/buku'
     alias aur='trizen'
     alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'

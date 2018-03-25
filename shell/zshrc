@@ -24,11 +24,7 @@ if [ `uname` != 'Linux' ]; then # Linux
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
-wd() {
-      . /usr/share/wd/wd.sh
-}
 export GEOMETRY_PROMPT_PLUGINS=(virtualenv exec_time git)
-
 autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
 # Generate new ~/.zr/init.zsh whenever ~/.zshrc is modified
 [[ ~/.zshrc -nt ~/.zr/init.zsh ]] && {
