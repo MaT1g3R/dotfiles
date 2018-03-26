@@ -19,7 +19,7 @@ alias reload='exec zsh'
 
 update_plugins() {
     antibody update;
-    antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/dotfiles/shell/plugins.zsh
+    antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/.plugins.zsh
 }
 
 if [ `uname` = 'Linux' ]; then # Linux

@@ -2,8 +2,9 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
 
 GEOMETRY_PROMPT_PLUGINS=(virtualenv exec_time git jobs rustup)
-
 for x in $HOME/dotfiles/shell/*.zsh; do source $x; done
+source $HOME/.plugins.zsh
+
 export EDITOR=nvim
 export VISUAL=nvim
 
