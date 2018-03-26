@@ -1,4 +1,3 @@
-" vim: ts=4:sw=4:et
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
@@ -25,6 +24,13 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 call plug#end()
 call deoplete#enable()
+
+" Default format: 4 spaces, 79 line length, unix line ending
+set sw=4
+set ts=4
+set et
+set textwidth=79
+set fileformat=unix
 
 " Shortcuts
 

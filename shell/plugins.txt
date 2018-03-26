@@ -1,0 +1,13 @@
+geometry-zsh/geometry
+desyncr/geometry-dir-info-prompt
+zuxfoucault/colored-man-pages_mod
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search
+b4b4r07/enhancd
+RobSis/zsh-completion-generator
+sharat87/zsh-vim-mode
+
+robbyrussell/oh-my-zsh folder:plugins/git
+robbyrussell/oh-my-zsh folder:plugins/fancy-ctrl-z
+robbyrussell/oh-my-zsh folder:plugins/python
+robbyrussell/oh-my-zsh folder:plugins/stack

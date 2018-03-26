@@ -1,6 +1,5 @@
 alias zshrc='nvim ~/.zshrc'
 alias vimrc='nvim ~/dotfiles/neovim/init.vim'
-alias reload='source ~/.zshrc'
 alias sudo='sudo '
 alias rurisay='cowsay -f ~/scripts/ruri.cow'
 alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
@@ -16,6 +15,12 @@ alias gpa='git pushall'
 alias l='ls -l'
 alias ll='ls -l'
 alias la='ls -la'
+alias reload='exec zsh'
+
+update_plugins() {
+    antibody update;
+    antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/dotfiles/shell/plugins.zsh
+}
 
 if [ `uname` = 'Linux' ]; then # Linux
     wd() {

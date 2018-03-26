@@ -1,7 +1,9 @@
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
+
+GEOMETRY_PROMPT_PLUGINS=(virtualenv exec_time git jobs rustup)
 
 for x in $HOME/dotfiles/shell/*.zsh; do source $x; done
-
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -13,7 +15,7 @@ eval $(keychain --eval -Q --quiet id_dsa id_rsa)
 # startup
 if [ -z "$TMUX" ]; then
     if [ `basename '/'$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')` != "yakuake" ]; then
-	curl -s wttr.in/Toronto | head -n 17;
+        curl -s wttr.in/Toronto | head -n 17;
     fi
     task;
 fi
@@ -23,22 +25,3 @@ if [ `uname` != 'Linux' ]; then # Linux
     export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
-
-autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
-# Generate new ~/.zr/init.zsh whenever ~/.zshrc is modified
-[[ ~/.zshrc -nt ~/.zr/init.zsh ]] && {
-    zr load \
-    geometry-zsh/geometry \
-    desyncr/geometry-dir-info-prompt \
-    zuxfoucault/colored-man-pages_mod \
-    zsh-users/zsh-syntax-highlighting \
-    b4b4r07/enhancd \
-    RobSis/zsh-completion-generator \
-    sharat87/zsh-vim-mode \
-    robbyrussell/oh-my-zsh/plugins/git/git.plugin.zsh \
-    robbyrussell/oh-my-zsh/plugins/fancy-ctrl-z/fancy-ctrl-z.plugin.zsh \
-    robbyrussell/oh-my-zsh/plugins/python/python.plugin.zsh \
-    robbyrussell/oh-my-zsh/plugins/stack/stack.plugin.zsh \
-}
-
-source ~/.zr/init.zsh
