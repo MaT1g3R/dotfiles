@@ -11,18 +11,20 @@ export VISUAL=nvim
 #GPG stuff
 export GPG_TTY=$(tty)
 export GPG_AGENT_INFO=""
-eval $(keychain --eval -Q --quiet id_dsa id_rsa)
+if [ `uname` = 'Linux' ]; then
+    eval $(keychain --eval -Q --quiet id_dsa id_rsa);
+fi
 
 # startup
 if [ -z "$TMUX" ]; then
-    if [ `basename '/'$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')` != "yakuake" ]; then
+    if [ `uname` != 'Linux' ] || [ `basename '/'$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')` != "yakuake" ]; then
         curl -s wttr.in/Toronto | head -n 17;
     fi
     task;
 fi
 
 # OS dependent config
-if [ `uname` != 'Linux' ]; then # Linux
+if [ `uname` != 'Linux' ]; then # macOS
     export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
