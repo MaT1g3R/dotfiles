@@ -1,41 +1,47 @@
-alias zshrc='nvim ~/.zshrc'
-alias vimrc='nvim ~/dotfiles/neovim/init.vim'
-alias sudo='sudo '
-alias rurisay='cowsay -f ~/scripts/ruri.cow'
-alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
-alias pp='git pull; git push'
+#alias
+alias coala='~/venv/coala/bin/coala'
+alias die='shutdown now'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
-alias vim='nvim'
-alias vi='nvim'
-alias die='shutdown now'
-alias coala='~/venv/coala/bin/coala'
-alias what-the-commit='git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"'
 alias gpa='git pushall'
-alias l='ls -l'
-alias ll='ls -l'
-alias la='ls -la'
+alias l='ls -lah'
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias pp='git pull; git push'
 alias reload='exec zsh'
+alias rurisay='cowsay -f ~/scripts/ruri.cow'
+alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
+alias sudo='sudo '
+alias vi='nvim'
+alias vim='nvim'
+alias vimrc='nvim ~/dotfiles/neovim/init.vim'
+alias what-the-commit='git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"'
+alias zshrc='nvim ~/.zshrc'
 
+#functions
 update_plugins() {
     antibody update;
     antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/.plugins.zsh
 }
 
+# OS dependent
 if [ `uname` = 'Linux' ]; then # Linux
+    alias aur='trizen'
+    alias buku='~/venv/buku/bin/buku'
+    alias open='xdg-open'
+    alias pac-mirror='sudo pacman-mirrors -f 0 && trizen -Syy'
+    alias pac-optimize='trizen -Sc; sudo pacman-optimize'
+    alias pac-orphans='trizen -Rns $(trizen -Qtdq)'
+    alias play='sudo mount -a;mpd;ncmpcpp'
+    alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'
+
     wd() {
         . /usr/share/wd/wd.sh
     }
-    alias buku='~/venv/buku/bin/buku'
-    alias aur='trizen'
-    alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'
-    alias pac-optimize='trizen -Sc; sudo pacman-optimize'
-    alias pac-orphans='trizen -Rns $(trizen -Qtdq)'
-    alias pac-mirror='sudo pacman-mirrors -f 0 && trizen -Syy'
-    alias open='xdg-open'
-    alias play='sudo mount -a;mpd;ncmpcpp'
-else # Macos
-    alias gcc='gcc-7'
+else # macOS
     alias cc='gcc-7'
-    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;' 
+    alias gcc='gcc-7'
+    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;'
+
+
 fi

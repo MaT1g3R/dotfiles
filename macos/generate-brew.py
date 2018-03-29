@@ -36,7 +36,8 @@ brew cask cleanup
 specials = {
     'gnu-sed': '--with-default-names',
     'wget': '--with-iri',
-    'imagemagick': '--with-webp'
+    'imagemagick': '--with-webp',
+    'ffmpeg': '--with-sdl2',
 }
 
 formulaes = Popen('brew ls', shell=True, stdout=PIPE)
