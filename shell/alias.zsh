@@ -1,4 +1,5 @@
 #alias
+alias ..="builtin cd .."
 alias coala='~/venv/coala/bin/coala'
 alias die='shutdown now'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
