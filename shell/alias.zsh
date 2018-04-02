@@ -24,6 +24,10 @@ update_plugins() {
     antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/.plugins.zsh
 }
 
+yt-play() {
+    youtube-dl $1 -o - | mpv -;
+}
+
 # OS dependent
 if [ `uname` = 'Linux' ]; then # Linux
     alias aur='trizen'
