@@ -14,10 +14,9 @@
     "shell/zshrc": "~/.zshrc"
   },
   "linux": {
-    "vscode": "~/.config/Code/User"
+    "fonts": "~/.local/share/fonts"
   },
   "macos": {
-    "vscode": "~/Library/Application Support/Code/User",
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
     "ubersicht/*": "~/Library/Application Support/Übersicht/widgets/*"

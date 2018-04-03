@@ -111,10 +111,6 @@ def common_commands(verbose, force, init):
     )
     sh(f'git config --get core.excludesfile {global_gitig_path}')
 
-    with open(HERE / 'vscode' / 'extensions') as f:
-        for pkg in f:
-            sh(f'code --install-extension {pkg.rstrip()}')
-
 
 def sh(cmd, print_output=True):
     """
