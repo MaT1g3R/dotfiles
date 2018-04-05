@@ -107,7 +107,7 @@ def common_commands(verbose, force, init):
 
     global_gitig_path = HOME / '.gitignore_global'
     link_one(
-        verbose, force, Path('git') / '.gitignore_global', global_gitig_path
+        verbose, force, Path('git').resolve() / '.gitignore_global', global_gitig_path
     )
     sh(f'git config --get core.excludesfile {global_gitig_path}')
 
