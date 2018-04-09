@@ -33,11 +33,11 @@ yt-play() {
 if [ `uname` = 'Linux' ]; then # Linux
     alias aur='trizen'
     alias buku='~/venv/buku/bin/buku'
-    alias open='xdg-open'
+    alias open='mimeopen'
     alias pac-mirror='sudo pacman-mirrors -f 0 && trizen -Syy'
     alias pac-optimize='trizen -Sc; sudo pacman-optimize'
     alias pac-orphans='trizen -Rns $(trizen -Qtdq)'
-    alias play='sudo mount -a;mpd;ncmpcpp'
+    alias play='mpd;ncmpcpp'
     alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'
 
     wd() {
