@@ -13,6 +13,8 @@ Plug 'tpope/vim-git'
 Plug 'reedes/vim-lexical'
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'mhinz/vim-startify'
 
 " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -29,8 +31,12 @@ call deoplete#enable()
 set sw=4
 set ts=4
 set et
-set textwidth=79
-set fileformat=unix
+set autoindent
+
+set encoding=utf8
+set ignorecase
+set smartcase
+set magic
 
 " Shortcuts
 
@@ -206,6 +212,55 @@ let g:jedi#rename_command = "<leader>r"
 " Supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
 let g:SuperTabContextDefaultCompletionType = "<C-n>"
+
+"startify
+let g:startify_session_dir = '~/.cache/nvim/session'
+let g:startify_files_number = 5
+let g:startify_update_oldfiles = 1
+let g:startify_padding_left = 6
+nmap <Leader>z :Startify<CR>
+" highlight StartifyHeader    guifg=#a54242
+" highlight StartifyNumber    guifg=#b294bb
+" highlight StartifyBracket   guifg=#85678f
+" highlight StartifySlash     guifg=#5f819d
+" highlight StartifyPath      guifg=#81a2be
+" highlight StartifyFile      guifg=#8abeb7
+" highlight StartifySection   guifg=#8c9440
+
+let g:startify_list_order = [
+        \ ['   Files:'],
+        \ 'bookmarks',
+        \ ['   Sessions:'],
+        \ 'sessions',
+        \ ['   Recent files:'],
+        \ 'files',
+        \ ['   Commands:'],
+        \ 'commands',
+        \ ]
+
+if has('macunix')
+    let g:startify_bookmarks = [
+            \ {'d1': '~/dotfiles/shell/zshrc'},
+            \ {'d2': '~/dotfiles/neovim/init.vim'},
+            \ ]
+else
+    let g:startify_bookmarks = [
+            \ {'d1': '~/dotfiles/shell/zshrc'},
+            \ {'d2': '~/dotfiles/neovim/init.vim'},
+            \ {'d3': '~/nfs/docker-compose.yml'},
+            \ {'d4': '~/nfs/Caddyfile'},
+            \ ]
+endif
+
+let g:startify_commands = [
+        \ {'p1': ['Update All Plugins', ':PlugUpdate']},
+        \ {'p2': ['Install New Plugins', ':PlugInstall']},
+        \ {'p3': ['Clean Old Plugins', ':PlugClean']},
+        \ {'p4': ['Upgrade vim-plug', ':PlugUpgrade']},
+        \ {'p5': ['Plugin Status', ':PlugStatus']},
+        \ {'ch': ['Check Health', ':checkhealth']},
+        \ {'r': ['Reload init.vim', ':so ~/dotfiles/neovim/init.vim']},
+        \ ]
 
 " Source local vimrc if there's any
 if filereadable("vimrc_local")
