@@ -217,15 +217,19 @@ let g:SuperTabContextDefaultCompletionType = "<C-n>"
 let g:startify_session_dir = '~/.cache/nvim/session'
 let g:startify_files_number = 5
 let g:startify_update_oldfiles = 1
-let g:startify_padding_left = 6
+let g:startify_padding_left = 4
 nmap <Leader>z :Startify<CR>
-" highlight StartifyHeader    guifg=#a54242
-" highlight StartifyNumber    guifg=#b294bb
-" highlight StartifyBracket   guifg=#85678f
-" highlight StartifySlash     guifg=#5f819d
-" highlight StartifyPath      guifg=#81a2be
-" highlight StartifyFile      guifg=#8abeb7
-" highlight StartifySection   guifg=#8c9440
+highlight StartifyHeader    guifg=#6699CC
+
+let g:startify_custom_header = [
+\ '',
+\ '    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗', 
+\ '    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║',
+\ '    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║',
+\ '    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+\ '    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
+\ '    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝'
+\ ]
 
 let g:startify_list_order = [
         \ ['   Files:'],
@@ -263,6 +267,6 @@ let g:startify_commands = [
         \ ]
 
 " Source local vimrc if there's any
-if filereadable("vimrc_local")
-    source vimrc_local
+if filereadable(".vimrc_local")
+    source .vimrc_local
 endif
