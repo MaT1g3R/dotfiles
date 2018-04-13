@@ -15,6 +15,7 @@ Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 
 " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -143,6 +144,8 @@ colorscheme base16-oceanicnext
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim/bin/python'
 
 " Show line numbers
 set number
@@ -169,13 +172,8 @@ else
 endif
 
 " Rust completion
-if has('macunix')
-    let g:deoplete#sources#rust#racer_binary='/Users/umi/.cargo/bin/racer'
-    let g:deoplete#sources#rust#rust_source_path='/Users/umi/rust/src'
-else
-    let g:deoplete#sources#rust#racer_binary='/home/umi/.cargo/bin/racer'
-    let g:deoplete#sources#rust#rust_source_path='/home/umi/rust/src'
-endif
+let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path=$HOME.'/rust/src'
 
 " Convert between spaces and tabs
 source ~/.config/nvim/space_tab.vim
