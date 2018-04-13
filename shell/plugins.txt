@@ -1,6 +1,5 @@
 geometry-zsh/geometry
 desyncr/geometry-dir-info-prompt
-zuxfoucault/colored-man-pages_mod
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 b4b4r07/enhancd
