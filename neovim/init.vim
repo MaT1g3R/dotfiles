@@ -19,6 +19,7 @@ Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 
 " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'donRaphaco/neotex', { 'for': 'tex' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
 Plug 'vivien/vim-linux-coding-style', {'for': 'c'}
@@ -134,6 +135,12 @@ colorscheme base16-oceanicnext
         let g:airline#extensions#vimtex#enabled = 1
         let g:airline#extensions#vimtex#left = "{"
         let g:airline#extensions#vimtex#right = "}"
+        let g:polyglot_disabled = ['latex']
+        
+        " NeoTex
+        let g:tex_flavor = 'latex'
+        let g:neotex_latexdiff = 1
+        let g:neotex_delay = 500
 
         " ALE
         let g:airline#extensions#ale#enabled = 1
