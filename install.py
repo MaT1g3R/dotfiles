@@ -204,7 +204,7 @@ def link_one(verbose, force, src, dest):
     if not isinstance(src, Path):
         src = (HERE / src).resolve()
     if not isinstance(dest, Path):
-        dest = Path(dest).absolute()
+        dest = Path(dest).expanduser().absolute()
 
     if not dest.parent.exists():
         dest.parent.mkdir(parents=True)
