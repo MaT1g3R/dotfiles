@@ -204,8 +204,8 @@ augroup lexical
   autocmd FileType text call lexical#init()
   autocmd FileType org call lexical#init()
 augroup END
-let g:lexical#dictionary = ['/usr/share/dict/british',]
-let g:lexical#thesaurus = ['/usr/share/thesaurus/moby-thesaurus.txt',]
+let g:lexical#dictionary = ['~/dotfiles/data/british',]
+let g:lexical#thesaurus = ['~/dotfiles/data/moby-thesaurus.txt',]
 let g:lexical#spelllang = ['en_ca']
 let g:lexical#spell_key = '<leader>s'
 let g:lexical#thesaurus_key = '<leader>t'
