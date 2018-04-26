@@ -2,6 +2,12 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
 zstyle ':completion:*' menu select
 
+# OS dependent config
+if [ `uname` != 'Linux' ]; then # macOS
+    export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+fi
+
 GEOMETRY_PROMPT_PLUGINS=(virtualenv exec_time git jobs rustup)
 for x in $HOME/dotfiles/shell/*.zsh; do source $x; done
 source $HOME/.plugins.zsh
@@ -23,10 +29,4 @@ if [ -z "$TMUX" ]; then
         curl -s wttr.in/Toronto | head -n 17;
     fi
     task;
-fi
-
-# OS dependent config
-if [ `uname` != 'Linux' ]; then # macOS
-    export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi

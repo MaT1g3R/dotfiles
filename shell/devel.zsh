@@ -19,7 +19,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 eval "$(pyenv virtualenv-init -)"
 
-if [ `uname` != 'Linux' ]; then 
+if [ `uname` != 'Linux' ]; then
     export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 fi
 # =============================================================================
