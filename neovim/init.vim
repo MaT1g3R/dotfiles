@@ -10,10 +10,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
+Plug 'tpope/vim-speeddating'
 Plug 'reedes/vim-lexical'
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 
@@ -26,6 +28,7 @@ Plug 'vivien/vim-linux-coding-style', {'for': 'c'}
 Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+Plug 'jceb/vim-orgmode', {'for': 'org'}
 call plug#end()
 call deoplete#enable()
 
@@ -44,6 +47,7 @@ set magic
 
     " Leader key
     let mapleader = ","
+    let maplocalleader = ","
 
     " Map C-x to C-w to do window stuff easier
     map <C-x> <C-w>
@@ -197,9 +201,15 @@ augroup lexical
   autocmd FileType markdown,mkd call lexical#init()
   autocmd FileType textile call lexical#init()
   autocmd FileType tex call lexical#init()
-  autocmd FileType text call lexical#init({ 'spell': 0 })
+  autocmd FileType text call lexical#init()
+  autocmd FileType org call lexical#init()
 augroup END
+let g:lexical#dictionary = ['/usr/share/dict/british',]
+let g:lexical#thesaurus = ['/usr/share/thesaurus/moby-thesaurus.txt',]
 let g:lexical#spelllang = ['en_ca']
+let g:lexical#spell_key = '<leader>s'
+let g:lexical#thesaurus_key = '<leader>t'
+let g:lexical#dictionary_key = '<leader>k'
 
 " jedi-vim
 let g:pymode_rope = 0
