@@ -44,8 +44,8 @@ if [ `uname` = 'Linux' ]; then # Linux
         . /usr/share/wd/wd.sh
     }
 else # macOS
-    alias cc='gcc-7'
-    alias gcc='gcc-7'
+    alias cc='gcc-8'
+    alias gcc='gcc-8'
     alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;'
 
 
