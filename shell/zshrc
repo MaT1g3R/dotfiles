@@ -1,10 +1,11 @@
+fpath+=~/.zfunc
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
 zstyle ':completion:*' menu select
 
 # OS dependent config
 if [ `uname` != 'Linux' ]; then # macOS
-    export PATH="/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/usr/local/opt/qt/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
