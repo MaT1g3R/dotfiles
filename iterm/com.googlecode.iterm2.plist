@@ -850,9 +850,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>357 73 979 319 0 0 1440 878 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>482 209 796 473 0 0 1440 878 </string>
+	<string>482 367 796 473 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 2 1440 874 0 0 1440 878 </string>
+	<string>0 0 1440 878 0 0 1440 878 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1465,7 +1465,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FuraCodeNerdFontCompleteM-Regular 11</string>
+			<string>FuraCodeNerdFontComplete-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1600,7 +1600,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-03T14:41:40Z</date>
+	<date>2018-06-03T17:50:48Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>TabStyle</key>
@@ -1613,6 +1613,8 @@
 	<false/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>iTerm Version</key>
 	<string>3.1.20180108-nightly</string>
 </dict>
