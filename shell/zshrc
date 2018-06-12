@@ -31,3 +31,5 @@ if [ -z "$TMUX" ]; then
     fi
     task;
 fi
+
+source $HOME/private.zsh

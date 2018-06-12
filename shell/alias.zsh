@@ -5,6 +5,7 @@ alias die='shutdown now'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
 alias gpa='git pushall'
+alias ls='ls_extended'
 alias l='ls -lah'
 alias la='ls -lAh'
 alias ll='ls -lh'
@@ -27,6 +28,10 @@ update_plugins() {
 
 yt-play() {
     youtube-dl $1 -o - | mpv -;
+}
+
+yt-best() {
+    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 $1;
 }
 
 # OS dependent
