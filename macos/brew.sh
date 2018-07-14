@@ -180,7 +180,6 @@ brew cask install kdiff3
 brew cask install kicad
 brew cask install libreoffice
 brew cask install mactex
-brew cask install mpv
 brew cask install nextcloud
 brew cask install qtpass
 brew cask install steam
