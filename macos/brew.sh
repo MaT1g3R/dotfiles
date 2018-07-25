@@ -154,6 +154,7 @@ brew install tmux
 brew install tree
 brew install unibilium
 brew install vbindiff
+brew install vlc
 brew install w3m
 brew install webp
 brew install woff2
@@ -167,27 +168,19 @@ brew install zopfli
 brew install zsh
 
 # Casks
-brew cask install adobe-acrobat-reader
 brew cask install firefox
 brew cask install font-firacode-nerd-font-mono
 brew cask install font-hack-nerd-font
-brew cask install gitkraken
-brew cask install haskell-platform
 brew cask install iterm2-nightly
 brew cask install jetbrains-toolbox
 brew cask install karabiner-elements
 brew cask install kdiff3
-brew cask install kicad
 brew cask install libreoffice
 brew cask install mactex
 brew cask install nextcloud
 brew cask install qtpass
 brew cask install steam
-brew cask install transmission
 brew cask install tunnelblick
-brew cask install ubersicht
-brew cask install visual-studio-code
-brew cask install vlc
 brew cask install xld
 
 # Chunkwm
