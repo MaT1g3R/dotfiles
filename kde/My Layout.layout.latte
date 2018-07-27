@@ -27,6 +27,7 @@ plugin=org.kde.plasma.folder
 wallpaperplugin=
 
 [Containments][1][Applets][16][Configuration]
+PreloadWeight=44
 activityId=
 formfactor=0
 immutability=1
@@ -51,13 +52,22 @@ useCustomIcon=true
 immutability=1
 plugin=org.kde.plasma.trash
 
+[Containments][1][Applets][17][Configuration]
+PreloadWeight=42
+
 [Containments][1][Applets][18]
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
+[Containments][1][Applets][18][Configuration]
+PreloadWeight=47
+
 [Containments][1][Applets][19]
 immutability=1
 plugin=org.kde.plasma.pager
+
+[Containments][1][Applets][19][Configuration]
+PreloadWeight=42
 
 [Containments][1][Applets][19][Configuration][ConfigDialog]
 DialogHeight=540
@@ -72,22 +82,34 @@ showOnlyCurrentScreen=true
 immutability=1
 plugin=org.kde.latte.plasmoid
 
+[Containments][1][Applets][2][Configuration]
+PreloadWeight=42
+
 [Containments][1][Applets][2][Configuration][General]
 isInLatteDock=true
 launchers=multi;*;2;file:///usr/share/applications/firefox.desktop;file:///usr/share/applications/org.kde.dolphin.desktop
-launchers59=file:///usr/share/applications/org.kde.dolphin.desktop,applications:firefox-nightly.desktop
+launchers59=file:///usr/share/applications/org.kde.dolphin.desktop,applications:firefox.desktop
 
 [Containments][1][Applets][20]
 immutability=1
 plugin=audoban.applet.separator
 
+[Containments][1][Applets][20][Configuration]
+PreloadWeight=42
+
 [Containments][1][Applets][4]
 immutability=1
 plugin=audoban.applet.separator
 
+[Containments][1][Applets][4][Configuration]
+PreloadWeight=42
+
 [Containments][1][Applets][5]
 immutability=1
 plugin=audoban.applet.separator
+
+[Containments][1][Applets][5][Configuration]
+PreloadWeight=42
 
 [Containments][1][Applets][6]
 immutability=1
@@ -100,6 +122,9 @@ SystrayContainmentId=7
 [Containments][1][ConfigDialog]
 DialogHeight=613
 DialogWidth=450
+
+[Containments][1][Configuration]
+PreloadWeight=42
 
 [Containments][1][General]
 advanced=true
@@ -115,6 +140,7 @@ showToolTips=true
 zoomLevel=16
 
 [Containments][7]
+PreloadWeight=42
 activityId=
 formfactor=2
 immutability=1
@@ -127,44 +153,72 @@ wallpaperplugin=org.kde.image
 immutability=1
 plugin=org.kde.plasma.devicenotifier
 
+[Containments][7][Applets][10][Configuration]
+PreloadWeight=42
+
 [Containments][7][Applets][11]
 immutability=1
 plugin=org.kde.kdeconnect
+
+[Containments][7][Applets][11][Configuration]
+PreloadWeight=42
 
 [Containments][7][Applets][12]
 immutability=1
 plugin=org.kde.plasma.notifications
 
+[Containments][7][Applets][12][Configuration]
+PreloadWeight=42
+
 [Containments][7][Applets][13]
 immutability=1
 plugin=org.kde.plasma.printmanager
+
+[Containments][7][Applets][13][Configuration]
+PreloadWeight=42
 
 [Containments][7][Applets][14]
 immutability=1
 plugin=org.kde.plasma.networkmanagement
 
-[Containments][7][Applets][15]
-immutability=1
-plugin=org.kde.plasma.battery
+[Containments][7][Applets][14][Configuration]
+PreloadWeight=42
 
 [Containments][7][Applets][21]
 immutability=1
 plugin=org.kde.plasma.bluetooth
+
+[Containments][7][Applets][21][Configuration]
+PreloadWeight=42
+
+[Containments][7][Applets][22]
+immutability=1
+plugin=org.kde.plasma.battery
+
+[Containments][7][Applets][23]
+immutability=1
+plugin=org.kde.plasma.mediacontroller
+
+[Containments][7][Applets][23][Configuration]
+PreloadWeight=34
 
 [Containments][7][Applets][8]
 immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][7][Applets][8][Configuration]
-PreloadWeight=60
+PreloadWeight=57
 
 [Containments][7][Applets][9]
 immutability=1
 plugin=org.kde.plasma.clipboard
 
+[Containments][7][Applets][9][Configuration]
+PreloadWeight=42
+
 [Containments][7][General]
-extraItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume
-knownItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume
+extraItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator
+knownItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator
 
 [LayoutSettings]
 activities=
