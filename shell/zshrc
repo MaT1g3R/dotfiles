@@ -9,6 +9,11 @@ if [ `uname` != 'Linux' ]; then # macOS
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
+# nvim
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+
 GEOMETRY_PROMPT_PLUGINS=(virtualenv exec_time git jobs rustup)
 for x in $HOME/dotfiles/shell/*.zsh; do source $x; done
 source $HOME/.plugins.zsh
