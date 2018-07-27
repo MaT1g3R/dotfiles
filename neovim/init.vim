@@ -18,6 +18,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
+Plug 'vim-scripts/SyntaxRange'
 
 " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
