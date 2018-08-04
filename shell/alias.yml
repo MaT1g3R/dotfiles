@@ -1,0 +1,47 @@
+alias:
+  coala: ~/venv/coala/bin/coala
+  die: shutdown now
+  gdbstack: gdb --batch --ex r --ex bt --ex q --args
+  ghci: python3 ~/scripts/ghci_prompt.py
+  gpa: git pushall
+  l: ls -lah
+  la: ls -lAh
+  ll: ls -lh
+  pp: git pull; git push
+  reload: exec zsh
+  rurisay: cowsay -f ~/scripts/ruri.cow
+  rurithink: cowthink -f ~/scripts/ruri_think.cow
+  sudo: 'sudo '
+  vi: nvim
+  vim: nvim
+  vimrc: nvim ~/dotfiles/neovim/init.vim
+  what-the-commit: git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"
+  zshrc: nvim ~/.zshrc
+function:
+  update-plugins: |
+    {
+        antibody update;
+        antibody bundle < $HOME/dotfiles/shell/plugins.txt > $HOME/.plugins.zsh
+    }
+linux:
+  alias:
+    aur: trizen
+    buku: ~/venv/buku/bin/buku
+    open: xdg-open
+    pac-mirror: sudo pacman-mirrors -f 0 && trizen -Syy
+    pac-optimize: trizen -Sc; sudo pacman-optimize
+    pac-orphans: trizen -Rns $(trizen -Qtdq)
+    play: sudo mount -a;mpd;ncmpcpp
+    yolo: trizen -Syu;bash ~/scripts/update_quarter_tiling.sh
+  function:
+    wd: |
+      {
+          . /usr/share/wd/wd.sh
+      }
+mac:
+  alias:
+    cc: gcc-7
+    gcc: gcc-7
+    yolo: brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;
+  function: {}
+

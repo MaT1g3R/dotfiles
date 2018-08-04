@@ -20,7 +20,7 @@ source $HOME/.plugins.zsh
 
 export EDITOR=nvim
 export VISUAL=nvim
-export PAGER=most
+export PAGER=nvimpager
 
 #GPG stuff
 export GPG_TTY=$(tty)
