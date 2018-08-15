@@ -17,13 +17,30 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:color0}
-background-alt = ${xrdb:color1}
-foreground = ${xrdb:color7}
-foreground-alt = ${xrdb:color6}
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+base00 = #1b2b34
+base01 = #343d46
+base02 = #4f5b66
+base03 = #65737e
+base04 = #a7adba
+base05 = #c0c5ce
+base06 = #cdd3de
+base07 = #d8dee9
+base08 = #ec5f67
+base09 = #f99157
+base0A = #fac863
+base0B = #99c794
+base0C = #5fb3b3
+base0D = #6699cc
+base0E = #c594c5
+base0F = #ab7967
+
+background = ${colors.base00}
+background-alt = ${colors.base01}
+foreground = ${colors.base05}
+foreground-alt = ${colors.base04}
+primary = ${colors.base09}
+secondary = ${colors.base0E}
+alert = ${colors.base09}
 
 [bar/main]
 monitor = ${env:MONITOR:HDMI-0}
@@ -40,8 +57,8 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
-border-color = #00000000
+border-size = 2
+border-color = ${colors.background-alt}
 
 padding-left = 0
 padding-right = 2
@@ -68,8 +85,8 @@ try-detached = true
 ;override-redirect = true
 
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -139,7 +156,7 @@ format = <label-state> <label-mode>
 ; Default: %mode%
 label-mode = %mode%
 label-mode-padding = 2
-label-mode-background = #e60053
+label-mode-background = ${colors.base0E}
 
 ; Available tokens:
 ;   %name%
@@ -148,9 +165,9 @@ label-mode-background = #e60053
 ;   %output%
 ; Default: %icon%  %name%
 ; label-focused = %index%
-label-focused-foreground = #ffffff
-label-focused-background = #3f3f3f
-label-focused-underline = #fba922
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.base09}
 label-focused-padding = 4
 
 ; Available tokens:
@@ -169,7 +186,7 @@ label-unfocused-padding = 4
 ;   %output%
 ; Default: %icon%  %name%
 ; label-visible = %index%
-label-visible-underline = #555555
+label-visible-underline = ${colors.base02}
 label-visible-padding = 4
 
 ; Available tokens:
@@ -179,14 +196,14 @@ label-visible-padding = 4
 ;   %output%
 ; Default: %icon%  %name%
 ; label-urgent = %index%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
+label-urgent-foreground = ${colors.background}
+label-urgent-background = ${colors.base08}
 label-urgent-padding = 4
 
 ; Separator in between workspaces
 label-separator = |
 label-separator-padding = 2
-label-separator-foreground = #ffb52a
+label-separator-foreground = ${colors.base09}
 
 [module/mpd]
 type = internal/mpd
@@ -262,8 +279,8 @@ icon-consume = 
 
 ; Used to display the state of random/repeat/repeatone/single
 ; Only applies if <icon-[random|repeat|repeatone|single]> is used
-toggle-on-foreground = #ff
-toggle-off-foreground = #55
+toggle-on-foreground = ${colors.foreground}
+toggle-off-foreground = ${colors.base03}
 
 ; Only applies if <bar-progress> is used
 bar-progress-width = 20
@@ -379,7 +396,7 @@ label-mounted = %mountpoint%: %free% free of %total%
 ;   %mountpoint%
 ; Default: %mountpoint% is not mounted
 label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = #55
+label-unmounted-foreground = ${colors.base03}
 
 [module/memory]
 type = internal/memory
@@ -415,17 +432,6 @@ format = <label> <ramp-used>
 ;   %gb_swap_used%
 
 label = RAM %gb_used%/%gb_total%
-
-; Only applies if <bar-used> is used
-bar-used-indicator =
-bar-used-width = 50
-bar-used-foreground-0 = #55aa55
-bar-used-foreground-1 = #557755
-bar-used-foreground-2 = #f5a70a
-bar-used-foreground-3 = #ff5555
-bar-used-fill = ▐
-bar-used-empty = ▐
-bar-used-empty-foreground = #444444
 
 ; Only applies if <ramp-used> is used
 ramp-used-0 = ▁
@@ -502,19 +508,19 @@ format-packetloss = <animation-packetloss> <label-connected>
 ;   %linkspeed% [wired]
 ; Default: %ifname% %local_ip%
 label-connected = %downspeed% %upspeed%
-label-connected-foreground = #eefafafa
+label-connected-foreground = ${colors.foreground}
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
 ; Default: (none)
 label-disconnected = not connected
-label-disconnected-foreground = #66ffffff
+label-disconnected-foreground = ${colors.base03}
 
 ; Only applies if <animation-packetloss> is used
 animation-packetloss-0 = ⚠
-animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-0-foreground = ${colors.base0A}
 animation-packetloss-1 = 📶
-animation-packetloss-1-foreground = #000000
+animation-packetloss-1-foreground = ${colors.background}
 ; Framerate in milliseconds
 animation-packetloss-framerate = 500
 
