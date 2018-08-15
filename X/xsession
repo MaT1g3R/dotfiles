@@ -16,6 +16,7 @@ xrdb ~/.Xresources &
 xrandr --output HDMI-0 --auto --output DVI-I-1 --auto --left-of HDMI-0 --output DP-3 --auto --right-of HDMI-0 &
 polybar -r main &
 yakuake &
+python3 $HOME/dotfiles/music/mpd/mpd.py 'DigiHug USB Audio' &
 mpd &
 jetbrains-toolbox &
 nextcloud &

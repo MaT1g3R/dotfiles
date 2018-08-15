@@ -1,4 +1,21 @@
+#!/usr/bin/env python3
+import re
+from pathlib import Path
+from subprocess import run, PIPE
+from sys import argv
 
+
+dev_name = argv[1]
+HERE = Path.home() / 'dotfiles' / 'music' / 'mpd'
+devs = run(['aplay', '-l'], stdout=PIPE).stdout.decode()
+dev_lines = devs.strip().split('\n')
+for line in dev_lines:
+    if dev_name in line:
+        card, dev = re.match(r'card\s*(\d+).*device\s*(\d+).*', line).groups()
+        break
+
+
+template = """\
 ############################################################################
 ### begin of mpd configuration file
 ### created by `mpd-configure' (version 0.9.7) on 2018-04-14T16:11:24-04:00.
@@ -8,7 +25,7 @@
 audio_output {
 	type             "alsa"
 	name             "Audio - USB Audio"
-	device           "hw:0,0"
+	device           "hw:%s,%s"
 	auto_resample    "no"
 	auto_format      "no"
 	auto_channels    "no"
@@ -54,4 +71,7 @@ zeroconf_enabled    "True"
 
 ############################################################################
 ### end of mpd configuration file
-############################################################################
+############################################################################"""
+
+with open(HERE / 'mpd.conf', 'w+') as f:
+    f.write(template % (card, dev))
