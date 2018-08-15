@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#
+# ~/.xsession
+#
+# Executed by xdm/gdm/kdm at login
+#
+
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
+XDG_CURRENT_DESKTOP=KDE
+export DESKTOP_SESSION=kde
+# Merge colors and settings
+xrdb ~/.Xresources &
+
+xrandr --output HDMI-0 --auto --output DVI-I-1 --auto --left-of HDMI-0 --output DP-3 --auto --right-of HDMI-0 &
+polybar -r main &
+yakuake &
+mpd &
+jetbrains-toolbox &
+nextcloud &
+xmodmap -e 'clear Lock' &
+xmodmap -e 'keycode 66 = Escape' &
+xmodmap -e 'keycode 9 = Caps_Lock' &
+

@@ -14,7 +14,9 @@
     "shell/zshrc": "~/.zshrc"
   },
   "linux": {
-    "fonts": "~/.local/share/fonts"
+    "fonts": "~/.local/share/fonts",
+    "X/Xresources": "~/.Xresources",
+    "X/xsession": "~/.xsession"
   },
   "macos": {
     "macos/.chunkwmrc": "~/.chunkwmrc",
