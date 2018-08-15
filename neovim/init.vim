@@ -33,6 +33,7 @@ Plug 'jceb/vim-orgmode', {'for': 'org'}
 call plug#end()
 call deoplete#enable()
 
+set mouse=a
 " Default format: 4 spaces, 79 line length, unix line ending
 set sw=4
 set ts=4
