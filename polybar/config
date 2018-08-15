@@ -43,13 +43,21 @@ secondary = ${colors.base0E}
 alert = ${colors.base09}
 
 [bar/main]
+font-0 = SFProDisplay Nerd Font:size=10:antialias=true
+font-1 = Noto Sans CJK JP:size=10:antialias=true
+font-2 = Font Awesome 5 Free Regular:size=10:antialias=true
+
+modules-left = i3 mpd 
+modules-center = pacman date task
+modules-right = disk network memory cpu
+
 monitor = ${env:MONITOR:HDMI-0}
 width = 100%
 height = 27
 ;offset-x = 1%
-;offset-y = 1%
+; offset-y = 1%
 radius = 6.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -66,13 +74,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = SFProDisplay Nerd Font:size=10
-font-1 = Noto Sans CJK JP:size=10
-font-2 = Font Awesome 5 Free Regular:size=10
 
-modules-left = i3
-modules-center = filesystem network memory cpu
-modules-right = mpd date
+
+overline-size = 2
 
 tray-position = right
 tray-padding = 2
@@ -207,78 +211,18 @@ label-separator-foreground = ${colors.base09}
 
 [module/mpd]
 type = internal/mpd
-
-; Host where mpd is running (either ip or domain name)
-; Can also be the full path to a unix socket where mpd is running.
 host = 127.0.0.1
 port = 6666
-
-; Seconds to sleep between progressbar/song timer sync
-; Default: 1
 interval = 2
-;
-; Available tags:
-;   <label-song> (default)
-;   <label-time>
-;   <bar-progress>
-;   <toggle> - gets replaced with <icon-(pause|play)>
-;   <toggle-stop> - gets replaced with <icon-(stop|play)>
-;   <icon-random>
-;   <icon-repeat>
-;   <icon-repeatone> (deprecated)
-;   <icon-single> - Toggle playing only a single song. Replaces <icon-repeatone>
-;   <icon-consume>
-;   <icon-prev>
-;   <icon-stop>
-;   <icon-play>
-;   <icon-pause>
-;   <icon-next>
-;   <icon-seekb>
-;   <icon-seekf>
-format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
-;format-playing = ${self.format-online}
-;format-paused = ${self.format-online}
-;format-stopped = ${self.format-online}
-
-; Available tags:
-;   <label-offline>
-;format-offline = <label-offline>
-
-; Available tokens:
-;   %artist%
-;   %album-artist%
-;   %album%
-;   %date%
-;   %title%
-; Default: %artist% - %title%
-label-song =  %artist% - %title%
-
-; Available tokens:
-;   %elapsed%
-;   %total%
-; Default: %elapsed% / %total%
-;label-time = %elapsed% / %total%
-
-; Available tokens:
-;   None
+format-online = %{o#6699cc}%{O8} <label-song> %{O8}%{o#ec5f67 T3} <icon-prev>    <toggle>    <icon-next> %{o- T-}%{-o} <label-time> <bar-progress>
+label-song = %artist% - %title%
 label-offline = 🎜 mpd is offline
 
 ; Only applies if <icon-X> is used
 icon-play = 
 icon-pause = 
-icon-stop = 
 icon-prev = 
 icon-next = 
-icon-seekb = 
-icon-seekf = 
-icon-random = 
-icon-repeat = 
-icon-repeatone = 
-icon-single = 1
-icon-consume = 
-
-; Used to display the state of random/repeat/repeatone/single
-; Only applies if <icon-[random|repeat|repeatone|single]> is used
 toggle-on-foreground = ${colors.foreground}
 toggle-off-foreground = ${colors.base03}
 
@@ -294,31 +238,14 @@ type = internal/date
 ; Seconds to sleep between updates
 interval = 1.0
 
+date = %a, %d %b | %H:%M 
+date-alt = %A, %d %m %Y, %H.%M.%S
 ; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
-date = %Y-%m-%d%
-
-; Optional time format
-time = %H:%M
-
-; if `date-alt` or `time-alt` is defined, clicking
-; the module will toggle between formats
-date-alt = %A, %d %B %Y
-time-alt = %H:%M:%S
 
 ; Available tags:
 ;   <label> (default)
-format =  <label>
-; format-background = #55ff3399
-; format-foreground = #fff
-
-; Available tokens:
-;   %date%
-;   %time%
-; Default: %date%
-label = %date% %time%
-label-font = 3
-; label-foreground = #9A32DB
+format = %{o#5fb3b3}  <label> %{o-}
 
 [module/cpu]
 type = internal/cpu
@@ -332,7 +259,7 @@ interval = 0.5
 ;   <bar-load>
 ;   <ramp-load>
 ;   <ramp-coreload>
-format = <label> <ramp-coreload>
+format = %{o#ec5f67}<label> <ramp-coreload>%{o-}
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load
@@ -411,7 +338,7 @@ interval = 3
 ;   <bar-free>
 ;   <ramp-used>
 ;   <ramp-free>
-format = <label> <ramp-used>
+format = %{o#fac863}<label> <ramp-used>%{o-}
 
 ; Available tokens:
 ;   %percentage_used% (default)
@@ -485,11 +412,11 @@ unknown-as-up = true
 ; Available tags:
 ;   <label-connected> (default)
 ;   <ramp-signal>
-format-connected = <label-connected>
+format-connected = %{o#99c794}<label-connected>%{o-}
 
 ; Available tags:
 ;   <label-disconnected> (default)
-format-disconnected = <label-disconnected>
+format-disconnected = %{o#ab7967}<label-disconnected>%{o-}
 
 ; Available tags:
 ;   <label-connected> (default)
@@ -524,12 +451,33 @@ animation-packetloss-1-foreground = ${colors.background}
 ; Framerate in milliseconds
 animation-packetloss-framerate = 500
 
+[module/task]
+interval = 30
+type = custom/script
+exec = $HOME/dotfiles/polybar/task_polybar.sh
+format = %{o#f99157} <label>%{o-}
+format-foreground = ${colors.foreground}
+click-left = task "$((`cat /tmp/tw_polybar_id`))" done
+
+[module/pacman]
+type = custom/script
+exec = $HOME/dotfiles/polybar/updates-arch-combined.sh
+format = %{o#ec5f67}<label>%{o-}
+interval = 600
+
+[module/disk]
+type = custom/script
+exec = $HOME/dotfiles/polybar/disk.py / /home /run/media/umi/HDD /home/umi/nfs
+format = %{o#6699cc}  <label>%{o-}
+interval = 60
+
+
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
+; compositing-background = xor
+; compositing-background = screen
+; compositing-foreground = source
+; compositing-border = over
 
 
 [global/wm]
