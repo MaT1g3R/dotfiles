@@ -89,8 +89,11 @@ bindsym $mod+Return exec konsole
 # Kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -location 2 -i -dmenu'
+# bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -location 2 -i -dmenu'
+bindsym $mod+space exec --no-startup-id rofi -show drun -theme $HOME/dotfiles/rofi/sidetab.rasi
 bindsym Print exec --no-startup-id spectacle
+bindsym $mod+p exec --no-startup-id rofi-pass
+bindsym $mod+i exec --no-startup-id rofi-pass --insert
 
 # change focus
 bindsym $mod+h focus left
