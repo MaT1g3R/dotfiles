@@ -249,17 +249,17 @@ force_display_urgency_hint 0 ms
 focus_on_window_activation urgent
 
 
-set $ws3 "1"
-workspace $ws3 output $monitor_l
-bindsym $mod+F1 workspace $ws3; exec firefox
+set $ws1 "1"
+workspace $ws1 output $monitor_l
+bindsym $mod+F1 workspace $ws1; exec firefox
 
 set $ws2 "2"
 workspace $ws2 output $monitor_m
 assign [class="jetbrains-"] $ws2
 
-set $ws1 "3"
-workspace $ws1 output $monitor_r
-bindsym $mod+F3 workspace $ws1; exec konsole
+set $ws3 "3"
+workspace $ws3 output $monitor_r
+bindsym $mod+F3 workspace $ws3; exec konsole
 
 set $ws4 "4"
 workspace $ws4 output $monitor_l
