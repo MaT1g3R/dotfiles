@@ -89,15 +89,8 @@ bindsym $mod+Return exec konsole
 # Kill focused window
 bindsym $mod+q kill
 
-
-# rofi
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -i -dmenu -font "IBM Plex Sans Medium 15" '
-# Screenshot (now provided by Plasma)
+bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -location 2 -i -dmenu'
 bindsym Print exec --no-startup-id spectacle
-
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -223,8 +216,7 @@ bindsym $mod+r mode "resize"
 # Starting things with i3
 # exec --no-startup-id xcompmgr -C &    # Bare compositor to allow transparency
 for_window [class="yakuake"] floating enable
-exec --no-startup-id feh --bg-scale ~/dotfiles/wallpapers/0.jpg ~/dotfiles/wallpapers/1.jpg ~/dotfiles/wallpapers/2.jpg
-
+exec --no-startup-id polybar -r main
 ## Plasma Integration
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
 exec --no-startup-id wmctrl -c Plasma

@@ -17,10 +17,10 @@ python3 $HOME/dotfiles/music/mpd/mpd.py 'DigiHug USB Audio' &
 xrdb ~/.Xresources &
 
 xrandr --output HDMI-0 --auto --output DVI-I-1 --auto --left-of HDMI-0 --output DP-3 --auto --right-of HDMI-0 &
-polybar -r main &
-yakuake &
+feh --bg-scale ~/dotfiles/wallpapers/0.jpg ~/dotfiles/wallpapers/1.jpg ~/dotfiles/wallpapers/2.jpg &
 jetbrains-toolbox &
 nextcloud &
+yakuake &
 xmodmap -e 'clear Lock' &
 xmodmap -e 'keycode 66 = Escape' &
 xmodmap -e 'keycode 9 = Caps_Lock' &
