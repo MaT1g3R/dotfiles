@@ -265,7 +265,7 @@ format = %{o#ec5f67}<label> <ramp-coreload>%{o-}
 ;   %percentage% (default) - total cpu load
 ;   %percentage-cores% - load percentage for each core
 ;   %percentage-core[1-9]% - load percentage for specific core
-label = CPU %percentage%%
+label =  %percentage%%
 
 ramp-coreload-0 = ▁
 ramp-coreload-1 = ▂
@@ -358,8 +358,8 @@ format = %{o#fac863}<label> <ramp-used>%{o-}
 ;   %gb_swap_free%
 ;   %gb_swap_used%
 
-label = RAM %gb_used%/%gb_total%
-
+label =  %gb_used%/%gb_total%
+label-font = 2
 ; Only applies if <ramp-used> is used
 ramp-used-0 = ▁
 ramp-used-1 = ▂
