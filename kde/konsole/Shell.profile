@@ -3,7 +3,7 @@ AntiAliasFonts=true
 BoldIntense=true
 ColorScheme=base16-oceanicnext
 Font=FuraCode Nerd Font,10,-1,5,50,0,0,0,0,0,Regular
-UseFontLineChararacters=false
+UseFontLineChararacters=true
 
 [Cursor Options]
 CursorShape=0
