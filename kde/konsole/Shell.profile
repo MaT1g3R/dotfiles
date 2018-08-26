@@ -15,8 +15,15 @@ Name=Shell
 Parent=FALLBACK/
 StartInCurrentSessionDir=true
 
+[Interaction Options]
+OpenLinksByDirectClickEnabled=true
+TrimLeadingSpacesInSelectedText=true
+TrimTrailingSpacesInSelectedText=true
+UnderlineFilesEnabled=true
+
 [Scrolling]
 ScrollBarPosition=2
 
 [Terminal Features]
 BlinkingCursorEnabled=true
+UrlHintsModifiers=33554432
