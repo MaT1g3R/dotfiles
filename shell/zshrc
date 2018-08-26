@@ -21,6 +21,7 @@ source $HOME/.plugins.zsh
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=nvimpager
+export BAT_PAGER=less
 
 #GPG stuff
 export GPG_TTY=$(tty)
