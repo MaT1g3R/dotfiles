@@ -22,6 +22,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=nvimpager
 export BAT_PAGER=less
+export TASKRC=$HOME/.config/task/taskrc
 
 #GPG stuff
 export GPG_TTY=$(tty)
