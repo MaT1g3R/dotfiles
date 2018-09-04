@@ -2,7 +2,6 @@
 alias ..="builtin cd .."
 alias coala='~/venv/coala/bin/coala'
 alias die='shutdown now'
-alias ene-dev='cd ~/Projects/Python/ene; pyenv activate ene'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias ghci='python3 ~/scripts/ghci_prompt.py'
 alias gpa='git pushall'
