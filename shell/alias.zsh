@@ -52,7 +52,7 @@ if [ `uname` = 'Linux' ]; then # Linux
 else # macOS
     alias cc='gcc-8'
     alias gcc='gcc-8'
-    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup; brew cask cleanup;'
+    alias yolo='brew update; brew upgrade; brew cask upgrade; brew cleanup;'
 
 
 fi
