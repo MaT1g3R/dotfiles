@@ -35,6 +35,10 @@ yt-best() {
     youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 $1;
 }
 
+nuclear-warhead() {
+    find / -name .git | while read d; do cd "$(dirname "$d")"; git add -A; git commit -m "last words"; git push --all origin; done
+}
+
 # OS dependent
 if [ `uname` = 'Linux' ]; then # Linux
     alias aur='trizen'
