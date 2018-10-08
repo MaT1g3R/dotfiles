@@ -19,6 +19,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 Plug 'vim-scripts/SyntaxRange'
+Plug 'kana/vim-smartinput'
 
 " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -287,3 +288,6 @@ let g:startify_commands = [
 if filereadable(".vimrc_local")
     source .vimrc_local
 endif
+
+" Custom command
+:command Automake :autocmd BufWritePost <buffer> make
