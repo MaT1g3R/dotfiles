@@ -26,4 +26,4 @@ ScrollBarPosition=2
 
 [Terminal Features]
 BlinkingCursorEnabled=true
-UrlHintsModifiers=33554432
+UrlHintsModifiers=67108864
