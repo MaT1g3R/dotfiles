@@ -1,5 +1,5 @@
 fpath+=~/.zfunc
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/local/bin:$HOME/.local/bin:$PATH
 autoload -Uz compinit; compinit -iCd $HOME/.zcompdump
 zstyle ':completion:*' menu select
 
@@ -40,3 +40,4 @@ if [ -z "$TMUX" ]; then
 fi
 
 source $HOME/private.zsh
+export PATH=$HOME/bin:$PATH
