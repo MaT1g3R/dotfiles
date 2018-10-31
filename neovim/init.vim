@@ -14,14 +14,17 @@ Plug 'tpope/vim-speeddating'
 Plug 'reedes/vim-lexical'
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 Plug 'vim-scripts/SyntaxRange'
 Plug 'kana/vim-smartinput'
-
-" File plugins
+" For func argument completion
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+"
+" " File plugins
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'donRaphaco/neotex', { 'for': 'tex' }
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -31,6 +34,10 @@ Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 Plug 'jceb/vim-orgmode', {'for': 'org'}
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'markdown'] }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript'}
 call plug#end()
 call deoplete#enable()
 
@@ -158,6 +165,7 @@ colorscheme base16-oceanicnext
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:neosnippet#enable_completed_snippet = 1
 let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim/bin/python'
 
@@ -185,9 +193,10 @@ else
     let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 endif
 
-" Rust completion
+" Rust
 let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path=$HOME.'/rust/src'
+let g:rustfmt_autosave = 1
 
 " Convert between spaces and tabs
 source ~/.config/nvim/space_tab.vim
@@ -230,6 +239,34 @@ let g:jedi#rename_command = "<leader>r"
 " Supertab
 let g:SuperTabDefaultCompletionType = "<C-n>"
 let g:SuperTabContextDefaultCompletionType = "<C-n>"
+
+" Prettier
+let g:prettier#quickfix_enabled = 0
+let g:prettier#autoformat = 0
+
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
+
+" neosnippet
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 
 "startify
 let g:startify_session_dir = '~/.cache/nvim/session'
