@@ -42,5 +42,12 @@ fi
 # cd without cd
 setopt auto_cd
 
+# direnv
+eval "$(direnv hook zsh)"
+
 source $HOME/private.zsh
 export PATH=$HOME/bin:$PATH
+
+autoload bashcompinit
+bashcompinit
+source $HOME/dotfiles/completions/*
