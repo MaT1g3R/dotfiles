@@ -22,6 +22,11 @@ eval "$(pyenv virtualenv-init -)"
 if [ `uname` != 'Linux' ]; then
     export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 fi
+
+pyenv-install() {
+    PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install $@
+}
+
 # =============================================================================
 
 # ============================== Rust =========================================

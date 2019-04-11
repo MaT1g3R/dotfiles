@@ -25,12 +25,12 @@ template = """\
 audio_output {
 	type             "alsa"
 	name             "Audio - USB Audio"
-	device           "hw:%s,%s"
+	# device           "hw:%s,%s"
 	auto_resample    "no"
 	auto_format      "no"
 	auto_channels    "no"
 	replay_gain_handler "none"
-	mixer_type                 "none"
+	# mixer_type                 "none"
 }
 replaygain                 "off"
 ## done processing
