@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+import sys
+from argparse import ArgumentParser
+
+
+def parse_args():
+    parser = ArgumentParser(description='Calculate traction effort and power needed to pull cargo by weight')
+    parser.add_argument('-w', '--weight', help='wheight of cargo in tons', required=True, type=int)
+    parser.add_argument('-s', '--speed', help='desired speed to achieve in km/h', required=True, type=int)
+    parser.add_argument('-i', '--incline', help='incline length on the map (default 0)', default=0, type=int)
+    parser.add_argument('-l', '--length', help='the length of the train shown in the depot', type=int)
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    if args.incline and not args.length:
+        sys.exit("Must provide train length for incline calculation")
+    tractive_effort = calculate_tractive_effort(args.weight, args.incline, args.length)
+    power = calculate_power(tractive_effort, args.speed * (5 / 18))
+    print(
+        f"To pull {args.weight} tons at the speed of {args.speed} km/h, with an incline of {args.incline} tiles you will need:\n"
+        f"  - {int(tractive_effort / 1000)} kN of tractive effort\n"
+        f"  - {int(power / 1000)} kW of power"
+    )
+
+
+def calculate_tractive_effort(weight_in_tons, incline_tiles, train_length):
+    power = weight_in_tons * 35
+    if incline_tiles:
+        power_incline = weight_in_tons * 30 * 10 * ((2 * incline_tiles) / (train_length))
+    else:
+        power_incline = 0
+    return power + power_incline
+
+
+def calculate_power(tractive_effort, speed_in_mps):
+    return tractive_effort * speed_in_mps
+
+
+if __name__ == '__main__':
+    main()
