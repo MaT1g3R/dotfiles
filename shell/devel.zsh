@@ -20,7 +20,7 @@ fi
 eval "$(pyenv virtualenv-init -)"
 
 if [ `uname` != 'Linux' ]; then
-    export PATH="$HOME/Library/Python/3.6/bin:$PATH"
+    export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 fi
 
 pyenv-install() {
@@ -43,3 +43,6 @@ fi
 export PATH="$HOME/.npm-global/bin:$PATH"
 export CHROME_BIN=$(which chromium)
 # =============================================================================
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/Users/umi/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;

@@ -41,3 +41,5 @@ Temporary Items
 
 .env
 .envrc
+# VS Code
+**/.vscode

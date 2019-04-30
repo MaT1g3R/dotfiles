@@ -51,3 +51,6 @@ export PATH=$HOME/bin:$PATH
 autoload bashcompinit
 bashcompinit
 source $HOME/dotfiles/completions/*
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
