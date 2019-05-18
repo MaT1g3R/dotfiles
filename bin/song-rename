@@ -1,0 +1,130 @@
+#!/home/umi/.pyenv/versions/music/bin/python
+from pathlib import Path
+import os
+import sys
+from subprocess import run
+from tempfile import NamedTemporaryFile
+
+from taglib import File
+
+
+USAGE = f'Usage: {__file__} PATH'
+EDITOR = os.getenv('VISUAL', os.getenv('EDITOR', 'nano'))
+
+
+def main(argv):
+    try:
+        _, path = argv
+    except ValueError:
+        print(USAGE, file=sys.stderr)
+        return 1
+    path = Path(path).resolve()
+    if path.is_file():
+        rename_one(path, True)
+    elif path.is_dir():
+        rename_album(path)
+    else:
+        print(f'{path} is not a valid path!', file=sys.stderr)
+        return 1
+    return 0
+
+
+def get_input(path, song, artist, title, album, track_number):
+    template = f"""\
+# {path}
+# Leave empty to not rename
+ALBUM={', '.join(album or []) or ''}
+TRACKNUMBER={', '.join(track_number or []) or ''}
+TITLE={', '.join(title or []) or ''}
+ARTIST={', '.join(artist or []) or ''}"""
+    new_tags = {}
+    with NamedTemporaryFile('w+') as f:
+        name = f.name
+        f.write(template)
+        f.seek(0)
+        run([EDITOR, name], check=True)
+        for line in map(str.strip, f):
+            if line.startswith('#'):
+                continue
+            key, __, val = line.partition('=')
+            new_tags[key] = val.split(', ')
+
+    if new_tags:
+        for key, val in new_tags.items():
+            if val:
+                song.tags[key] = val
+        song.save()
+        return True
+    return False
+
+
+def get_tags(tags):
+    album = tags.get('ALBUM')
+    track_number = tags.get('TRACKNUMBER')
+    title = tags.get('TITLE')
+    artist = tags.get('ARTIST')
+    return album, track_number, title, artist
+
+
+def rename_one(path, raise_):
+    try:
+        song = File(str(path))
+    except OSError:
+        if raise_:
+            raise
+        else:
+            return
+    name, _, ext = path.name.rpartition('.')
+    for file in path.parent.iterdir():
+        name_, _, ext_ = file.name.rpartition('.')
+        if name_ == name and ext_ == 'cue':
+            return
+    tags = song.tags
+    album, track_number, title, artist = get_tags(tags)
+    if not all((artist, title, album, track_number)):
+        res = get_input(path, song, artist, title, album, track_number)
+        if not res:
+            return
+        album, track_number, title, artist = get_tags(tags)
+    strs = [', '.join(lst) for lst in (album, track_number, title, artist)]
+
+    for i, stri in enumerate(strs):
+        if '/' in stri:
+            if i == 1:
+                strs[i], _, __ = stri.partition('/')
+            else:
+                strs[i] = stri.replace('/', '-')
+    if len(strs[1]) == 1:
+        strs[1] = '0' + strs[1]
+
+    new_name = f'{strs[0]} - {strs[1]}: {strs[2]} ({strs[3]}).{ext}'
+    assert '/' not in new_name
+    new_path = Path(path.parent, new_name)
+    print(f'{path} -> {new_path}')
+    try:
+        path.rename(new_path)
+    except OSError as e:
+        if 'File name too long' in str(e):
+            with NamedTemporaryFile('w+') as f:
+                name = f.name
+                f.write(new_name)
+                f.seek(0)
+                run([EDITOR, name], check=True)
+                new_name = f.read().strip()
+                new_path = Path(path.parent, new_name)
+                print(f'{path} -> {new_path}')
+                path.rename(new_path)
+        else:
+            raise e
+
+
+def rename_album(path):
+    for sub in path.iterdir():
+        if sub.is_file():
+            rename_one(sub, False)
+        elif sub.is_dir():
+            rename_album(sub)
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv))

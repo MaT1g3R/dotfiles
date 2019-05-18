@@ -21,6 +21,9 @@ TrimLeadingSpacesInSelectedText=true
 TrimTrailingSpacesInSelectedText=true
 UnderlineFilesEnabled=true
 
+[Keyboard]
+KeyBindings=default
+
 [Scrolling]
 ScrollBarPosition=2
 

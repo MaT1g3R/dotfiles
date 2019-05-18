@@ -7,3 +7,6 @@ neovim/.netrwhist
 bin/stack
 bin/idea
 music/mpd/mpd.conf
+bin/amm
+bin/ji2ts
+bin/kubectl
