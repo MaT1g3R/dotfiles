@@ -59,3 +59,15 @@ complete -o nospace -C /usr/local/bin/vault vault
 bindkey -e
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
+
+cat << EOF
+
+    ctrl+u : clear everything before the cursor
+    ctrl+k : clear everything after the cursor
+    ctrl+L : clear the terminal (literally equivalent to 'clear')
+    ctrl+a : move to beginning of the line
+    ctrl+e : move to end of line
+    ctrl+d : standard shell exit
+    !! : interpreted as the last issued command
+    ^foo^bar : takes the last command and replaces foo with bar
+EOF
