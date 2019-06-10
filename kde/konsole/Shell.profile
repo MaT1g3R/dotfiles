@@ -2,7 +2,7 @@
 AntiAliasFonts=true
 BoldIntense=true
 ColorScheme=base16-oceanicnext
-Font=PragmataPro Mono Liga,11,-1,5,50,0,0,0,0,0,Regular
+Font=PragmataPro Mono Liga,13,-1,5,50,0,0,0,0,0,Regular
 UseFontLineChararacters=true
 
 [Cursor Options]

@@ -38,6 +38,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'markdown'] }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript'}
+Plug 'martinda/Jenkinsfile-vim-syntax'
 call plug#end()
 call deoplete#enable()
 
@@ -193,6 +194,9 @@ else
     let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 endif
 
+" JSON
+set conceallevel=0
+
 " Rust
 let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path=$HOME.'/rust/src'
@@ -263,9 +267,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" if has('conceal')
+  " set conceallevel=2 concealcursor=niv
+" endif
 
 
 "startify
