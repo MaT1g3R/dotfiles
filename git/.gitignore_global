@@ -43,3 +43,8 @@ Temporary Items
 .envrc
 # VS Code
 **/.vscode
+stress-test/jmeter.log
+stress-test/jmeter/summary.orig.csv
+.graphqlconfig
+schema.graphql
+.python-version
