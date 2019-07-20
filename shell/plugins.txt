@@ -4,6 +4,7 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 b4b4r07/enhancd
 RobSis/zsh-completion-generator
+Tarrasch/zsh-autoenv
 
 robbyrussell/oh-my-zsh path:plugins/git
 robbyrussell/oh-my-zsh path:plugins/fancy-ctrl-z

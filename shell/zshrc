@@ -42,8 +42,8 @@ fi
 # cd without cd
 setopt auto_cd
 
-# direnv
-eval "$(direnv hook zsh)"
+# zsh-autoenv
+export AUTOENV_FILE_ENTER=.envrc
 
 source $HOME/private.zsh
 export PATH=$HOME/bin:$PATH
