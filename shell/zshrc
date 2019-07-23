@@ -61,6 +61,9 @@ complete -o nospace -C /usr/local/bin/vault vault
 bindkey -e
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 #set history size
 export HISTSIZE=10000
