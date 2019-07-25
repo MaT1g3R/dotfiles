@@ -49,3 +49,6 @@ stress-test/jmeter/summary.orig.csv
 schema.graphql
 .python-version
 .zsh-completions
+gce-startup-script-jumphost.vagrant.sh
+jumphost.vagrant.json
+.zshcomplete
