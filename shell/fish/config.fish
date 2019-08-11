@@ -18,6 +18,13 @@ set -x PAGER nvimpager
 set -x BAT_PAGER less
 set -x TASKRC ~/.config/task/taskrc
 
+#GPG stuff
+set -x GPG_TTY (tty)
+set -x GPG_AGENT_INFO
+if [ (uname) = 'Linux' ]
+    eval (keychain --eval -Q --quiet id_dsa id_rsa)
+end
+
 # direnv
 direnv hook fish | source
 
