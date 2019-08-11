@@ -22,7 +22,10 @@ set -x TASKRC ~/.config/task/taskrc
 set -x GPG_TTY (tty)
 set -x GPG_AGENT_INFO
 if [ (uname) = 'Linux' ]
+    set prev_shell $SHELL
+    set -x SHELL fish
     eval (keychain --eval -Q --quiet id_dsa id_rsa)
+    set -x SHELL $prev_shell
 end
 
 # direnv
