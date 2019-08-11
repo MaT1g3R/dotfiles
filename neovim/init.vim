@@ -38,6 +38,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'markdown'] }
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript'}
+Plug 'dag/vim-fish', {'for': 'fish'}
 Plug 'martinda/Jenkinsfile-vim-syntax'
 call plug#end()
 call deoplete#enable()
@@ -271,6 +272,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
   " set conceallevel=2 concealcursor=niv
 " endif
 
+" shell
+if &shell =~# 'fish$'
+  set shell=/usr/bin/zsh
+endif
 
 "startify
 let g:startify_session_dir = '~/.cache/nvim/session'
