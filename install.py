@@ -101,10 +101,6 @@ def common_commands(verbose, force, init):
     init
         True to run the init scripts
     """
-    if init:
-        if not (HOME / '.oh-my-zsh').is_dir():
-            sh(f'sh {(HERE / "shell" / "oh-my-zsh")}')
-
     global_gitig_path = HOME / '.gitignore_global'
     link_one(
         verbose, force, Path('git').resolve() / '.gitignore_global', global_gitig_path
