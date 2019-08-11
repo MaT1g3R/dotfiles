@@ -17,7 +17,7 @@ end
 
 set -x PYENV_ROOT ~/.pyenv
 set -x -g PATH $PYENV_ROOT/bin $PATH
-# set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1
+set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1
 status --is-interactive; and pyenv init - | source
 status --is-interactive; and pyenv virtualenv-init - | source
 
