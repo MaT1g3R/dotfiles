@@ -11,7 +11,9 @@
     "Python/pylintrc": "~/.pylintrc",
     "tmux/tmux.conf": "~/.tmux.conf",
     "tmux/tmux.conf.local": "~/.tmux.conf.local",
-    "shell/zshrc": "~/.zshrc"
+    "shell/zshrc": "~/.zshrc",
+    "shell/fish": "~/.config/fish",
+    "shell/fisher": "~/.config/fisher"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",
