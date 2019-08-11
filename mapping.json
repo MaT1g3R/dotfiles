@@ -13,7 +13,8 @@
     "tmux/tmux.conf.local": "~/.tmux.conf.local",
     "shell/zshrc": "~/.zshrc",
     "shell/fish": "~/.config/fish",
-    "shell/fisher": "~/.config/fisher"
+    "shell/fisher": "~/.config/fisher",
+    "shell/starship.toml": "~/.config/starship.toml"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",
@@ -24,7 +25,7 @@
     "macos/.chunkwmrc": "~/.chunkwmrc",
     "macos/.skhdrc": "~/.skhdrc",
     "ubersicht/*": "~/Library/Application Support/Übersicht/widgets/*"
-    },
+  },
   "kde": {
     "kde/konsole/colorscheme/*": "~/.local/share/konsole/*",
     "kde/konsole/Shell.profile": "~/.local/share/konsole/Shell.profile",
