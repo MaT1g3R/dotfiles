@@ -58,6 +58,9 @@ source $HOME/dotfiles/completions/*
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
+# nix
+source /etc/profile.d/nix.sh
+
 # emacs mode
 bindkey -e
 bindkey "^[[1;5D" backward-word

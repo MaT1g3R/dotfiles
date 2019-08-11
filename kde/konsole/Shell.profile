@@ -9,7 +9,7 @@ UseFontLineChararacters=true
 CursorShape=0
 
 [General]
-Command=/bin/zsh
+Command=/bin/fish
 Directory=~
 Name=Shell
 Parent=FALLBACK/
