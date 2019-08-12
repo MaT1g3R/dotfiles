@@ -49,6 +49,7 @@ alias grrm='git remote remove'
 alias grset='git remote set-url'
 #compdef _git grset=git-remote
 alias grup='git remote update'
+alias grb='git rebase'
 #compdef _git grset=git-remote
 alias grbi='git rebase -i'
 #compdef _git grbi=git-rebase
