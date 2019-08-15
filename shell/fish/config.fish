@@ -9,6 +9,8 @@ if [ (uname) != 'Linux' ]
     set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
 end
 
+source ~/private.fish
+
 # prompt
 eval (starship init fish)
 
@@ -35,7 +37,7 @@ direnv hook fish | source
 clear
 if [ -z $TMUX ]
     if [ (uname) != 'Linux' ] || [ (basename '/'(ps -f -p (cat /proc/(echo $fish_pid)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')) != "yakuake" ]
-        curl -s wttr.in/Toronto | head -n 17
+        curl -s wttr.in/Toronto | head -n 17 || true
     end
     task
 end
