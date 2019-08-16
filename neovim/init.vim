@@ -1,48 +1,18 @@
-" Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdcommenter'
 Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-sensible'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
-Plug 'scrooloose/nerdcommenter'
-Plug 'w0rp/ale'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-git'
-Plug 'tpope/vim-speeddating'
-Plug 'reedes/vim-lexical'
-Plug 'ervandew/supertab'
-Plug 'davidhalter/jedi-vim'
-" Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
-Plug 'mhinz/vim-startify'
-Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
-Plug 'vim-scripts/SyntaxRange'
-Plug 'kana/vim-smartinput'
-" For func argument completion
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-"
-" " File plugins
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'donRaphaco/neotex', { 'for': 'tex' }
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'zchee/deoplete-clang', {'for': ['c', 'cpp']}
-Plug 'vivien/vim-linux-coding-style', {'for': 'c'}
-Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
-Plug 'jceb/vim-orgmode', {'for': 'org'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'markdown'] }
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': 'javascript'}
-Plug 'dag/vim-fish', {'for': 'fish'}
-Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'reedes/vim-lexical'
+Plug 'w0rp/ale'
 call plug#end()
-call deoplete#enable()
 
+let g:coc_global_extensions=[
+\   'coc-python',
+\   'coc-rls',
+\]
 set mouse=a
 " Default format: 4 spaces, 79 line length, unix line ending
 set sw=4
@@ -54,6 +24,29 @@ set encoding=utf8
 set ignorecase
 set smartcase
 set magic
+" Line number
+set number
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Clipboard
+set clipboard=unnamedplus
+
+" Ftplugins
+filetype plugin indent on
+
+" Line length
+set colorcolumn=80
 
 " Shortcuts
 
@@ -61,8 +54,6 @@ set magic
     let mapleader = ","
     let maplocalleader = ","
 
-    " Map C-x to C-w to do window stuff easier
-    map <C-x> <C-w>
     " Map C-/ to toggle comments
     " Vim sees / as _ for some reason
     map <C-_> <leader>c<space>
@@ -147,64 +138,12 @@ colorscheme base16-oceanicnext
         let g:airline#extensions#tabline#show_close_button = 1 
         let g:airline#extensions#tabline#close_symbol = 'X'
 
-        " Vimtex
-        let g:airline#extensions#vimtex#enabled = 1
-        let g:airline#extensions#vimtex#left = "{"
-        let g:airline#extensions#vimtex#right = "}"
-        let g:polyglot_disabled = ['latex']
-        
-        " NeoTex
-        let g:tex_flavor = 'latex'
-        let g:neotex_latexdiff = 1
-        let g:neotex_delay = 500
-
         " ALE
         let g:airline#extensions#ale#enabled = 1
         let airline#extensions#ale#error_symbol = 'E:'
         let airline#extensions#ale#warning_symbol = 'W:'
         let airline#extensions#ale#open_lnum_symbol = '(L'
         let airline#extensions#ale#close_lnum_symbol = ')'
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:neosnippet#enable_completed_snippet = 1
-let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim/bin/python'
-
-" Show line numbers
-set number
-
-" Modeline
-set modeline
-
-" Clipboard
-set clipboard=unnamedplus
-
-" Ftplugins
-filetype plugin indent on
-
-" Line length
-set colorcolumn=80
-
-" Clang completion
-if has('macunix')
-    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-    let g:deoplete#sources#clang#clang_header = '/Library/Developer/CommandLineTools/usr/lib/clang/'
-else
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-endif
-
-" JSON
-set conceallevel=0
-
-" Rust
-let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path=$HOME.'/rust/src'
-let g:rustfmt_autosave = 1
-
-" Convert between spaces and tabs
-source ~/.config/nvim/space_tab.vim
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -228,112 +167,115 @@ let g:lexical#spell_key = '<leader>s'
 let g:lexical#thesaurus_key = '<leader>t'
 let g:lexical#dictionary_key = '<leader>k'
 
-" jedi-vim
-let g:pymode_rope = 0
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#use_splits_not_buffers = "top"
-let g:jedi#goto_command = "<leader>b"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<leader><space>"
-let g:jedi#rename_command = "<leader>r"
-
-" Supertab
-let g:SuperTabDefaultCompletionType = "<C-n>"
-let g:SuperTabContextDefaultCompletionType = "<C-n>"
-
-" Prettier
-let g:prettier#quickfix_enabled = 0
-let g:prettier#autoformat = 0
-
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
-
-" neosnippet
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-" if has('conceal')
-  " set conceallevel=2 concealcursor=niv
-" endif
-
 " shell
 if &shell =~# 'fish$'
   set shell=/usr/bin/zsh
 endif
-
-"startify
-let g:startify_session_dir = '~/.cache/nvim/session'
-let g:startify_files_number = 5
-let g:startify_update_oldfiles = 1
-let g:startify_padding_left = 4
-nmap <Leader>z :Startify<CR>
-highlight StartifyHeader    guifg=#6699CC
-
-let g:startify_custom_header = [
-\ '',
-\ '    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗', 
-\ '    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║',
-\ '    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║',
-\ '    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
-\ '    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
-\ '    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝'
-\ ]
-
-let g:startify_list_order = [
-        \ ['   Files:'],
-        \ 'bookmarks',
-        \ ['   Sessions:'],
-        \ 'sessions',
-        \ ['   Recent files:'],
-        \ 'files',
-        \ ['   Commands:'],
-        \ 'commands',
-        \ ]
-
-if has('macunix')
-    let g:startify_bookmarks = [
-            \ {'d1': '~/dotfiles/shell/zshrc'},
-            \ {'d2': '~/dotfiles/neovim/init.vim'},
-            \ ]
-else
-    let g:startify_bookmarks = [
-            \ {'d1': '~/dotfiles/shell/zshrc'},
-            \ {'d2': '~/dotfiles/neovim/init.vim'},
-            \ {'d3': '~/nfs/docker-compose.yml'},
-            \ {'d4': '~/nfs/Caddyfile'},
-            \ ]
-endif
-
-let g:startify_commands = [
-        \ {'p1': ['Update All Plugins', ':PlugUpdate']},
-        \ {'p2': ['Install New Plugins', ':PlugInstall']},
-        \ {'p3': ['Clean Old Plugins', ':PlugClean']},
-        \ {'p4': ['Upgrade vim-plug', ':PlugUpgrade']},
-        \ {'p5': ['Plugin Status', ':PlugStatus']},
-        \ {'ch': ['Check Health', ':checkhealth']},
-        \ {'r': ['Reload init.vim', ':so ~/dotfiles/neovim/init.vim']},
-        \ ]
 
 " Source local vimrc if there's any
 if filereadable(".vimrc_local")
     source .vimrc_local
 endif
 
-" Custom command
-:command Automake :autocmd BufWritePost <buffer> make
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
