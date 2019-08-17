@@ -33,6 +33,9 @@ end
 # direnv
 direnv hook fish | source
 
+# color scheme
+set -u fish_color_end blue
+
 # startup
 clear
 if [ -z $TMUX ]
