@@ -12,6 +12,7 @@ call plug#end()
 let g:coc_global_extensions=[
 \   'coc-python',
 \   'coc-rls',
+\   'coc-json'
 \]
 set mouse=a
 " Default format: 4 spaces, 79 line length, unix line ending
@@ -279,3 +280,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Jsonc
+autocmd FileType json syntax match Comment +\/\/.\+$+
