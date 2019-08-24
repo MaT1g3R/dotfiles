@@ -14,7 +14,8 @@
     "shell/zshrc": "~/.zshrc",
     "shell/fish": "~/.config/fish",
     "shell/fisher": "~/.config/fisher",
-    "shell/starship.toml": "~/.config/starship.toml"
+    "shell/starship.toml": "~/.config/starship.toml",
+    "lazygit/config.yml": "~/.config/jesseduffield/lazygit/config.yml"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",

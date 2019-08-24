@@ -1,0 +1,6 @@
+reporting: "off"
+gui:
+  theme:
+    activeBorderColor:
+      - blue
+      - bold
