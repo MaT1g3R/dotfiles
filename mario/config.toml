@@ -1,0 +1,16 @@
+base_exec_before = """
+from pathlib import Path
+"""
+
+[[command]]
+name = "glob"
+help = "Glob over a directory"
+arguments = [{name="pattern", type="str"}]
+inject_values=["pattern"]
+
+    [[command.stages]]
+    command = "eval"
+    params = {code="glob.glob(pattern)"}
+
+    [[command.stages]]
+    command = "chain"

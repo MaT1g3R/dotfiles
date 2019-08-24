@@ -15,7 +15,8 @@
     "shell/fish": "~/.config/fish",
     "shell/fisher": "~/.config/fisher",
     "shell/starship.toml": "~/.config/starship.toml",
-    "lazygit/config.yml": "~/.config/jesseduffield/lazygit/config.yml"
+    "lazygit/config.yml": "~/.config/jesseduffield/lazygit/config.yml",
+    "mario": "~/.config/mario"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",
