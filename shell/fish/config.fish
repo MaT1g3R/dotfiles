@@ -40,7 +40,7 @@ set -u fish_color_end blue
 clear
 if [ -z $TMUX ]
     if [ (uname) != 'Linux' ] || [ (basename '/'(ps -f -p (cat /proc/(echo $fish_pid)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')) != "yakuake" ]
-        curl -s wttr.in/Toronto | head -n 17 || true
+        curl -s wttr.in/Toronto -m 2 | head -n 17 || true
     end
     task
 end
