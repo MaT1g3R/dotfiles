@@ -5,5 +5,8 @@
       "rootPatterns": ["build.sbt"],
       "filetypes": ["scala", "sbt"]
     }
-  }
+  },
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true
 }
