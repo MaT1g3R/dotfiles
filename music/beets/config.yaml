@@ -1,0 +1,5 @@
+directory: ~/nfs/media/audio/Library
+library: ~/nfs/media/audio/Library.db
+import:
+  hardlink: yes
+  write: yes
