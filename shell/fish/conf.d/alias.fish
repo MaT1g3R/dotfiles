@@ -1,4 +1,6 @@
 #alias
+alias git=hub
+
 alias die='shutdown now'
 alias fd="fdfind"
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'

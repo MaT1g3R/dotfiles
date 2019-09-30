@@ -52,3 +52,4 @@ schema.graphql
 gce-startup-script-jumphost.vagrant.sh
 jumphost.vagrant.json
 .zshcomplete
+.metals
