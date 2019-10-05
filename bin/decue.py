@@ -14,7 +14,7 @@ def decue_one(files, cue):
     name = cue.name.rsplit('.')[0]
     for file in files:
         if file.name.rsplit('.')[0] == name and file.suffix != '.cue':
-            run(['flacon', '-s', str(cue)], check=True)
+            run(['flacon', '-s', str(cue)], check=False)
     LOGS.append(str(cue))
     print(f'Could not find audio file matching {cue}', file=sys.stderr)
 
