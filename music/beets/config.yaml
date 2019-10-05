@@ -3,3 +3,7 @@ library: ~/nfs/media/audio/Library.db
 import:
   hardlink: yes
   write: yes
+plugins: duplicates
+duplicates:
+  tiebreak:
+    items: [bitrate]
