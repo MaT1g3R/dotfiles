@@ -36,9 +36,9 @@ replaygain                 "off"
 ## done processing
 
 ## start processing `02_paths.conf'
-music_directory                   "~/Music"
+music_directory                   "~/nfs/media/audio/Library"
 log_file                          "~/.mpd/log"
-playlist_directory                "~/.mpd/playlists/"
+playlist_directory                "~/nfs/media/audio/Playlists"
 pid_file                          "~/.mpd/pid"
 state_file                        "~/.mpd/state"
 sticker_file                      "~/.mpd/sticker.sql"

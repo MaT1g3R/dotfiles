@@ -3,7 +3,13 @@ library: ~/nfs/media/audio/Library.db
 import:
   hardlink: yes
   write: yes
-plugins: duplicates
+plugins:
+  - duplicates
+  - fromfilename
+  - playlist
 duplicates:
   tiebreak:
     items: [bitrate]
+playlist:
+  auto: yes
+  playlist_dir: ~/nfs/media/audio/Playlists
