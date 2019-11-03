@@ -32,7 +32,7 @@ if [ (uname) = 'Linux' ] # Linux
     alias pac-optimize='trizen -Sc; sudo pacman-optimize'
     alias pac-orphans='trizen -Rns (trizen -Qtdq)'
     alias play='mpd;ncmpcpp'
-    alias yolo='trizen -Syu;bash ~/scripts/update_quarter_tiling.sh'
+    alias yolo='trizen -Syu'
 else # macOS
     alias cc='gcc-8'
     alias gcc='gcc-8'
