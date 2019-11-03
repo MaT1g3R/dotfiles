@@ -11,3 +11,4 @@ bin/amm
 bin/ji2ts
 bin/kubectl
 fish_variables
+music/beets/state.pickle
