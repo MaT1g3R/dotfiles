@@ -33,6 +33,7 @@ if [ (uname) = 'Linux' ] # Linux
     alias pac-orphans='trizen -Rns (trizen -Qtdq)'
     alias play='mpd;ncmpcpp'
     alias yolo='trizen -Syu'
+    alias restart-plasma='killall plasmashell; kstart5 plasmashell'
 else # macOS
     alias cc='gcc-8'
     alias gcc='gcc-8'
