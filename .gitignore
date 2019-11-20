@@ -12,3 +12,9 @@ bin/ji2ts
 bin/kubectl
 fish_variables
 music/beets/state.pickle
+fonts/.uuid
+fonts/PragmataPro*
+bin/chromium
+bin/jetbrains-toolbox
+bin/ji2ts.conf
+bin/ji2ts.jar

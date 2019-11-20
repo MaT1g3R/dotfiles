@@ -1,6 +1,7 @@
-reporting: "off"
 gui:
   theme:
-    activeBorderColor:
-      - blue
-      - bold
+    activebordercolor:
+    - blue
+    - bold
+reporting: "off"
+startuppopupversion: 1

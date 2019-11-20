@@ -7,6 +7,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'
 Plug 'reedes/vim-lexical'
 Plug 'w0rp/ale'
+Plug 'psliwka/vim-smoothie'
 call plug#end()
 
 let g:coc_global_extensions=[

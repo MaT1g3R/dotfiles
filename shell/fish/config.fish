@@ -2,7 +2,7 @@
 
 set -U fish_greeting
 
-set -x -g PATH ~/.local/bin ~/bin $PATH
+set -x -g PATH ~/kde/src/kdesrc-build ~/.local/bin ~/bin /snap/bin $PATH
 
 if [ (uname) != 'Linux' ]
     set -x -g PATH /usr/local/opt/qt/bin /usr/local/opt/llvm/bin /usr/local/bin /usr/local/opt/coreutils/libexec/gnubin $PATH
@@ -35,6 +35,10 @@ direnv hook fish | source
 
 # color scheme
 set -u fish_color_end blue
+
+# fzf
+set -x FZF_DEFAULT_COMMAND 'fdfind --type f'
+set -x FZF_DEFAULT_OPTS '--preview "bat --style=numbers --color=always {} 2> /dev/null | head -500"'
 
 # startup
 clear
