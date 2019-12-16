@@ -9,6 +9,7 @@ alias gpa='git pushall'
 alias gpp='git pull; git push'
 alias gssg="git status -s | awk -F / '{ print $NF, $0 }' | sed -e 's/\.scala/A/' | sort -k 1 | sed 's/.* //'"
 alias grep='rg'
+alias k='kubectl'
 alias lg='lazygit'
 alias ls='ls_extended'
 alias l='ls -lah'
