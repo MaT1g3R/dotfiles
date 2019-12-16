@@ -1,4 +1,5 @@
 #alias
+alias cat=bat
 alias git=hub
 
 alias die='shutdown now'
