@@ -29,7 +29,6 @@ to the file system. The top level key names are the categories of the settings.
 They will be read by the install script and show up as options for the install.
 For example `common` will be used by the `-common` flag.
 
-
 The keys under the categories are the paths to the config file/directory source
 relative to the `dotfiles` directory, the values are the absolute paths on the
 file system to symbolic link the config files to.
