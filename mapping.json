@@ -17,7 +17,9 @@
     "shell/starship.toml": "~/.config/starship.toml",
     "lazygit/config.yml": "~/.config/jesseduffield/lazygit/config.yml",
     "mario": "~/.config/mario",
-    "music/beets": "~/.config/beets"
+    "music/beets": "~/.config/beets",
+    "emacs/emacs": "~/.emacs",
+    "emacs/emacs.d": "~/.emacs.d"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",
