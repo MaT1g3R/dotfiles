@@ -14,8 +14,8 @@ source ~/private.fish
 # prompt
 eval (starship init fish)
 
-set -x EDITOR nvim
-set -x VISUAL $EDITOR
+set -x EDITOR "emacsclient -t"
+set -x VISUAL "emacsclient -c -a emacs"
 set -x PAGER nvimpager
 set -x BAT_PAGER less
 set -x TASKRC ~/.config/task/taskrc
