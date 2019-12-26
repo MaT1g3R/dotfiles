@@ -24,7 +24,8 @@
     "fonts": "~/.local/share/fonts",
     "X/Xresources": "~/.Xresources",
     "X/xsession": "~/.xsession",
-    "X/.Xmodmap": "~/.Xmodmap"
+    "X/.Xmodmap": "~/.Xmodmap",
+    "emacs/emacsclient.desktop": "~/.local/share/applications/emacsclient.desktop"
   },
   "macos": {
     "macos/.chunkwmrc": "~/.chunkwmrc",
