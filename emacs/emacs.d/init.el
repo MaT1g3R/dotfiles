@@ -68,6 +68,9 @@
 (use-package vterm :ensure t)
 (global-set-key "\M-t" 'vterm)
 
+(use-package emojify :ensure t)
+(add-hook 'after-init-hook #'global-emojify-mode)
+
 (require 'init-fonts)
 (require 'init-slack)
 (require 'liga-mode)
