@@ -42,7 +42,7 @@
 (use-package evil :ensure t
   :config  (require 'evil (evil-mode t)))
 
-(global-set-key "\M-e" 'evil-mode)
+(global-set-key "\C-c\C-e" 'evil-mode)
 
 (use-package magit :ensure t)
 
@@ -66,6 +66,7 @@
       evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
 
 (use-package vterm :ensure t)
+(global-set-key "\M-t" 'vterm)
 
 (require 'init-fonts)
 (require 'init-slack)
