@@ -21,7 +21,5 @@ feh --bg-scale ~/dotfiles/wallpapers/0.jpg ~/dotfiles/wallpapers/1.jpg ~/dotfile
 jetbrains-toolbox &
 nextcloud &
 yakuake &
-xmodmap -e 'clear Lock' &
-xmodmap -e 'keycode 66 = Escape' &
-xmodmap -e 'keycode 9 = Caps_Lock' &
+xmodmap "$HOME/.Xmodmap" &
 mpd &

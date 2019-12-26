@@ -23,7 +23,8 @@
   "linux": {
     "fonts": "~/.local/share/fonts",
     "X/Xresources": "~/.Xresources",
-    "X/xsession": "~/.xsession"
+    "X/xsession": "~/.xsession",
+    "X/.Xmodmap": "~/.Xmodmap"
   },
   "macos": {
     "macos/.chunkwmrc": "~/.chunkwmrc",
