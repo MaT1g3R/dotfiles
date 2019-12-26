@@ -39,10 +39,22 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package evil :ensure t
-  :config  (require 'evil (evil-mode t)))
-
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
 (global-set-key "\C-c\C-e" 'evil-mode)
+
+(use-package evil-collection
+  :after (evil helm)
+  :ensure t
+  :config
+  (setq evil-collection-setup-minibuffer t)
+  (evil-collection-init))
+
 
 (use-package magit :ensure t)
 
@@ -50,6 +62,12 @@
   :config (require 'evil-magit))
 
 (use-package helm :ensure t)
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(evil-define-key 'normal 'global
+  ",b" 'helm-mini)
+(evil-define-key 'normal 'global
+  ";" 'helm-M-x)
 
 (use-package base16-theme
   :ensure t
