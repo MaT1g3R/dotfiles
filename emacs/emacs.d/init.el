@@ -1,3 +1,4 @@
+;;; init.el -- My Emacs configuration
 ;-*-Emacs-Lisp-*-
 
 (set-language-environment "UTF-8")
@@ -39,14 +40,12 @@
   (require 'use-package))
 
 (use-package evil :ensure t
-  :config (require 'evil (evil-mode t))
-  )
+  :config (require 'evil (evil-mode t)))
 
 (use-package magit :ensure t)
 
 (use-package evil-magit :ensure t
-  :config (require 'evil-magit)
-  )
+  :config (require 'evil-magit))
 
 (use-package helm :ensure t)
 
@@ -67,4 +66,5 @@
 (use-package vterm :ensure t)
 
 (require 'init-fonts)
+(require 'init-slack)
 (require 'liga-mode)
