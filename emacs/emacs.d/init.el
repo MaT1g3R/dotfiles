@@ -39,6 +39,21 @@
 (eval-when-compile
   (require 'use-package))
 
+;;; esc quits
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
+
+(use-package key-chord :ensure t)
+(require 'key-chord)
+(key-chord-mode 1)
+
 (use-package evil
   :ensure t
   :init
@@ -47,6 +62,14 @@
   :config
   (evil-mode 1))
 (global-set-key "\C-c\C-e" 'evil-mode)
+(key-chord-define evil-insert-state-map  "ii" 'evil-normal-state)
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
 (use-package evil-collection
   :after (evil helm)
@@ -54,7 +77,6 @@
   :config
   (setq evil-collection-setup-minibuffer t)
   (evil-collection-init))
-
 
 (use-package magit :ensure t)
 

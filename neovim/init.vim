@@ -10,6 +10,8 @@ Plug 'w0rp/ale'
 Plug 'psliwka/vim-smoothie'
 call plug#end()
 
+:imap ii <Esc>
+
 let g:coc_global_extensions=[
 \   'coc-python',
 \   'coc-rls',
