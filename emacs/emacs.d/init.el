@@ -8,16 +8,21 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+(defconst directories-to-load (list (expand-file-name "lisp" user-emacs-directory) "~/dotfiles_private/emacs.d"))
 
 ;; Add all directories within "lisp"
-(let ((files (directory-files-and-attributes "~/.emacs.d/lisp" t)))
-  (dolist (file files)
-    (let ((filename (car file))
-          (dir (nth 1 file)))
-      (when (and dir
-                 (not (string-suffix-p "." filename)))
-        (add-to-list 'load-path (car file))))))
+(defun load-directory (directory)
+  (add-to-list 'load-path directory)
+  (let ((files (directory-files-and-attributes directory t)))
+    (dolist (file files)
+      (let ((filename (car file))
+	    (dir (nth 1 file)))
+	(when (and dir
+		   (not (string-suffix-p "." filename)))
+	  (add-to-list 'load-path (car file)))))))
+
+(dolist (dir directories-to-load) (load-directory dir))
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -35,13 +40,13 @@
 
 (use-package evil :ensure t
   :config (require 'evil (evil-mode t))
-)
+  )
 
 (use-package magit :ensure t)
 
 (use-package evil-magit :ensure t
   :config (require 'evil-magit)
-)
+  )
 
 (use-package helm :ensure t)
 
