@@ -40,7 +40,9 @@
   (require 'use-package))
 
 (use-package evil :ensure t
-  :config (require 'evil (evil-mode t)))
+  :config  (require 'evil (evil-mode t)))
+
+(global-set-key "\M-e" 'evil-mode)
 
 (use-package magit :ensure t)
 
