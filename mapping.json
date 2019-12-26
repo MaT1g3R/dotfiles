@@ -18,8 +18,7 @@
     "lazygit/config.yml": "~/.config/jesseduffield/lazygit/config.yml",
     "mario": "~/.config/mario",
     "music/beets": "~/.config/beets",
-    "emacs/emacs.d": "~/.emacs.d",
-    "emacs/emacs.service": "~/.config/systemd/user/emacs.service"
+    "emacs/emacs.d": "~/.emacs.d"
   },
   "linux": {
     "fonts": "~/.local/share/fonts",
