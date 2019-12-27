@@ -4,11 +4,15 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
-;; Leave this here, or package.el will just add it again.
-(package-initialize)
-
 (require 'package)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+
 (setq package-enable-at-startup nil)
+(package-initialize)
 
 (defconst directories-to-load (list (expand-file-name "lisp" user-emacs-directory) "~/dotfiles_private/emacs.d"))
 
@@ -24,10 +28,6 @@
 	  (add-to-list 'load-path (car file)))))))
 
 (dolist (dir directories-to-load) (load-directory dir))
-
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -49,6 +49,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (setq deactivate-mark  t)
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
+
+(display-line-numbers-mode)
 
 (use-package key-chord :ensure t)
 (require 'key-chord)
