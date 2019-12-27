@@ -114,3 +114,4 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require 'init-fonts)
 (require 'init-slack)
 (require 'liga-mode)
+(require 'init-powerline)
