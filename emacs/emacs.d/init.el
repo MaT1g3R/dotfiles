@@ -115,3 +115,4 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require 'init-slack)
 (require 'liga-mode)
 (require 'init-powerline)
+(require 'init-projectile)
