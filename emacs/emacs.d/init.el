@@ -95,7 +95,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ",b" 'helm-projectile-switch-to-buffer)
 (evil-define-key 'normal 'global
   ";" 'helm-M-x)
-(evil-define-key 'normal 'global (kbd "C-f") 'projectile-find-file)
+(evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
 
 (use-package base16-theme
   :ensure t
