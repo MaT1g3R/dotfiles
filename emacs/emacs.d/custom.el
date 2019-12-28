@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
+    (company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
  '(vterm-shell "/usr/bin/fish"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

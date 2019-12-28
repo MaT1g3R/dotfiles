@@ -117,6 +117,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package emojify :ensure t)
 (add-hook 'after-init-hook #'global-emojify-mode)
 
+(use-package company :ensure t)
+(add-hook 'after-init-hook 'global-company-mode)
+
 (require 'init-fonts)
 (require 'init-slack)
 (require 'liga-mode)
