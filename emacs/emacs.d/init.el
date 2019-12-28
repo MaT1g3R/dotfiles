@@ -50,7 +50,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
-(display-line-numbers-mode)
+(global-display-line-numbers-mode)
 
 (use-package evil
   :ensure t
