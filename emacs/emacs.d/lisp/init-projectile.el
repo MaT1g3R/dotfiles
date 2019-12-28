@@ -1,5 +1,5 @@
 (use-package helm-projectile
-  :commands (helm-projectile helm-projectile-switch-project)
+  :commands (helm-projectile helm-projectile-switch-project helm-projectile-switch-to-buffer)
   :ensure t)
 
 (use-package projectile
