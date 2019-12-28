@@ -121,3 +121,4 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require 'liga-mode)
 (require 'init-powerline)
 (require 'init-projectile)
+(require 'init-treemacs)
