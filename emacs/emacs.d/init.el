@@ -111,7 +111,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
 
 (use-package vterm :ensure t)
-(global-set-key "\M-t" 'vterm)
+(global-set-key "\M-t" 'projectile-run-vterm)
 
 (use-package emojify :ensure t)
 (add-hook 'after-init-hook #'global-emojify-mode)
