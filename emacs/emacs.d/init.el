@@ -52,10 +52,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (display-line-numbers-mode)
 
-(use-package key-chord :ensure t)
-(require 'key-chord)
-(key-chord-mode 1)
-
 (use-package evil
   :ensure t
   :init
@@ -64,7 +60,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (evil-mode 1))
 (global-set-key "\C-c\C-e" 'evil-mode)
-(key-chord-define evil-insert-state-map  "ii" 'evil-normal-state)
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
 (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
@@ -72,6 +67,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+(use-package evil-escape
+  :ensure t
+  :requires evil
+  :config
+  (evil-escape-mode t)
+  (setq-default evil-escape-key-sequence "ii"
+    evil-escape-delay 0.2))
 
 (use-package evil-collection
   :after (evil helm)
