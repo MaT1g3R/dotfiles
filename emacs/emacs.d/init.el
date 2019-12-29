@@ -1,9 +1,6 @@
 ;;; init.el -- My Emacs configuration
 ;-*-Emacs-Lisp-*-
 
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-
 (require 'package)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
@@ -50,7 +47,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
 
-(global-display-line-numbers-mode)
 
 (use-package evil
   :ensure t
@@ -123,9 +119,18 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package company :ensure t)
 (add-hook 'after-init-hook 'global-company-mode)
 
+(use-package org :ensure t)
+(require 'org)
+
+(use-package org-evil :ensure t)
+(require 'org-evil)
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
+
 (require 'init-fonts)
 (require 'init-slack)
 (require 'liga-mode)
 (require 'init-powerline)
 (require 'init-projectile)
 (require 'init-treemacs)
+
+(provide 'init)

@@ -1,0 +1,13 @@
+* Basic tweaks
+
+#+BEGIN_SRC emacs-lisp
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
+
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+
+  (global-display-line-numbers-mode)
+  (column-number-mode +1)
+#+END_SRC
