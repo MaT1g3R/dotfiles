@@ -1,13 +1,216 @@
 * Basic tweaks
 
 #+BEGIN_SRC emacs-lisp
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
 
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
-  (global-display-line-numbers-mode)
-  (column-number-mode +1)
+;; display line and column number
+(global-display-line-numbers-mode)
+(column-number-mode +1)
+
+;; better scrolling experience
+(setq scroll-margin 0
+  scroll-conservatively 10000
+  scroll-preserve-screen-position t
+  auto-window-vscroll nil)
+
+;; increase line space for better readability
+(setq-default line-spacing 3)
+
+;; always use spaces for indentation (default to 4 spaces).
+(setq-default indent-tabs-mode nil
+tab-width 4)
+
+;; insert new line at end of file
+(setq require-final-newline 'visit-save)
+
+;; strip trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; put all backup files in emacs directory
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+
+;; esc quits
+(defun minibuffer-keyboard-quit ()
+  "Abort recursive edit.
+In Delete Selection mode, if the mark is active, just deactivate it;
+then it takes a second \\[keyboard-quit] to abort the minibuffer."
+  (interactive)
+  (if (and delete-selection-mode transient-mark-mode mark-active)
+      (setq deactivate-mark  t)
+    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+    (abort-recursive-edit)))
+(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+#+END_SRC
+
+* Configuration for built-in packages
+
+Since we're using use-package as our package management system, we might as well
+try to organize under the same syntax as much as possible to keep the
+configuration consistent. The option ~use-package-always-ensure~ is turned on in
+~init.el~, so we'll add ~:ensure nil~ when configuring the built-in packages.
+
+** Automatically refreshes the buffer for changes outside of Emacs
+Auto refreshes every 2 seconds. Don’t forget to refresh the version control status as well.
+#+BEGIN_SRC emacs-lisp
+(use-package autorevert
+  :ensure nil
+  :config
+  (global-auto-revert-mode +1)
+  (setq auto-revert-interval 2
+        auto-revert-check-vc-info t
+        global-auto-revert-non-file-buffers t
+        auto-revert-verbose nil))
+#+END_SRC
+
+** Show matching parentheses
+Reduce the highlight delay to instantly.
+#+BEGIN_SRC emacs-lisp
+(use-package paren
+  :ensure nil
+  :config
+  (setq show-paren-delay 0)
+  (show-paren-mode +1))
+#+END_SRC
+
+** Dried
+ #+BEGIN_SRC emacs-lisp
+ (use-package dired
+  :ensure nil
+  :config
+  (put 'dired-find-alternate-file 'disabled nil) ; reuse same buffer when navigating
+  (setq delete-by-moving-to-trash t))
+ #+END_SRC
+
+* Third-party packages
+Normally, we need to add ~:ensure t~ to tell use-package to download packages
+when it’s not available. But since we’ve added ~use-package-always-ensure~ in
+~init.el~, we can omit it.
+
+** Evil
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :diminish undo-tree-mode
+  :init
+  (setq evil-want-C-u-scroll t)
+  (setq evil-shift-width 4)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode +1)
+  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
+    (define-key evil-insert-state-map (kbd "C-n") nil)
+    (define-key evil-insert-state-map (kbd "C-p") nil))
+  (defun my/save-and-kill-this-buffer ()
+    (interactive)
+    (save-buffer)
+    (kill-this-buffer))
+  (evil-ex-define-cmd "q" 'kill-this-buffer)
+  (evil-ex-define-cmd "wq" 'my/save-and-kill-this-buffer)
+  (use-package evil-commentary
+    :after evil
+    :diminish evil-commentary-mode
+    :config (evil-commentary-mode +1)))
+
+(use-package evil-escape
+  :requires evil
+  :config
+  (evil-escape-mode t)
+  (setq-default evil-escape-key-sequence "ii"
+    evil-escape-delay 0.2))
+
+(use-package evil-collection
+  :after (evil helm)
+  :config
+  (setq evil-collection-setup-minibuffer t)
+  (evil-collection-init))
+
+(global-set-key "\C-c\C-e" 'evil-mode)
+(define-key evil-normal-state-map [escape] 'keyboard-quit)
+(define-key evil-visual-state-map [escape] 'keyboard-quit)
+(evil-define-key 'normal 'global (kbd "C-/") 'comment-line)
+(evil-define-key 'normal 'global "zs" 'my-save-word)
+#+END_SRC
+
+** Company for auto-completion
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :diminish company-mode
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.1
+        company-selection-wrap-around t
+        company-tooltip-align-annotations t
+        company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
+                            company-echo-metadata-frontend))
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "C-j") 'company-select-next)
+    (define-key company-active-map (kbd "C-k") 'company-select-previous)
+    (define-key company-active-map (kbd "RET") 'company-complete)))
+(add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+** Flycheck
+A modern on-the-fly syntax checking extension – absolutely essential
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck :config (global-flycheck-mode +1))
+#+END_SRC
+
+** Magit
+#+BEGIN_SRC emacs-lisp
+(use-package magit)
+(use-package evil-magit)
+#+END_SRC
+
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . org-indent-mode))
+  :config
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-<tab>") nil))
+  (use-package org-bullets :hook (org-mode . org-bullets-mode)))
+(use-package org-evil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm)
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(evil-define-key 'normal 'global
+  ",b" 'helm-projectile-switch-to-buffer)
+(evil-define-key 'normal 'global
+  ";" 'helm-M-x)
+(evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
+
+(use-package base16-theme
+  :config
+  (load-theme 'base16-oceanicnext t))
+
+(use-package all-the-icons)
+
+;; Set the cursor color based on the evil state
+(defvar my/base16-colors base16-oceanicnext-colors)
+(setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
+      evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
+      evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
+      evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
+      evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
+      evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
+
+(use-package vterm)
+(global-set-key "\M-t" 'projectile-run-vterm)
+
+(use-package emojify)
+(add-hook 'after-init-hook #'global-emojify-mode)
+
+
 #+END_SRC
