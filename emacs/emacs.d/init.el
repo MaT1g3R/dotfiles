@@ -64,6 +64,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (evil-define-key 'normal 'global (kbd "C-/") 'comment-line)
+(evil-define-key 'normal 'global "zs" 'my-save-word)
 
 (use-package evil-escape
   :ensure t
@@ -132,5 +133,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require 'init-powerline)
 (require 'init-projectile)
 (require 'init-treemacs)
+(require 'init-spelling)
 
 (provide 'init)

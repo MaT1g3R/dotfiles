@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ispell-personal-dictionary "~/dotfiles/emacs/emacs.d/word-list")
  '(package-selected-packages
    (quote
     (org-evil all-the-icons company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))

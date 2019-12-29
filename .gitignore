@@ -31,3 +31,4 @@ emacs/emacs.d/*
 !emacs/emacs.d/custom.el
 !emacs/emacs.d/themes
 !emacs/emacs.d/config.org
+!emacs/emacs.d/word-list
