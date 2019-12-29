@@ -102,6 +102,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :config
   (load-theme 'base16-oceanicnext t))
 
+(use-package all-the-icons :ensure t)
+
 ;; Set the cursor color based on the evil state
 (defvar my/base16-colors base16-oceanicnext-colors)
 (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
