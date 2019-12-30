@@ -5,6 +5,26 @@
 ;;; Short init.el to bootstrap config.org
 
 ;;; Code:
+(defvar file-name-handler-alist-original file-name-handler-alist)
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      site-run-file nil)
+
+(defvar my/gc-cons-threshold 20000000)
+
+(add-hook 'emacs-startup-hook ; hook run after loading init files
+          (lambda ()
+            (setq gc-cons-threshold my/gc-cons-threshold
+                  gc-cons-percentage 0.1
+                  file-name-handler-alist file-name-handler-alist-original)))
+
+(add-hook 'minibuffer-setup-hook (lambda ()
+                                   (setq gc-cons-threshold (* my/gc-cons-threshold 2))))
+(add-hook 'minibuffer-exit-hook (lambda ()
+                                  (garbage-collect)
+                                  (setq gc-cons-threshold my/gc-cons-threshold)))
+
 ;; Add all directories within "lisp"
 (defun load-directory (directory)
   (add-to-list 'load-path directory)
