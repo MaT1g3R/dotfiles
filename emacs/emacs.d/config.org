@@ -152,6 +152,7 @@ when it’s not available. But since we’ve added ~use-package-always-ensure~ i
   (use-package emojify)
   (add-hook 'after-init-hook #'global-emojify-mode)
 
+  ;; Spaceline for mode line
   (use-package spaceline)
   (setq powerline-default-separator 'wave)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
