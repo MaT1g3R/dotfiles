@@ -1,4 +1,9 @@
- ;; init-powerline.el --- Powerline configuration
+;;; init-powerline.el --- Powerline configuration
+
+;;; Commentary:
+
+;;; Code:
+
 (defface my-pl-segment1-active
   '((t (:foreground "#F99157" :background "#343D46")))
   "Powerline first segment active face.")
@@ -79,12 +84,11 @@
                              (powerline-render rhs)))))))
 
 (use-package powerline
-  :ensure t
   :config
   (setq powerline-default-separator  'arrow)
   (air--powerline-default-theme))
 
-(use-package powerline-evil
-  :ensure t)
+(use-package powerline-evil :after 'evil)
 
 (provide 'init-powerline)
+;;; init-powerline.el ends here

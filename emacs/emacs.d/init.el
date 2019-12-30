@@ -51,13 +51,5 @@
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 
-(require 'init-fonts)
-(require 'init-slack)
-(require 'liga-mode)
-(require 'init-powerline)
-(require 'init-projectile)
-(require 'init-treemacs)
-(require 'init-spelling)
-
 (provide 'init)
 ;;; init.el ends here

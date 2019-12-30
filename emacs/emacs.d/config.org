@@ -12,6 +12,10 @@
 (global-display-line-numbers-mode)
 (column-number-mode +1)
 
+;; Setup fonts
+(require 'init-fonts)
+(require 'init-liga)
+
 ;; better scrolling experience
 (setq scroll-margin 0
   scroll-conservatively 10000
@@ -90,11 +94,48 @@ Reduce the highlight delay to instantly.
   (setq delete-by-moving-to-trash t))
  #+END_SRC
 
+** Spell checker
+#+BEGIN_SRC emacs-lisp
+(require 'init-spelling)
+#+END_SRC
 * Third-party packages
 Normally, we need to add ~:ensure t~ to tell use-package to download packages
 when it’s not available. But since we’ve added ~use-package-always-ensure~ in
 ~init.el~, we can omit it.
 
+** Look and feel
+#+BEGIN_SRC emacs-lisp
+;; base16-oceanicnext theme
+(use-package base16-theme
+  :config
+  (load-theme 'base16-oceanicnext t))
+
+;; Set the cursor color based on the evil state
+(defvar my/base16-colors base16-oceanicnext-colors)
+(setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
+      evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
+      evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
+      evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
+      evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
+      evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
+
+(use-package all-the-icons)
+
+(use-package emojify)
+(add-hook 'after-init-hook #'global-emojify-mode)
+
+(require 'init-powerline)
+#+END_SRC
+
+** Vterm for terminal
+#+BEGIN_SRC emacs-lisp
+(use-package vterm)
+(global-set-key "\M-t" 'projectile-run-vterm)
+#+END_SRC
+** Slack
+#+BEGIN_SRC emacs-lisp
+(require 'init-slack)
+#+END_SRC
 ** Evil
 #+BEGIN_SRC emacs-lisp
 (use-package evil
@@ -181,6 +222,7 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (use-package org-evil)
 #+END_SRC
 
+** Helm for searching everywhere
 #+BEGIN_SRC emacs-lisp
 (use-package helm)
 (require 'helm-config)
@@ -190,27 +232,103 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (evil-define-key 'normal 'global
   ";" 'helm-M-x)
 (evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
+#+END_SRC
 
-(use-package base16-theme
+** Project management
+Projectile for project management, treemacs for project file management
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile
+  :commands (helm-projectile helm-projectile-switch-project helm-projectile-switch-to-buffer helm-projectile-find-file)
+  :ensure t)
+
+(use-package projectile
+  :ensure t
+  :defer 1
   :config
-  (load-theme 'base16-oceanicnext t))
+  (projectile-mode)
+  (setq projectile-enable-caching t)
+  (setq projectile-mode-line
+        '(:eval
+          (format " Proj[%s]"
+                  (projectile-project-name)))))
+#+END_SRC
 
-(use-package all-the-icons)
+*** Treemacs
+#+BEGIN_SRC emacs-lisp
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay      0.5
+          treemacs-directory-name-transformer    #'identity
+          treemacs-display-in-side-window        t
+          treemacs-eldoc-display                 t
+          treemacs-file-event-delay              5000
+          treemacs-file-extension-regex          treemacs-last-period-regex-value
+          treemacs-file-follow-delay             0.2
+          treemacs-file-name-transformer         #'identity
+          treemacs-follow-after-init             t
+          treemacs-git-command-pipe              ""
+          treemacs-goto-tag-strategy             'refetch-index
+          treemacs-indentation                   2
+          treemacs-indentation-string            " "
+          treemacs-is-never-other-window         nil
+          treemacs-max-git-entries               5000
+          treemacs-missing-project-action        'ask
+          treemacs-no-png-images                 nil
+          treemacs-no-delete-other-windows       t
+          treemacs-project-follow-cleanup        nil
+          treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                      'left
+          treemacs-recenter-distance             0.1
+          treemacs-recenter-after-file-follow    nil
+          treemacs-recenter-after-tag-follow     nil
+          treemacs-recenter-after-project-jump   'always
+          treemacs-recenter-after-project-expand 'on-distance
+          treemacs-show-cursor                   nil
+          treemacs-show-hidden-files             t
+          treemacs-silent-filewatch              nil
+          treemacs-silent-refresh                nil
+          treemacs-sorting                       'alphabetic-asc
+          treemacs-space-between-root-nodes      t
+          treemacs-tag-follow-cleanup            t
+          treemacs-tag-follow-delay              1.5
+          treemacs-width                         35)
 
-;; Set the cursor color based on the evil state
-(defvar my/base16-colors base16-oceanicnext-colors)
-(setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
-      evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
-      evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
-      evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
-      evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
-      evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    (treemacs-resize-icons 22)
 
-(use-package vterm)
-(global-set-key "\M-t" 'projectile-run-vterm)
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-1"   . treemacs)
+        ("C-x t M-t" . treemacs-find-tag)))
 
-(use-package emojify)
-(add-hook 'after-init-hook #'global-emojify-mode)
+(use-package treemacs-evil
+  :after treemacs evil)
 
+(use-package treemacs-projectile
+  :after treemacs projectile)
 
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit)
 #+END_SRC

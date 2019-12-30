@@ -191,4 +191,4 @@
 
 (global-prettify-symbols-mode +1)
 
-(provide 'liga-mode)
+(provide 'init-liga)
