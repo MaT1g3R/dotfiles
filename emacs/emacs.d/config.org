@@ -377,6 +377,11 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (use-package org-evil)
 (evil-define-key 'normal org-mode-map ",i" 'org-clock-in)
 (evil-define-key 'normal org-mode-map ",o" 'org-clock-out)
+(org-babel-do-load-languages
+ 'org-babel-load-languages '(
+(shell . t)
+(emacs-lisp . t)
+))
 #+END_SRC
 
 *** Yasnippet & yasnippet-snippets
