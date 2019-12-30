@@ -369,6 +369,8 @@ A modern on-the-fly syntax checking extension – absolutely essential
     (define-key org-mode-map (kbd "C-<tab>") nil))
   (use-package org-bullets :hook (org-mode . org-bullets-mode)))
 (use-package org-evil)
+(evil-define-key 'normal org-mode-map ",i" 'org-clock-in)
+(evil-define-key 'normal org-mode-map ",o" 'org-clock-out)
 #+END_SRC
 
 *** Yasnippet & yasnippet-snippets
@@ -395,6 +397,23 @@ Markdown mode and JSON mode
 (use-package json-mode)
 #+END_SRC
 ** Misc
+*** Diminish minor modes
+The diminish package is used to hide unimportant minor modes in the modeline.
+It provides the :diminish keyword we’ve been using in other use-package declarations.
+#+begin_src emacs-lisp
+(use-package diminish
+  :demand t)
+#+end_src
+*** Which-key
+Provides us with hints on available keystroke combinations.
+#+begin_src emacs-lisp
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode +1)
+  (setq which-key-idle-delay 0.4
+        which-key-idle-secondary-delay 0.4))
+#+end_src
 *** Vterm for terminal
 #+BEGIN_SRC emacs-lisp
 (use-package vterm)

@@ -6,7 +6,7 @@
  '(ispell-personal-dictionary "~/dotfiles/emacs/emacs.d/word-list")
  '(package-selected-packages
    (quote
-    (json-mode markdown-mode yasnippet-snippets highlight-escape-sequences highlight-operators highlight-numbers spaceline dashboard flycheck evil-commentary org-evil all-the-icons company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
+    (which-key diminish json-mode markdown-mode yasnippet-snippets highlight-escape-sequences highlight-operators highlight-numbers spaceline dashboard flycheck evil-commentary org-evil all-the-icons company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
  '(vterm-shell "/usr/bin/fish"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
