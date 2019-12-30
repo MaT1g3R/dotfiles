@@ -224,18 +224,6 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 (use-package evil-magit)
 #+END_SRC
 
-** Org Mode
-#+BEGIN_SRC emacs-lisp
-(use-package org
-  :hook ((org-mode . visual-line-mode)
-         (org-mode . org-indent-mode))
-  :config
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-<tab>") nil))
-  (use-package org-bullets :hook (org-mode . org-bullets-mode)))
-(use-package org-evil)
-#+END_SRC
-
 ** Project management
 *** Helm for searching everywhere
 #+BEGIN_SRC emacs-lisp
@@ -371,6 +359,41 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (use-package flycheck :config (global-flycheck-mode +1))
 #+END_SRC
 
+*** Org Mode
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . org-indent-mode))
+  :config
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-<tab>") nil))
+  (use-package org-bullets :hook (org-mode . org-bullets-mode)))
+(use-package org-evil)
+#+END_SRC
+
+*** Yasnippet & yasnippet-snippets
+Use TAB to expand snippets. The code snippet below also avoids clashing with company-mode.
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet-snippets
+  :config
+  (yas-global-mode +1)
+  (advice-add 'company-complete-common
+              :before
+              (lambda ()
+                (setq my-company-point (point))))
+  (advice-add 'company-complete-common
+              :after
+              (lambda ()
+                (when (equal my-company-point (point))
+                  (yas-expand)))))
+#+END_SRC
+*** Useful major modes
+Markdown mode and JSON mode
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode :hook (markdown-mode . visual-line-mode))
+
+(use-package json-mode)
+#+END_SRC
 ** Misc
 *** Vterm for terminal
 #+BEGIN_SRC emacs-lisp
