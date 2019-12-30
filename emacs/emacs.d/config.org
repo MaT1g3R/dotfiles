@@ -235,6 +235,9 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 (evil-define-key 'normal 'global
   ";" 'helm-M-x)
 (evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
+
+(use-package helm-rg)
+(require 'helm-rg)
 #+END_SRC
 
 *** Treemacs for project file management
