@@ -110,12 +110,10 @@ Reduce the highlight delay to instantly.
   :ensure nil
   :hook (prog-mode . electric-pair-mode))
 #+END_SRC
-
 * Third-party packages
 Normally, we need to add ~:ensure t~ to tell use-package to download packages
 when it’s not available. But since we’ve added ~use-package-always-ensure~ in
 ~init.el~, we can omit it.
-
 ** Look and feel
 #+BEGIN_SRC emacs-lisp
   ;; base16-oceanicnext theme
@@ -161,6 +159,18 @@ when it’s not available. But since we’ve added ~use-package-always-ensure~ i
   (spaceline-helm-mode)
 #+END_SRC
 
+** Syntax highlighting
+Lightweight syntax highlighting improvement for numbers, operators, and escape sequences.
+#+BEGIN_SRC emacs-lisp
+(use-package highlight-numbers
+  :hook (prog-mode . highlight-numbers-mode))
+
+(use-package highlight-operators
+  :hook (prog-mode . highlight-operators-mode))
+
+(use-package highlight-escape-sequences
+  :hook (prog-mode . hes-mode))
+#+END_SRC
 ** Vterm for terminal
 #+BEGIN_SRC emacs-lisp
 (use-package vterm)
