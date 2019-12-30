@@ -218,7 +218,9 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 
 ** Magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit)
+(use-package magit
+  :bind ("C-x g" . magit-status)
+  :config (add-hook 'with-editor-mode-hook #'evil-insert-state))
 (use-package evil-magit)
 #+END_SRC
 
