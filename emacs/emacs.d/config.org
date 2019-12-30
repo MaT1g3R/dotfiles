@@ -402,6 +402,15 @@ Markdown mode and JSON mode
 
 (use-package json-mode)
 #+END_SRC
+*** Kubernetes
+#+begin_src emacs-lisp
+(use-package kubernetes
+  :commands (kubernetes-overview))
+
+(use-package kubernetes-evil
+  :after kubernetes)
+#+end_src
+
 ** Misc
 *** Diminish minor modes
 The diminish package is used to hide unimportant minor modes in the modeline.
