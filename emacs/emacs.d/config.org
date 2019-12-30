@@ -114,7 +114,8 @@ Reduce the highlight delay to instantly.
 Normally, we need to add ~:ensure t~ to tell use-package to download packages
 when it’s not available. But since we’ve added ~use-package-always-ensure~ in
 ~init.el~, we can omit it.
-** Look and feel
+** GUI enhancements
+*** Look and feel
 #+BEGIN_SRC emacs-lisp
   ;; base16-oceanicnext theme
   (use-package base16-theme
@@ -159,7 +160,7 @@ when it’s not available. But since we’ve added ~use-package-always-ensure~ i
   (spaceline-helm-mode)
 #+END_SRC
 
-** Syntax highlighting
+*** Syntax highlighting
 Lightweight syntax highlighting improvement for numbers, operators, and escape sequences.
 #+BEGIN_SRC emacs-lisp
 (use-package highlight-numbers
@@ -171,16 +172,7 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 (use-package highlight-escape-sequences
   :hook (prog-mode . hes-mode))
 #+END_SRC
-** Vterm for terminal
-#+BEGIN_SRC emacs-lisp
-(use-package vterm)
-(global-set-key "\M-t" 'projectile-run-vterm)
-#+END_SRC
-** Slack
-#+BEGIN_SRC emacs-lisp
-(require 'init-slack)
-#+END_SRC
-** Evil
+** Vi keybindings
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :diminish undo-tree-mode
@@ -224,30 +216,6 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
   (evil-define-key 'normal 'global "zs" 'my-save-word)
 #+END_SRC
 
-** Company for auto-completion
-#+BEGIN_SRC emacs-lisp
-(use-package company
-  :diminish company-mode
-  :config
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.1
-        company-selection-wrap-around t
-        company-tooltip-align-annotations t
-        company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
-                            company-echo-metadata-frontend))
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "C-j") 'company-select-next)
-    (define-key company-active-map (kbd "C-k") 'company-select-previous)
-    (define-key company-active-map (kbd "RET") 'company-complete)))
-(add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
-
-** Flycheck
-A modern on-the-fly syntax checking extension – absolutely essential
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck :config (global-flycheck-mode +1))
-#+END_SRC
-
 ** Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit)
@@ -266,7 +234,8 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (use-package org-evil)
 #+END_SRC
 
-** Helm for searching everywhere
+** Project management
+*** Helm for searching everywhere
 #+BEGIN_SRC emacs-lisp
 (use-package helm)
 (require 'helm-config)
@@ -278,27 +247,7 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
 #+END_SRC
 
-** Project management
-Projectile for project management, treemacs for project file management
-
-#+BEGIN_SRC emacs-lisp
-(use-package helm-projectile
-  :commands (helm-projectile helm-projectile-switch-project helm-projectile-switch-to-buffer helm-projectile-find-file)
-  :ensure t)
-
-(use-package projectile
-  :ensure t
-  :defer 1
-  :config
-  (projectile-mode)
-  (setq projectile-enable-caching t)
-  (setq projectile-mode-line
-        '(:eval
-          (format " Proj[%s]"
-                  (projectile-project-name)))))
-#+END_SRC
-
-*** Treemacs
+*** Treemacs for project file management
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs
   :ensure t
@@ -375,4 +324,58 @@ Projectile for project management, treemacs for project file management
 
 (use-package treemacs-magit
   :after treemacs magit)
+#+END_SRC
+
+*** Projectile for project management
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile
+  :commands (helm-projectile helm-projectile-switch-project helm-projectile-switch-to-buffer helm-projectile-find-file)
+  :ensure t)
+
+(use-package projectile
+  :ensure t
+  :defer 1
+  :config
+  (projectile-mode)
+  (setq projectile-enable-caching t)
+  (setq projectile-mode-line
+        '(:eval
+          (format " Proj[%s]"
+                  (projectile-project-name)))))
+#+END_SRC
+
+** Programming language support and utilities
+*** Company for auto-completion
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :diminish company-mode
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.1
+        company-selection-wrap-around t
+        company-tooltip-align-annotations t
+        company-frontends '(company-pseudo-tooltip-frontend ; show tooltip even for single candidate
+                            company-echo-metadata-frontend))
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "C-j") 'company-select-next)
+    (define-key company-active-map (kbd "C-k") 'company-select-previous)
+    (define-key company-active-map (kbd "RET") 'company-complete)))
+(add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+*** Flycheck
+A modern on-the-fly syntax checking extension – absolutely essential
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck :config (global-flycheck-mode +1))
+#+END_SRC
+
+** Misc
+*** Vterm for terminal
+#+BEGIN_SRC emacs-lisp
+(use-package vterm)
+(global-set-key "\M-t" 'projectile-run-vterm)
+#+END_SRC
+*** Slack
+#+BEGIN_SRC emacs-lisp
+(require 'init-slack)
 #+END_SRC
