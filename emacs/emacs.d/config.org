@@ -334,6 +334,12 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
                   (projectile-project-name)))))
 #+END_SRC
 
+*** JIRA
+#+begin_src emacs-lisp
+(use-package org-jira)
+(setq jiralib-url "https://jira.garnercorp.com")
+#+end_src
+
 ** Programming language support and utilities
 *** Company for auto-completion
 #+BEGIN_SRC emacs-lisp
