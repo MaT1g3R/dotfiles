@@ -172,46 +172,46 @@ when it’s not available. But since we’ve added ~use-package-always-ensure~ i
 #+END_SRC
 ** Evil
 #+BEGIN_SRC emacs-lisp
-(use-package evil
-  :diminish undo-tree-mode
-  :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-shift-width 4)
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-mode +1)
-  (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
-    (define-key evil-insert-state-map (kbd "C-n") nil)
-    (define-key evil-insert-state-map (kbd "C-p") nil))
-  (defun my/save-and-kill-this-buffer ()
-    (interactive)
-    (save-buffer)
-    (kill-this-buffer))
-  (evil-ex-define-cmd "q" 'kill-this-buffer)
-  (evil-ex-define-cmd "wq" 'my/save-and-kill-this-buffer)
-  (use-package evil-commentary
-    :after evil
-    :diminish evil-commentary-mode
-    :config (evil-commentary-mode +1)))
+  (use-package evil
+    :diminish undo-tree-mode
+    :init
+    (setq evil-want-C-u-scroll t)
+    (setq evil-shift-width 4)
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode +1)
+    (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
+      (define-key evil-insert-state-map (kbd "C-n") nil)
+      (define-key evil-insert-state-map (kbd "C-p") nil))
+    (defun my/save-and-kill-this-buffer ()
+      (interactive)
+      (save-buffer)
+      (kill-this-buffer))
+    (evil-ex-define-cmd "q" 'kill-this-buffer)
+    (evil-ex-define-cmd "wq" 'my/save-and-kill-this-buffer)
+    (use-package evil-commentary
+      :after evil
+      :diminish evil-commentary-mode
+      :config (evil-commentary-mode +1)))
 
-(use-package evil-escape
-  :requires evil
-  :config
-  (evil-escape-mode t)
-  (setq-default evil-escape-key-sequence "ii"
-    evil-escape-delay 0.2))
+  (use-package evil-escape
+    :requires evil
+    :config
+    (evil-escape-mode t)
+    (setq-default evil-escape-key-sequence "ii"
+      evil-escape-delay 0.2))
 
-(use-package evil-collection
-  :after (evil helm)
-  :config
-  (setq evil-collection-setup-minibuffer t)
-  (evil-collection-init))
+  (use-package evil-collection
+    :after (evil helm)
+    :config
+    (setq evil-collection-setup-minibuffer t)
+    (evil-collection-init))
 
-(global-set-key "\C-c\C-e" 'evil-mode)
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(evil-define-key 'normal 'global (kbd "C-/") 'comment-line)
-(evil-define-key 'normal 'global "zs" 'my-save-word)
+  (global-set-key "\C-c\C-e" 'evil-mode)
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (evil-define-key 'normal 'global (kbd "C-/") 'evil-commentary)
+  (evil-define-key 'normal 'global "zs" 'my-save-word)
 #+END_SRC
 
 ** Company for auto-completion
