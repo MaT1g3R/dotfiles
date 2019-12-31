@@ -1,19 +1,17 @@
 #!/usr/bin/fish
-function socks-on --description "set socks5 proxy on HOST PORT"
-    set host $argv[1]
-    set port $argv[2]
+function socks-on --description "set socks5 proxy on HOST PORT" -a host port
     set usage "Usage: socks-on HOST PORT"
-    if [ -z $host ] || [ $host = "" ]
+    if [ -z "$host" ]
         echo $usage
         return 1
     end
-    if [ -z $port ] || [ $port = "" ]
+    if [ -z "$port" ]
         echo $usage
         return 1
     end
     echo turning on socks proxy to $host:$port
     set running_pid (ps ax | rg "ssh -D $port -f -C -q -N $host" | rg -v rg | awk '{ print $1 }')
-    if [ -z $running_pid ] || [ "$running_pid" = "" ]
+    if [ -z "$running_pid" ]
         echo ssh tunnel not running, establishing connection
         ssh -D $port -f -C -q -N $host
     else
