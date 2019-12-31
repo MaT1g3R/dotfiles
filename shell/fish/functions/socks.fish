@@ -25,7 +25,7 @@ end
 
 function socks-off --description "turn off socks5 proxy and kill all ssh tunnels"
     echo turning off socks proxy
-    # kill all pids running ssh tunnels
+    # kill all running ssh tunnels
     for pid in (ps ax | rg "ssh -D" | rg -v rg | awk '{ print $1 }')
         kill $pid
     end
