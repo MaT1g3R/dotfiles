@@ -1,5 +1,5 @@
 #!/usr/bin/fish
-function socks-on --description "set socks proxy on HOST PORT"
+function socks-on --description "set socks5 proxy on HOST PORT"
     set host $argv[1]
     set port $argv[2]
     set usage "Usage: socks-on HOST PORT"
@@ -23,7 +23,7 @@ function socks-on --description "set socks proxy on HOST PORT"
     set -U -x https_proxy $http_proxy
 end
 
-function socks-off
+function socks-off --description "turn off socks5 proxy and kill all ssh tunnels"
     echo turning off socks proxy
     # kill all pids running ssh tunnels
     for pid in (ps ax | rg "ssh -D" | rg -v rg | awk '{ print $1 }')
