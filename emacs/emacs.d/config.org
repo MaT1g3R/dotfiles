@@ -385,6 +385,8 @@ A modern on-the-fly syntax checking extension – absolutely essential
 (shell . t)
 (emacs-lisp . t)
 ))
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
 #+END_SRC
 
 *** Yasnippet & yasnippet-snippets
