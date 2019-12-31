@@ -21,6 +21,11 @@ function socks-on --description "set socks5 proxy on HOST PORT"
     end
     set -U -x http_proxy socks5://127.0.0.1:$port
     set -U -x https_proxy $http_proxy
+
+    # set gcloud proxy
+    gcloud config set proxy/type socks5
+    gcloud config set proxy/address 127.0.0.1
+    gcloud config set proxy/port $port
 end
 
 function socks-off --description "turn off socks5 proxy and kill all ssh tunnels"
@@ -31,4 +36,9 @@ function socks-off --description "turn off socks5 proxy and kill all ssh tunnels
     end
     set -e http_proxy
     set -e https_proxy
+
+    # unset gcloud proxy
+    gcloud config unset proxy/type
+    gcloud config unset proxy/address
+    gcloud config unset proxy/port
 end
