@@ -448,3 +448,8 @@ Provides us with hints on available keystroke combinations.
 #+BEGIN_SRC emacs-lisp
 (require 'init-slack)
 #+END_SRC
+* My own functions
+Load and configure my own functions
+#+BEGIN_SRC emacs-lisp
+(require 'timesheet)
+#+END_SRC
