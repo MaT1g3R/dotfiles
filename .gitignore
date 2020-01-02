@@ -19,6 +19,7 @@ bin/jetbrains-toolbox
 bin/ji2ts.conf
 bin/ji2ts.jar
 bin/navi
+bin/export-timesheet
 
 # Ignore all of emacs.d, which is mostly compiled/downloaded scripts.
 emacs/emacs.d/*
