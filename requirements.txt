@@ -1,3 +1,4 @@
+ipython
 mario
 pip
 pyls-black
