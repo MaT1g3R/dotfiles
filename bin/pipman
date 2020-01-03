@@ -1,2 +1,96 @@
-#!/bin/sh
-pip install -U -r ~/dotfiles/requirements.txt
+#!/usr/bin/env python3
+import sys
+import subprocess
+from argparse import ArgumentParser
+from pathlib import Path
+from contextlib import contextmanager
+from functools import wraps
+
+
+PACKAGE_FILE = Path.home() / "dotfiles" / "requirements.txt"
+PACKAGE_LOCK_FILE = Path.home() / "dotfiles" / "requirements.txt.lock"
+
+
+def run_pip(args):
+    res = subprocess.run(["pip"] + args)
+    returncode = res.returncode
+    if returncode != 0:
+        sys.exit(returncode)
+
+
+@contextmanager
+def package_lock():
+    if PACKAGE_LOCK_FILE.exists():
+        sys.exit(
+            "package lock file exists, make sure there's not another instance of pipman running."
+        )
+    try:
+        PACKAGE_LOCK_FILE.touch()
+        yield
+    finally:
+        PACKAGE_LOCK_FILE.unlink()
+
+
+def non_empty_packages(func):
+    @wraps(func)
+    def wrapper(packages, *args):
+        if not packages:
+            sys.exit("must provide at least one package")
+        return func(packages, *args)
+
+    return wrapper
+
+
+def read_packages():
+    return set(PACKAGE_FILE.read_text().strip().splitlines())
+
+
+def write_packages(packages):
+    PACKAGE_FILE.write_text("\n".join(sorted(packages)))
+
+
+@non_empty_packages
+def install(packages, to_upgrade=False):
+    upgrade_flag = ["-U"] if to_upgrade else []
+    run_pip(["install"] + upgrade_flag + list(packages))
+    new_package_list = packages | read_packages()
+    write_packages(new_package_list)
+
+
+def upgrade(packages):
+    if packages:
+        install(packages, True)
+    else:
+        run_pip(["install", "-U", "-r", str(PACKAGE_FILE)])
+
+
+@non_empty_packages
+def remove(packages):
+    old_packages = read_packages()
+    not_installed = packages - old_packages
+    if not_installed:
+        sys.exit(f"packages {not_installed} are not installed.")
+    run_pip(["uninstall"] + list(packages))
+    write_packages(old_packages - packages)
+
+
+COMMANDS = {"install": install, "upgrade": upgrade, "remove": remove}
+
+
+def arg_parser():
+    parser = ArgumentParser(description="manage user pip packages.")
+    parser.add_argument("command", choices=list(COMMANDS))
+    parser.add_argument("packages", nargs="*")
+    return parser
+
+
+def main():
+    args = arg_parser().parse_args()
+    command = args.command
+    packages = args.packages
+    with package_lock():
+        COMMANDS[command](set(packages))
+
+
+if __name__ == "__main__":
+    main()
