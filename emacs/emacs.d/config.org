@@ -344,6 +344,31 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 #+end_src
 
 ** Programming language support and utilities
+*** LSP mode
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode
+  :hook (python-mode . lsp-deferred)
+  :config
+
+  ;; lsp extras
+  (use-package lsp-ui
+    :ensure t
+    :config
+    (setq lsp-ui-sideline-ignore-duplicate t)
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+    (add-hook 'python-mode-hook 'flycheck-mode))
+
+  (use-package company-lsp
+    :config
+    (push 'company-lsp company-backends))
+
+  (use-package helm-lsp :commands helm-lsp-workspace-symbol)
+  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+  (lsp-treemacs-sync-mode 1)
+  (evil-define-key 'normal 'global (kbd "<SPC>l") 'lsp-format-buffer))
+
+#+END_SRC
+
 *** Company for auto-completion
 #+BEGIN_SRC emacs-lisp
 (use-package company

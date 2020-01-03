@@ -7,7 +7,7 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (helm-rg org-bullets kubernetes-evil kubernetes org-jira which-key diminish json-mode markdown-mode yasnippet-snippets highlight-escape-sequences highlight-operators highlight-numbers spaceline dashboard flycheck evil-commentary org-evil all-the-icons company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
+    (helm-lsp lsp-treemacs company-lsp lsp-ui lsp-mode helm-rg org-bullets kubernetes-evil kubernetes org-jira which-key diminish json-mode markdown-mode yasnippet-snippets highlight-escape-sequences highlight-operators highlight-numbers spaceline dashboard flycheck evil-commentary org-evil all-the-icons company treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs evil-escape emojify ## helm-projectile powerline-evil powerline key-chord evil-collection emojify-logos slack evil-magit base16-theme vterm helm magit evil use-package)))
  '(vterm-shell "/usr/bin/fish"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
