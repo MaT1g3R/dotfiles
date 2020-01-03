@@ -28,14 +28,14 @@ alias what-the-commit='git commit -m (echo (curl -s http://whatthecommit.com/ind
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux
-    alias aur='trizen'
+    alias aur='yay'
     alias buku='~/venv/buku/bin/buku'
     alias open='mimeopen'
-    alias pac-mirror='sudo pacman-mirrors -f 0 && trizen -Syy'
-    alias pac-optimize='trizen -Sc; sudo pacman-optimize'
-    alias pac-orphans='trizen -Rns (trizen -Qtdq)'
+    alias pac-mirror='sudo pacman-mirrors -f 0 && yay -Syy'
+    alias pac-optimize='yay -Sc; sudo pacman-optimize'
+    alias pac-orphans='yay -Rns (yay -Qtdq)'
     alias play='mpd;ncmpcpp'
-    alias yolo='trizen -Syu'
+    alias yolo='yay -Syu'
     alias restart-plasma='killall plasmashell; kstart5 plasmashell'
 else # macOS
     alias cc='gcc-8'
