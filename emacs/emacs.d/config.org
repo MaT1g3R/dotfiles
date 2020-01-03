@@ -453,6 +453,12 @@ Provides us with hints on available keystroke combinations.
 #+BEGIN_SRC emacs-lisp
 (require 'init-slack)
 #+END_SRC
+*** Set exec-path
+#+BEGIN_SRC emacs-lisp
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize)
+#+END_SRC
+
 * My own functions
 Load and configure my own functions
 #+BEGIN_SRC emacs-lisp
