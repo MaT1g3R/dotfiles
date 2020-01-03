@@ -1,5 +1,6 @@
 \.idea/
 \.vscode/
+__pycache__
 ls-i
 dir-i
 vdir-i
