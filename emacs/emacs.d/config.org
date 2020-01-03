@@ -231,7 +231,7 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (evil-define-key 'normal 'global
-  ",b" 'helm-projectile-switch-to-buffer)
+  (kbd "<SPC>b") 'helm-projectile-switch-to-buffer)
 (evil-define-key 'normal 'global
   ";" 'helm-M-x)
 (evil-define-key 'normal 'global (kbd "C-f") 'helm-projectile-find-file)
@@ -378,8 +378,8 @@ A modern on-the-fly syntax checking extension – absolutely essential
     (define-key org-mode-map (kbd "C-<tab>") nil))
   (use-package org-bullets :hook (org-mode . org-bullets-mode)))
 (use-package org-evil)
-(evil-define-key 'normal org-mode-map ",i" 'org-clock-in)
-(evil-define-key 'normal org-mode-map ",o" 'org-clock-out)
+(evil-define-key 'normal org-mode-map (kbd "<SPC>i") 'org-clock-in)
+(evil-define-key 'normal org-mode-map (kbd "<SPC>o") 'org-clock-out)
 (org-babel-do-load-languages
  'org-babel-load-languages '(
 (shell . t)
@@ -422,7 +422,6 @@ Markdown mode and JSON mode
 #+end_src
 
 ** Misc
-
 *** s.el
 #+BEGIN_SRC emacs-lisp
 (use-package s)
