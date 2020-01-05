@@ -367,6 +367,10 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
   (lsp-treemacs-sync-mode 1)
   (evil-define-key 'normal 'global (kbd "<SPC>l") 'lsp-format-buffer))
 #+END_SRC
+*** Yaml
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode)
+#+END_SRC
 
 *** Company for auto-completion
 #+BEGIN_SRC emacs-lisp
