@@ -39,7 +39,7 @@ set -u fish_color_end blue
 # fzf
 set -x FZF_DEFAULT_COMMAND 'fdfind --type f'
 set -x FZF_DEFAULT_OPTS '--preview "bat --style=numbers --color=always {} 2> /dev/null | head -500"'
-set -U FZF_COMPLETE 0
+set -e FZF_COMPLETE
 
 # autojump
 begin
