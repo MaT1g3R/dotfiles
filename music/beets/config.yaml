@@ -1,7 +1,7 @@
 directory: ~/nfs/media/audio/Library
 library: ~/nfs/media/audio/Library.db
 import:
-  hardlink: yes
+  hardlink: no
   write: yes
 plugins:
   - duplicates
