@@ -371,7 +371,6 @@ Lightweight syntax highlighting improvement for numbers, operators, and escape s
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode)
 #+END_SRC
-
 *** Company for auto-completion
 #+BEGIN_SRC emacs-lisp
 (use-package company
@@ -441,9 +440,10 @@ Use TAB to expand snippets. The code snippet below also avoids clashing with com
 Markdown mode and JSON mode
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode :hook (markdown-mode . visual-line-mode))
-
+(use-package flymd)
 (use-package json-mode)
 #+END_SRC
+
 *** Kubernetes
 #+begin_src emacs-lisp
 (use-package kubernetes
