@@ -8,6 +8,7 @@ Plug 'majutsushi/tagbar'
 Plug 'reedes/vim-lexical'
 Plug 'w0rp/ale'
 Plug 'psliwka/vim-smoothie'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 call plug#end()
 
 :imap ii <Esc>
@@ -286,3 +287,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" markdown
+let g:mkdp_browser = 'firefox-nightly'
