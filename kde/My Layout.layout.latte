@@ -1,3 +1,6 @@
+[ActionPlugins][1]
+RightButton;NoModifier=org.kde.latte.contextmenu
+
 [Containments][1]
 activityId=
 byPassWM=false
@@ -121,6 +124,23 @@ DialogWidth=720
 [Containments][1][Applets][23][Configuration][General]
 smoothTransitions=true
 
+[Containments][1][Applets][27]
+immutability=1
+plugin=org.kde.plasma.kickerdash
+
+[Containments][1][Applets][27][Configuration]
+PreloadWeight=100
+
+[Containments][1][Applets][27][Configuration][ConfigDialog]
+DialogHeight=1080
+DialogWidth=2560
+
+[Containments][1][Applets][27][Configuration][General]
+favoritesPortedToKAstats=true
+
+[Containments][1][Applets][27][Shortcuts]
+global=Meta+Space
+
 [Containments][1][Applets][4]
 immutability=1
 plugin=audoban.applet.separator
@@ -152,7 +172,7 @@ PreloadWeight=0
 
 [Containments][1][General]
 advanced=true
-appletOrder=19;17;16;2;23;18;6
+appletOrder=19;27;17;16;2;23;18;6
 highlightWindows=true
 iconMargin=40
 middleClickAction=Close
@@ -199,7 +219,7 @@ immutability=1
 plugin=org.kde.plasma.notifications
 
 [Containments][7][Applets][12][Configuration]
-PreloadWeight=93
+PreloadWeight=98
 
 [Containments][7][Applets][13]
 immutability=1
@@ -238,7 +258,11 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][7][Applets][26][Configuration]
-PreloadWeight=0
+PreloadWeight=5
+
+[Containments][7][Applets][28]
+immutability=1
+plugin=org.kde.plasma.nightcolorcontrol
 
 [Containments][7][Applets][8]
 immutability=1
@@ -263,8 +287,8 @@ DialogHeight=908
 DialogWidth=1265
 
 [Containments][7][General]
-extraItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator
-knownItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator
+extraItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol
+knownItems=org.kde.plasma.printmanager,org.kde.plasma.devicenotifier,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.volume,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol
 
 [LayoutSettings]
 activities=
