@@ -1,7 +1,8 @@
 #alias
 alias cat=bat
 alias git=hub
-
+alias d='docker'
+alias dc='docker-compose'
 alias die='shutdown now'
 alias fd="fdfind"
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'

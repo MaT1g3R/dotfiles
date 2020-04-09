@@ -36,3 +36,5 @@ git branch -d `git branch --merged | grep -v 'master$' | grep -v "$current_branc
 echo "No branches removed."
   fi
 fi
+
+git gc --prune
