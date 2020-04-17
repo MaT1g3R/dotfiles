@@ -112,3 +112,4 @@ flycheck_*.el
 .idea
 metals.sbt
 .bloop
+out
