@@ -1,6 +1,5 @@
 #alias
 alias cat=bat
-alias git=hub
 alias d='docker'
 alias dc='docker-compose'
 alias die='shutdown now'
