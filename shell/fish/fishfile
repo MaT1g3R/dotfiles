@@ -3,3 +3,6 @@ jethrokuan/z
 edc/bass
 evanlucas/fish-kubectl-completions
 jethrokuan/fzf
+reitzig/sdkman-for-fish
+oh-my-fish/plugin-foreign-env
+jorgebucaran/fish-nvm

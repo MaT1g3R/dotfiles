@@ -93,3 +93,7 @@ cat << EOF
     !! : interpreted as the last issued command
     ^foo^bar : takes the last command and replaces foo with bar
 EOF
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/umi/.sdkman"
+[[ -s "/home/umi/.sdkman/bin/sdkman-init.sh" ]] && source "/home/umi/.sdkman/bin/sdkman-init.sh"
