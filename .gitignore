@@ -36,3 +36,13 @@ emacs/emacs.d/*
 !emacs/emacs.d/config.org
 !emacs/emacs.d/word-list
 bin/org2ts
+
+
+bin/ffxiv-env-setup.sh
+bin/ffxiv-env.sh
+bin/ffxiv-run-act.sh
+bin/ffxiv-run-both.sh
+bin/ffxiv-run-game.sh
+bin/machina.sh
+bin/native-image
+bin/teamcraft.sh
