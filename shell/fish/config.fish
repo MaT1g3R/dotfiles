@@ -36,18 +36,13 @@ direnv hook fish | source
 # color scheme
 set -u fish_color_end blue
 
+# zoxide
+zoxide init fish | source
+
 # fzf
 set -x FZF_DEFAULT_COMMAND 'fdfind --type f'
 set -x FZF_DEFAULT_OPTS '--preview "bat --style=numbers --color=always {} 2> /dev/null | head -500"'
 set -e FZF_COMPLETE
-
-# autojump
-begin
-    set --local AUTOJUMP_PATH $HOME/.autojump/share/autojump/autojump.fish
-    if test -e $AUTOJUMP_PATH
-        source $AUTOJUMP_PATH
-    end
-end
 
 # startup
 clear
