@@ -6,6 +6,7 @@ alias die='shutdown now'
 alias fd="fdfind"
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias gi="blindfold"
+alias glom="git pull origin master"
 alias gpa='git pushall'
 alias gpp='git pull; git push'
 alias gssg="git status -s | awk -F / '{ print $NF, $0 }' | sed -e 's/\.scala/A/' | sort -k 1 | sed 's/.* //'"
