@@ -1,19 +1,3 @@
-# ============================== Haskell ======================================
-# add Cabal's bin directory to the executable search PATH if it exists
-if [ -d ~/.cabal/bin ]
-    set -x -g PATH ~/.cabal/bin $PATH
-end
-
-# add Stack's bin directory to the executable search PATH if it exists
-if [ -d ~/.local/bin ]
-    set -x -g PATH ~/.local/bin $PATH
-end
-
-if [ -d ~/.ghcup/bin ]
-    set -x -g PATH ~/.ghcup/bin $PATH
-end
-# =============================================================================
-
 # ============================== Python =======================================
 if [ (uname) != 'Linux' ]
     set -x -g PATH ~/Library/Python/3.7/bin $PATH
