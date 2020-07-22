@@ -1,3 +1,6 @@
+# ============================== Haskell ======================================
+stack --fish-completion-script stack | source
+
 # ============================== Python =======================================
 if [ (uname) != 'Linux' ]
     set -x -g PATH ~/Library/Python/3.7/bin $PATH

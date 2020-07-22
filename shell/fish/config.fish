@@ -16,8 +16,10 @@ eval (starship init fish)
 
 set -x EDITOR nvim
 set -x VISUAL nvim
-set -x PAGER nvimpager
-set -x BAT_PAGER less
+
+set -x PAGER "page -q 90000"
+set -x MANPAGER "page -C -e 'au User PageDisconnect sleep 100m|%y p|enew! |bd! #|pu p|set ft=man'"
+
 set -x TASKRC ~/.config/task/taskrc
 
 #GPG stuff

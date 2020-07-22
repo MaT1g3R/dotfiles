@@ -9,6 +9,7 @@ Plug 'reedes/vim-lexical'
 Plug 'w0rp/ale'
 Plug 'psliwka/vim-smoothie'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'powerman/vim-plugin-AnsiEsc'
 call plug#end()
 
 :imap ii <Esc>
