@@ -4,8 +4,8 @@ alias:
   gdbstack: gdb --batch --ex r --ex bt --ex q --args
   ghci: python3 ~/scripts/ghci_prompt.py
   gpa: git pushall
-  l: ls -lah
-  la: ls -lAh
+  l: ls -laah
+  la: ls -lah
   ll: ls -lh
   pp: git pull; git push
   reload: exec zsh
