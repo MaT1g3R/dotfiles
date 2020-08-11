@@ -10,6 +10,7 @@ alias glom="git pull origin master"
 alias gpa='git pushall'
 alias gpp='git pull; git push'
 alias gssg="git status -s | awk -F / '{ print $NF, $0 }' | sed -e 's/\.scala/A/' | sort -k 1 | sed 's/.* //'"
+alias gsw='git switch'
 alias grep='rg'
 alias k='kubectl'
 alias lg='lazygit'
