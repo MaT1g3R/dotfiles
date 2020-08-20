@@ -1,0 +1,3 @@
+source ~/dotfiles/neovim/init.vim
+:map <leader>r :action ReformatCode<CR>
+set clipboard+=ideaputset ideajoinset clipboard+=ideaput

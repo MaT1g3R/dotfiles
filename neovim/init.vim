@@ -10,6 +10,7 @@ Plug 'w0rp/ale'
 Plug 'psliwka/vim-smoothie'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'neomake/neomake'
 call plug#end()
 
 :imap ii <Esc>
