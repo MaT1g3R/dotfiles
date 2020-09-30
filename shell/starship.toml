@@ -1,35 +1,35 @@
-prompt_order = [
-    "username",
-    "hostname",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "package",
-    "dotnet",
-    "golang",
-    "java",
-    "nodejs",
-    "php",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "nix_shell",
-    "conda",
-    "memory_usage",
-    "aws",
-    "env_var",
-    "cmd_duration",
-    "kubernetes",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+format = """\
+  $username\
+  $hostname\
+  $directory\
+  $git_branch\
+  $git_commit\
+  $git_state\
+  $git_status\
+  $hg_branch\
+  $package\
+  $dotnet\
+  $golang\
+  $java\
+  $nodejs\
+  $php\
+  $python\
+  $ruby\
+  $rust\
+  $terraform\
+  $nix_shell\
+  $conda\
+  $memory_usage\
+  $aws\
+  $env_var\
+  $cmd_duration\
+  $kubernetes\
+  $line_break\
+  $jobs\
+  $battery\
+  $time\
+  $character\
+  """
 
 [python]
 pyenv_version_name = true
