@@ -1,8 +1,5 @@
-git-delete-merged-branches
 grip
 ipython
-mario
-parso
 pip
 pyls-black
 python-language-server
