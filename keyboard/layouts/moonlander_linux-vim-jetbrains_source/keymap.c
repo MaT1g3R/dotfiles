@@ -47,6 +47,7 @@ enum custom_keycodes {
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
+  ST_MACRO_3,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_moonlander(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         
-    KC_TRANSPARENT, KC_EXLM,        KC_AT,          KC_LPRN,        KC_RPRN,        KC_PIPE,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_7,           KC_8,           KC_9,           KC_KP_PLUS,     KC_EQUAL,       KC_F12,         
+    ST_MACRO_3,     KC_EXLM,        KC_AT,          KC_LPRN,        KC_RPRN,        KC_PIPE,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_7,           KC_8,           KC_9,           KC_KP_PLUS,     KC_EQUAL,       KC_F12,         
     KC_BSPACE,      KC_HASH,        KC_DLR,         KC_LBRACKET,    KC_RBRACKET,    KC_GRAVE,       KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_4,           KC_5,           KC_6,           KC_KP_MINUS,    KC_DOWN,        KC_TRANSPARENT, 
     KC_LSHIFT,      KC_PERC,        KC_CIRC,        KC_COMMA,       KC_DOT,         KC_TILD,                                        KC_1,           KC_2,           KC_3,           KC_KP_ASTERISK, KC_AMPR,        KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_COMMA,       HSV_0_255_255,  HSV_86_255_128, TO(0),          RGB_MOD,                                                                                                        RGB_TOG,        KC_0,           KC_DOT,         KC_KP_SLASH,    KC_0,           KC_TRANSPARENT, 
@@ -145,6 +146,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_MACRO_2:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_F6)));
+
+    }
+    break;
+    case ST_MACRO_3:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_SPACE))));
 
     }
     break;
