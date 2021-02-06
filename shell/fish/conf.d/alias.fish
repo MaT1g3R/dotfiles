@@ -1,5 +1,6 @@
 #alias
 alias cat=bat
+alias clip='xclip -selection clipboard'
 alias d='docker'
 alias dc='docker-compose'
 alias die='shutdown now'
@@ -27,7 +28,6 @@ alias vi='nvim'
 alias vim='nvim'
 alias vimrc='nvim ~/dotfiles/neovim/init.vim'
 alias what-the-commit='git commit -m (echo (curl -s http://whatthecommit.com/index.txt))'
-
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux
