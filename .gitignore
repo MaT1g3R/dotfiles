@@ -46,3 +46,7 @@ bin/ffxiv-run-game.sh
 bin/machina.sh
 bin/native-image
 bin/teamcraft.sh
+
+
+keyboard/layouts/*.bin
+keyboard/layouts/*.md5
