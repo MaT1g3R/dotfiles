@@ -27,7 +27,6 @@ alias sudo='sudo '
 alias vi='nvim'
 alias vim='nvim'
 alias vimrc='nvim ~/dotfiles/neovim/init.vim'
-alias what-the-commit='git commit -m (shuf -n 1 $HOME/dotfiles/data/commit_messages.txt)'
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux

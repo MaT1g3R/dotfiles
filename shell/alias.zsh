@@ -21,7 +21,6 @@ alias sudo='sudo '
 alias vi='nvim'
 alias vim='nvim'
 alias vimrc='nvim ~/dotfiles/neovim/init.vim'
-alias what-the-commit='git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"'
 alias zshrc='nvim ~/.zshrc'
 
 #functions

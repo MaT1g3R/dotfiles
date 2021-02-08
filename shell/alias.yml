@@ -15,7 +15,6 @@ alias:
   vi: nvim
   vim: nvim
   vimrc: nvim ~/dotfiles/neovim/init.vim
-  what-the-commit: git commit -m "$(echo $(curl -s http://whatthecommit.com/index.txt))"
   zshrc: nvim ~/.zshrc
 function:
   update-plugins: |
