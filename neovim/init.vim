@@ -16,8 +16,7 @@ call plug#end()
 :imap ii <Esc>
 
 let g:coc_global_extensions=[
-\   'coc-python',
-\   'coc-rls',
+\   'coc-pyright',
 \   'coc-json'
 \]
 set mouse=a
