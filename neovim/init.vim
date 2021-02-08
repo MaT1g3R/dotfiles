@@ -17,7 +17,8 @@ call plug#end()
 
 let g:coc_global_extensions=[
 \   'coc-pyright',
-\   'coc-json'
+\   'coc-json',
+\   'coc-rust-analyzer',
 \]
 set mouse=a
 " Default format: 4 spaces, 79 line length, unix line ending
