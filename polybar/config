@@ -30,7 +30,7 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/main]
-monitor = ${env:MONITOR:HDMI-0}
+monitor = ${env:MONITOR:DP-0}
 enable-ipc = true
 override-redirect = false
 
