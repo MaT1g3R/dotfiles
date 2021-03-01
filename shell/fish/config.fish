@@ -54,4 +54,12 @@ if [ -z $TMUX ]
     task
 end
 
+# cheat.sh
+function cheat.sh
+    curl cheat.sh/$argv
+end
+
+# register completions (on-the-fly, non-cached, because the actual command won't be cached anyway
+complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
+
 echo 1 [2] 3 4 5 [6] 7

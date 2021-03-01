@@ -33,7 +33,12 @@ alias vimrc='nvim ~/dotfiles/neovim/init.vim'
 if [ (uname) = 'Linux' ] # Linux
     alias aur='yay'
     alias buku='~/venv/buku/bin/buku'
-    alias open='mimeopen'
+
+    function open --wraps=mimeopen
+      mimeopen $argv &;
+      disown;
+    end
+
     alias pac-mirror='sudo pacman-mirrors -f 0 && yay -Syy'
     alias pac-optimize='yay -Sc; sudo pacman-optimize'
     alias pac-orphans='yay -Rns (yay -Qtdq)'
