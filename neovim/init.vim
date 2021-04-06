@@ -13,7 +13,7 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'neomake/neomake'
 call plug#end()
 
-:imap ii <Esc>
+" :imap ii <Esc>
 
 let g:coc_global_extensions=[
 \   'coc-pyright',
