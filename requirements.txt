@@ -3,3 +3,4 @@ ipython
 pip
 pyls-black
 python-language-server
+semgrep
