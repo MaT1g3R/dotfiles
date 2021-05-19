@@ -2,10 +2,6 @@
 stack --fish-completion-script stack | source
 
 # ============================== Python =======================================
-if [ (uname) != 'Linux' ]
-    set -x -g PATH ~/Library/Python/3.7/bin $PATH
-end
-
 set -x PYENV_ROOT ~/.pyenv
 set -x -g PATH $PYENV_ROOT/bin $PATH
 set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1

@@ -20,7 +20,6 @@ set -x VISUAL nvim
 set -x PAGER "page -q 90000"
 set -x MANPAGER "page -C -e 'au User PageDisconnect sleep 100m|%y p|enew! |bd! #|pu p|set ft=man'"
 
-set -x TASKRC ~/.config/task/taskrc
 
 #GPG stuff
 set -x GPG_TTY (tty)
@@ -51,7 +50,6 @@ if [ -z $TMUX ]
     if [ (uname) != 'Linux' ] || [ (basename '/'(ps -f -p (cat /proc/(echo $fish_pid)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')) != "yakuake" ]
         curl -s wttr.in/Toronto -m 2 | head -n 17 || true
     end
-    task
 end
 
 # cheat.sh
