@@ -4,7 +4,6 @@ alias clip='xclip -selection clipboard'
 alias d='docker'
 alias dc='docker-compose'
 alias die='shutdown now'
-alias fd="fdfind"
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias glom="git pull origin master"
 alias gpa='git pushall'
@@ -30,6 +29,7 @@ alias vimrc='nvim ~/dotfiles/neovim/init.vim'
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux
+    alias fd="fdfind"
     alias aur='yay'
     alias buku='~/venv/buku/bin/buku'
 
