@@ -1,13 +1,13 @@
 # ============================== Haskell ======================================
-stack --fish-completion-script stack | source
+#stack --fish-completion-script stack | source
 
 # ============================== Python =======================================
 set -x PYENV_ROOT ~/.pyenv
 set -x -g PATH $PYENV_ROOT/bin $PATH
 set -x PYENV_VIRTUALENV_DISABLE_PROMPT 1
-status --is-interactive; and pyenv init - | source
+status is-login; and pyenv init --path | source
+pyenv init - | source
 status --is-interactive; and pyenv virtualenv-init - | source
-
 
 function pyenv-install
     set PYTHON_CONFIGURE_OPTS "--enable-shared"
