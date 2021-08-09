@@ -47,7 +47,7 @@ set -x FZF_DEFAULT_OPTS '--preview "bat --style=numbers --color=always {} 2> /de
 
 # startup
 clear
-if [ -z $TMUX ]
+if [ -z $TMUX ] && status is-interactive
     if [ (uname) != 'Linux' ] || [ (basename '/'(ps -f -p (cat /proc/(echo $fish_pid)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')) != "yakuake" ]
         curl -s wttr.in/Toronto -m 2 | head -n 17 || true
     end
@@ -61,7 +61,6 @@ end
 # register completions (on-the-fly, non-cached, because the actual command won't be cached anyway
 complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
 
-echo 1 [2] 3 4 5 [6] 7
 rvm default
 
 mcfly init fish | source
