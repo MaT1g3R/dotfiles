@@ -176,7 +176,7 @@ let g:lexical#dictionary_key = '<leader>k'
 
 " shell
 if &shell =~# 'fish$'
-  set shell=/usr/bin/zsh
+  set shell=/bin/zsh
 endif
 
 " Source local vimrc if there's any

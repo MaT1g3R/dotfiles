@@ -23,4 +23,3 @@ function fish_user_key_bindings
   bind \ch accept-autosuggestion
 end
 
-fzf_key_bindings

@@ -17,9 +17,9 @@ eval (starship init fish)
 set -x EDITOR nvim
 set -x VISUAL nvim
 
-set -x BAT_PAGER "less -R"
-set -x PAGER "page"
-set -x MANPAGER "page -C -e 'au User PageDisconnect sleep 100m|%y p|enew! |bd! #|pu p|set ft=man'"
+# set -x BAT_PAGER "less -R"
+# set -x PAGER "page"
+# set -x MANPAGER "page -C -e 'au User PageDisconnect sleep 100m|%y p|enew! |bd! #|pu p|set ft=man'"
 
 
 #GPG stuff
@@ -62,3 +62,6 @@ end
 complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
 
 echo 1 [2] 3 4 5 [6] 7
+rvm default
+
+mcfly init fish | source

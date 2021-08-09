@@ -1,5 +1,5 @@
 #alias
-alias cat=bat
+# alias cat=bat
 alias clip='xclip -selection clipboard'
 alias d='docker'
 alias dc='docker-compose'
