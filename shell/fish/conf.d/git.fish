@@ -73,6 +73,9 @@ alias glgg='git log --graph --max-count=10'
 alias glgga='git log --graph --decorate --all'
 #compdef _git glgga=git-log
 alias glo='git log --oneline'
+
+alias glom="git pull origin master"
+
 #compdef _git glo=git-log
 alias gss='git status -s'
 #compdef _git gss=git-status
@@ -162,3 +165,9 @@ end
 # these alias commit and uncomit wip branches
 alias gwip='git add -A; git ls-files --deleted -z | xargs -0 git rm; git commit -m "wip"'
 alias gunwip='git log -n 1 | grep -q -c wip; and git reset HEAD~1'
+
+
+alias gpa='git pushall'
+alias gpp='git pull; git push'
+alias gssg="git status -s | awk -F / '{ print $NF, $0 }' | sed -e 's/\.scala/A/' | sort -k 1 | sed 's/.* //'"
+alias gsw='git switch'
