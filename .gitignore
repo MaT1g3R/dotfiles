@@ -50,3 +50,4 @@ bin/teamcraft.sh
 
 keyboard/layouts/*.bin
 keyboard/layouts/*.md5
+bin/saml2aws-wrapper.sh
