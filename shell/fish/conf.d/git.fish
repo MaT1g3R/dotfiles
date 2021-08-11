@@ -95,10 +95,10 @@ function git-master
     git switch "$main_branch"
     git pull
 
-    for br in (git branch --list)
-        echo $br
+    for br in (git branch --list | string split ' ')
         set br (string replace -a '*' '' $br | string trim)
-        if [ "$br"!="$main_branch" ]
+        if [ "$br"!="$main_branch" ] && [ -n "$br" ]
+            echo $br $main_branch
             git branch -D $br
         end
     end
