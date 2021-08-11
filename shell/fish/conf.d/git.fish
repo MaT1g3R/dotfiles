@@ -97,7 +97,7 @@ function git-master
 
     for br in (git branch --list | string split ' ')
         set br (string replace -a '*' '' $br | string trim)
-        if [ "$br"!="$main_branch" ] && [ -n "$br" ]
+        if [ "$br" != "$main_branch" ] && [ -n "$br" ]
             echo $br $main_branch
             git branch -D $br
         end
