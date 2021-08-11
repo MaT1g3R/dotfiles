@@ -74,7 +74,37 @@ alias glgga='git log --graph --decorate --all'
 #compdef _git glgga=git-log
 alias glo='git log --oneline'
 
-alias glom="git pull origin master"
+
+function git-main-branch
+    if [ -n "(git branch --list master | string trim)" ]
+        echo master
+    else if [ -n "(git branch --list main | string trim)" ]
+        echo main
+    else
+        exit 1
+    end
+end
+
+function glom --wraps='git pull origin master' --description 'alias glom=git pull origin master'
+    set main_branch (git-main-branch)
+    git pull origin "$main_branch" $argv
+end
+
+function git-master
+    set main_branch (git-main-branch)
+    git switch "$main_branch"
+    git pull
+
+    for br in (git branch --list)
+        echo $br
+        set br (string replace -a '*' '' $br | string trim)
+        if [ "$br"!="$main_branch" ]
+            git branch -D $br
+        end
+    end
+
+    git-clean
+end
 
 #compdef _git glo=git-log
 alias gss='git status -s'
