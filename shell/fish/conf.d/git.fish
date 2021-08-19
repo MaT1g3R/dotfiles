@@ -76,12 +76,10 @@ alias glo='git log --oneline'
 
 
 function git-main-branch
-    if [ -n "(git branch --list master | string trim)" ]
-        echo master
-    else if [ -n "(git branch --list main | string trim)" ]
+    if [ -z (git branch --list master | string trim) ]
         echo main
-    else
-        exit 1
+    else if [ -z (git branch --list main | string trim) ]
+        echo master
     end
 end
 
