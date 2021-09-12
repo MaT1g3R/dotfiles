@@ -175,9 +175,9 @@ let g:lexical#thesaurus_key = '<leader>t'
 let g:lexical#dictionary_key = '<leader>k'
 
 " shell
-if &shell =~# 'fish$'
-  set shell=/bin/zsh
-endif
+" if &shell =~# 'fish$'
+  " set shell=/bin/zsh
+" endif
 
 " Source local vimrc if there's any
 if filereadable(".vimrc_local")
