@@ -12,5 +12,3 @@ export DESKTOP_SESSION=kde
 nohup xrdb ~/.Xresources &
 
 nohup mpd &
-
-~/bin/nextcloud_runner.sh
