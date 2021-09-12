@@ -4,6 +4,8 @@
 #
 ############################################
 # Adjust the following to suit your needs
+nohup kwalletmanager5 2>&1 > /dev/null &
+
 WALLET="kdewallet"   # Name of wallet storing nextcloud client password
 MAX_TRIES=2          # Max. number of tries to ask for password
 ############################################
@@ -12,8 +14,8 @@ while [ $i -lt $MAX_TRIES ]; do
   ((i++))
   open=`qdbus org.kde.kwalletd5 /modules/kwalletd5 isOpen "$WALLET" | grep true`
   if [ -n "$open" ]; then
-    break
     nohup nextcloud >> /dev/null 2>&1
+    break
   fi
   qdbus org.kde.kwalletd5 /modules/kwalletd5 open "$WALLET" 0 "nextcloud-client-starter" > /dev/null
 done
