@@ -27,8 +27,8 @@ if [ (uname) = 'Linux' ] # Linux
     alias aur='yay'
     alias buku='~/venv/buku/bin/buku'
 
-    function open --wraps=mimeopen
-      mimeopen $argv &;
+    function open --wraps=xdg-open
+      xdg-open $argv &;
       disown;
     end
 
