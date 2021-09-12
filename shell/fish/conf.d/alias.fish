@@ -24,7 +24,6 @@ alias vimrc='nvim ~/dotfiles/neovim/init.vim'
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux
-    alias fd="fdfind"
     alias aur='yay'
     alias buku='~/venv/buku/bin/buku'
 
