@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#
+# ~/.profile
+#
+
+export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
+export XDG_CURRENT_DESKTOP=KDE
+export DESKTOP_SESSION=kde
+
+kwalletmanager5 &
+
+# Merge colors and settings
+xrdb ~/.Xresources &
+
+mpd &
+
+nextcloud &
