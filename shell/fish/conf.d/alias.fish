@@ -2,7 +2,7 @@
 # alias cat=bat
 alias clip='xclip -selection clipboard'
 alias d='docker'
-alias dc='docker-compose'
+alias dc='docker compose'
 alias die='shutdown now'
 alias gdbstack='gdb --batch --ex r --ex bt --ex q --args'
 alias grep='rg'
