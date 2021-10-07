@@ -114,3 +114,4 @@ metals.sbt
 .bloop
 out
 idea-bloop.sbt
+.nvmrc
