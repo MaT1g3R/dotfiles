@@ -291,4 +291,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " markdown
-let g:mkdp_browser = 'firefox-nightly'
+if has('macunix')
+    let g:mkdp_browser = 'Firefox Nightly'
+else
+    let g:mkdp_browser = 'firefox-nightly'
+endif
+
