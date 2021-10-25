@@ -5,7 +5,7 @@ set -U fish_greeting
 set -x -g PATH ~/kde/src/kdesrc-build ~/.local/bin ~/bin /snap/bin $PATH
 
 if [ (uname) != 'Linux' ]
-    set -x -g PATH /usr/local/opt/qt/bin /usr/local/opt/llvm/bin /usr/local/bin /usr/local/opt/coreutils/libexec/gnubin '/Applications/Firefox Nightly.app/Contents/MacOS' $PATH
+    set -x -g PATH /usr/local/opt/qt/bin /usr/local/opt/llvm/bin /usr/local/bin /usr/local/opt/coreutils/libexec/gnubin $PATH
     set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
 end
 
