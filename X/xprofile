@@ -14,4 +14,4 @@ nohup xrdb ~/.Xresources &
 
 nohup mpd &
 
-bash ~/bin/nextcloud.sh &
+systemctl start --user syncthing.service &

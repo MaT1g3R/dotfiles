@@ -9,7 +9,7 @@ enableKWinEdges=false
 formfactor=2
 immutability=1
 isPreferredForShortcuts=false
-lastScreen=13
+lastScreen=10
 location=4
 name=
 onPrimary=true
@@ -102,7 +102,7 @@ PreloadWeight=0
 [Containments][1][Applets][2][Configuration][General]
 isInLatteDock=true
 launchers=multi;*;2;file:///usr/share/applications/firefox.desktop;file:///usr/share/applications/org.kde.dolphin.desktop
-launchers59=file:///usr/share/applications/org.kde.dolphin.desktop,applications:firefox.desktop,applications:cantata.desktop,applications:steam.desktop
+launchers59=file:///usr/share/applications/org.kde.dolphin.desktop,applications:firefox.desktop,applications:cantata.desktop,applications:steam-native.desktop
 middleClickAction=Close
 
 [Containments][1][Applets][20]
@@ -131,7 +131,7 @@ immutability=1
 plugin=org.kde.plasma.systemtray
 
 [Containments][1][Applets][6][Configuration]
-PreloadWeight=76
+PreloadWeight=100
 SystrayContainmentId=7
 
 [Containments][1][ConfigDialog]
@@ -170,7 +170,7 @@ PreloadWeight=0
 activityId=
 formfactor=2
 immutability=1
-lastScreen=13
+lastScreen=10
 location=4
 plugin=org.kde.plasma.private.systemtray
 wallpaperplugin=org.kde.image
@@ -187,7 +187,7 @@ immutability=1
 plugin=org.kde.plasma.notifications
 
 [Containments][7][Applets][12][Configuration]
-PreloadWeight=0
+PreloadWeight=5
 
 [Containments][7][Applets][14]
 immutability=1
@@ -219,21 +219,36 @@ PreloadWeight=0
 
 [Containments][7][Applets][36]
 immutability=1
-plugin=org.kde.plasma.mediacontroller
+plugin=org.kde.plasma.battery
 
 [Containments][7][Applets][36][Configuration]
-PreloadWeight=34
+PreloadWeight=0
+
+[Containments][7][Applets][37]
+immutability=1
+plugin=martchus.syncthingplasmoid
+
+[Containments][7][Applets][37][Configuration]
+PreloadWeight=0
+selectedConfig=0
+
+[Containments][7][Applets][38]
+immutability=1
+plugin=org.kde.plasma.mediacontroller
+
+[Containments][7][Applets][38][Configuration]
+PreloadWeight=0
 
 [Containments][7][Applets][8]
 immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][7][Applets][8][Configuration]
-PreloadWeight=0
+PreloadWeight=100
 
 [Containments][7][Applets][8][Configuration][ConfigDialog]
-DialogHeight=1080
-DialogWidth=2560
+DialogHeight=870
+DialogWidth=1208
 
 [Containments][7][Applets][9]
 immutability=1
@@ -247,9 +262,9 @@ DialogHeight=908
 DialogWidth=1265
 
 [Containments][7][General]
-extraItems=org.kde.plasma.devicenotifier,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol
+extraItems=org.kde.plasma.devicenotifier,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,martchus.syncthingplasmoid
 hiddenItems=toolbox,Yakuake,org.kde.plasma.networkmanagement,org.kde.plasma.nightcolorcontrol,Fcitx
-knownItems=org.kde.plasma.devicenotifier,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol
+knownItems=org.kde.plasma.devicenotifier,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.keyboardlayout,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol,org.kde.plasma.manage-inputmethod,martchus.syncthingplasmoid
 
 [LayoutSettings]
 activities={free-activities}
