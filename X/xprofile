@@ -7,8 +7,9 @@
 export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
 export XDG_CURRENT_DESKTOP=KDE
 export DESKTOP_SESSION=kde
-export VDPAU_DRIVER=nvidia
-export LIBVA_DRIVER_NAME=vdpau
+export VDPAU_DRIVER=radeonsi
+export LIBVA_DRIVER_NAME=radeonsi
+
 # Merge colors and settings
 nohup xrdb ~/.Xresources &
 
