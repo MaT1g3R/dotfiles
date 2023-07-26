@@ -1,5 +1,8 @@
+if [ (uname) != 'Linux' ]
+    set -x -g PATH /opt/homebrew/bin $PATH
+end
+
 # ============================== Haskell ======================================
-#stack --fish-completion-script stack | source
 
 # ============================== Python =======================================
 set -x PYENV_ROOT ~/.pyenv
@@ -28,10 +31,12 @@ end
 
 # =============================== JS ==========================================
 set -x -g PATH ~/.npm-global/bin $PATH
-# set -x CHROME_BIN (which chromium)
 # =============================================================================
 
 # ========================== Docker ===========================================
+if [ (uname) != 'Linux' ]
+    set -x -g DOCKER_DEFAULT_PLATFORM linux/amd64
+end
 set -gx DOCKER_BUILDKIT 1
 set -gx COMPOSE_DOCKER_CLI_BUILD 1
 # =============================================================================

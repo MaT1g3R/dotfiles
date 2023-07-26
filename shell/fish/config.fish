@@ -1,13 +1,9 @@
 #!/bin/fish
+echo config.fish
 
 set -U fish_greeting
 
 set -x -g PATH ~/kde/src/kdesrc-build ~/.local/bin ~/bin /snap/bin $PATH
-
-if [ (uname) != 'Linux' ]
-    set -x -g PATH /usr/local/opt/qt/bin /usr/local/opt/llvm/bin /usr/local/bin /usr/local/opt/coreutils/libexec/gnubin $PATH
-    set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
-end
 
 source ~/private.fish
 
@@ -20,7 +16,6 @@ set -x VISUAL nvim
 # set -x BAT_PAGER "less -R"
 # set -x PAGER "page"
 # set -x MANPAGER "page -C -e 'au User PageDisconnect sleep 100m|%y p|enew! |bd! #|pu p|set ft=man'"
-
 
 #GPG stuff
 set -x GPG_TTY (tty)
@@ -47,6 +42,7 @@ set -x FZF_DEFAULT_OPTS '--preview "bat --style=numbers --color=always {} 2> /de
 
 # startup
 clear
+
 if [ -z $TMUX ] && status is-interactive
     if [ (uname) != 'Linux' ] || [ (basename '/'(ps -f -p (cat /proc/(echo $fish_pid)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')) != "yakuake" ]
         curl -s v2.wttr.in/Toronto -m 2 || true
@@ -60,7 +56,5 @@ end
 
 # register completions (on-the-fly, non-cached, because the actual command won't be cached anyway
 complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
-
-rvm default
 
 mcfly init fish | source
