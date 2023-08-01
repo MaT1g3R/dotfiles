@@ -56,3 +56,4 @@ bin/ocb
 bin/okta-logind.sh
 shell/fish/completions/okta-login.fish
 shell/fish/functions/alfred.fish
+bin/display-curse
