@@ -47,20 +47,15 @@ dotfiles/
 │   │   ├── nvim/       # -> ~/.config/nvim/
 │   │   └── ...
 │   ├── .tmux.conf      # -> ~/.tmux.conf
-│   ├── bin/            # -> ~/bin/
-│   └── scripts/        # -> ~/scripts/
+│   └── bin/            # -> ~/bin/
 ├── linux/              # Installed on Linux
 │   ├── .local/share/
-│   │   └── fonts/      # -> ~/.local/share/fonts/
+│   │   ├── fonts/      # -> ~/.local/share/fonts/
+│   │   └── konsole/    # -> ~/.local/share/konsole/
 │   ├── .config/
-│   │   ├── i3/         # -> ~/.config/i3/
-│   │   └── polybar/    # -> ~/.config/polybar/
+│   │   └── shortcuts.kksrc
 │   └── .Xresources     # -> ~/.Xresources
 ├── macos/              # Installed on macOS
-│   ├── .chunkwmrc      # -> ~/.chunkwmrc
-│   ├── .skhdrc         # -> ~/.skhdrc
-│   └── Library/
-│       └── Application Support/Übersicht/widgets/
 └── setup/              # Platform setup & helper scripts
     ├── fonts/
     └── macos/
@@ -79,6 +74,5 @@ Files are linked using hard links by default when on the same filesystem (saving
 * [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode) for the terminal
 * [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont) for rest of the system
 * Latte-dock: https://github.com/psifidotos/Latte-Dock
-* Custom cowsay files: https://github.com/WolfgangAxel/Random-Projects/blob/master/ruri.cow
 * KWin tile script: https://github.com/Jazqa/kwin-quarter-tiling
 * Modified macOS install script from here: https://github.com/mathiasbynens/dotfiles/blob/master/.macos

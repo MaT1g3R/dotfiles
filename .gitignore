@@ -7,7 +7,6 @@ vdir-i
 **/.netrwhist
 common/bin/stack
 common/bin/idea
-common/.config/mpd/mpd.conf
 common/bin/amm
 common/bin/ji2ts
 common/bin/kubectl
@@ -22,23 +21,7 @@ common/bin/ji2ts.jar
 common/bin/navi
 common/bin/export-timesheet
 
-# Ignore all of emacs.d, which is mostly compiled/downloaded scripts.
-common/.emacs.d/*
-*.elc
-*~
-# But don't ignore these specific locations.
-!common/.emacs.d/eshell/alias
-!common/.emacs.d/lisp
-!common/.emacs.d/site-lisp
-!common/.emacs.d/snippets
-!common/.emacs.d/init.el
-!common/.emacs.d/custom.el
-!common/.emacs.d/themes
-!common/.emacs.d/config.org
-!common/.emacs.d/word-list
 common/bin/org2ts
-
-
 common/bin/ffxiv-env-setup.sh
 common/bin/ffxiv-env.sh
 common/bin/ffxiv-run-act.sh
@@ -47,7 +30,6 @@ common/bin/ffxiv-run-game.sh
 common/bin/machina.sh
 common/bin/native-image
 common/bin/teamcraft.sh
-
 
 keyboard/layouts/*.bin
 keyboard/layouts/*.md5
