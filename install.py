@@ -141,6 +141,27 @@ def check_link_status(src: Path, dest: Path) -> str:
     return "missing"
 
 
+def get_dest_device(dest: Path) -> Optional[int]:
+    """Get the st_dev of dest or its nearest existing ancestor directory."""
+    curr = dest if (dest.is_symlink() or dest.exists()) else dest.parent
+    while curr != curr.parent:
+        try:
+            return curr.lstat().st_dev
+        except OSError:
+            curr = curr.parent
+    return None
+
+
+def is_same_filesystem(src: Path, dest: Path) -> bool:
+    """Check if src and dest reside on the same filesystem (same st_dev)."""
+    try:
+        src_dev = src.stat().st_dev
+        dest_dev = get_dest_device(dest)
+        return dest_dev is not None and src_dev == dest_dev
+    except OSError:
+        return False
+
+
 def clean_parent_symlinks(dest: Path, repo_root: Path, force: bool, dry_run: bool) -> bool:
     """
     Walk up ancestor directories of dest.
@@ -215,6 +236,14 @@ def link_file(
 
     # Target is already a symlink to src, but we prefer hardlinks
     if status == "symlinked" and not symlink_only:
+        # If source is itself a symlink, keep as symlink
+        if src.is_symlink():
+            return "UP_TO_DATE", f"Already symlinked: {dest}"
+
+        # If cross-filesystem, hard links cannot be created across filesystems
+        if not is_same_filesystem(src, dest):
+            return "UP_TO_DATE", f"Already symlinked (cross-filesystem, cannot hard-link): {dest}"
+
         if not dry_run:
             dest.unlink()
             try:
@@ -254,7 +283,8 @@ def link_file(
 
     # Execute linking
     if dry_run:
-        mode = "symlink" if symlink_only else "hard link (with symlink fallback)"
+        can_hardlink = not symlink_only and not src.is_symlink() and is_same_filesystem(src, dest)
+        mode = "hard link" if can_hardlink else "symlink"
         return "DRY_RUN", f"[dry-run] Would install {dest} -> {src} via {mode}"
 
     if src.is_symlink():
