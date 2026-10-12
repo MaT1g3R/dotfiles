@@ -57,3 +57,8 @@ bin/okta-logind.sh
 shell/fish/completions/okta-login.fish
 shell/fish/functions/alfred.fish
 bin/display-curse
+bin/ModUploader
+bin/ModUploader-linux-x64.zip
+bin/ModUploader.pdb
+bin/libsteam_api.so
+bin/stream-setup

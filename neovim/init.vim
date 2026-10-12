@@ -11,6 +11,8 @@ Plug 'psliwka/vim-smoothie'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'neomake/neomake'
+Plug 'terrastruct/d2-vim'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " :imap ii <Esc>
@@ -68,33 +70,34 @@ set colorcolumn=80
     " Esc to exit terminal mode
     tnoremap <Esc> <C-\><C-n>
     
-    " Moveing around windows
+    " Moving around windows (seamlessly across Vim splits and Tmux panes)
+    let g:tmux_navigator_no_mappings = 1
     if has('macunix')
-        tnoremap <C-Left> <C-\><C-N><C-w>h
-        tnoremap <C-Down> <C-\><C-N><C-w>j
-        tnoremap <C-Up> <C-\><C-N><C-w>k
-        tnoremap <C-Right> <C-\><C-N><C-w>l
-        inoremap <C-Left> <C-\><C-N><C-w>h
-        inoremap <C-Down> <C-\><C-N><C-w>j
-        inoremap <C-Up> <C-\><C-N><C-w>k
-        inoremap <C-Right> <C-\><C-N><C-w>l
-        nnoremap <C-Left> <C-w>h
-        nnoremap <C-Down> <C-w>j
-        nnoremap <C-Up> <C-w>k
-        nnoremap <C-Right> <C-w>l
+        tnoremap <silent> <C-Left> <C-\><C-N>:TmuxNavigateLeft<cr>
+        tnoremap <silent> <C-Down> <C-\><C-N>:TmuxNavigateDown<cr>
+        tnoremap <silent> <C-Up> <C-\><C-N>:TmuxNavigateUp<cr>
+        tnoremap <silent> <C-Right> <C-\><C-N>:TmuxNavigateRight<cr>
+        inoremap <silent> <C-Left> <C-\><C-N>:TmuxNavigateLeft<cr>
+        inoremap <silent> <C-Down> <C-\><C-N>:TmuxNavigateDown<cr>
+        inoremap <silent> <C-Up> <C-\><C-N>:TmuxNavigateUp<cr>
+        inoremap <silent> <C-Right> <C-\><C-N>:TmuxNavigateRight<cr>
+        nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
+        nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
+        nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
+        nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
     else
-        tnoremap <A-h> <C-\><C-N><C-w>h
-        tnoremap <A-j> <C-\><C-N><C-w>j
-        tnoremap <A-k> <C-\><C-N><C-w>k
-        tnoremap <A-l> <C-\><C-N><C-w>l
-        inoremap <A-h> <C-\><C-N><C-w>h
-        inoremap <A-j> <C-\><C-N><C-w>j
-        inoremap <A-k> <C-\><C-N><C-w>k
-        inoremap <A-l> <C-\><C-N><C-w>l
-        nnoremap <A-h> <C-w>h
-        nnoremap <A-j> <C-w>j
-        nnoremap <A-k> <C-w>k
-        nnoremap <A-l> <C-w>l
+        tnoremap <silent> <A-h> <C-\><C-N>:TmuxNavigateLeft<cr>
+        tnoremap <silent> <A-j> <C-\><C-N>:TmuxNavigateDown<cr>
+        tnoremap <silent> <A-k> <C-\><C-N>:TmuxNavigateUp<cr>
+        tnoremap <silent> <A-l> <C-\><C-N>:TmuxNavigateRight<cr>
+        inoremap <silent> <A-h> <C-\><C-N>:TmuxNavigateLeft<cr>
+        inoremap <silent> <A-j> <C-\><C-N>:TmuxNavigateDown<cr>
+        inoremap <silent> <A-k> <C-\><C-N>:TmuxNavigateUp<cr>
+        inoremap <silent> <A-l> <C-\><C-N>:TmuxNavigateRight<cr>
+        nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+        nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+        nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+        nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
     endif
 
     map <C-q> <C-w>q

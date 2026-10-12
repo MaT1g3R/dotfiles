@@ -1,0 +1,1 @@
+/home/umi/Projects/Python/sts2-decompiler/completions/sts2-decompile.fish
