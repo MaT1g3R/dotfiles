@@ -1,2 +1,0 @@
-#!/bin/sh
-git commit -m "$(shuf -n 1 "$HOME/dotfiles/data/commit_messages.txt")"
