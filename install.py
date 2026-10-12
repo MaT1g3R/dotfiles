@@ -5,6 +5,8 @@ Dotfiles Installer
 
 Uses the repository directory structure to map files directly to the target environment.
 Files under platform folders ('common', 'linux', 'macos') map directly to relative paths in $HOME.
+Files and folders prefixed with 'dot-' (e.g. dot-config/, dot-tmux.conf) map to their hidden
+equivalent in $HOME (e.g. .config/, .tmux.conf).
 
 Preference: Hard link with automatic fallback to symlink.
 Dependencies: Python 3 Standard Library only.
@@ -33,6 +35,7 @@ IGNORED_NAMES: Set[str] = {
     ".DS_Store",
     ".git",
     ".gitignore",
+    ".gitkeep",
     ".netrwhist",
     "Thumbs.db",
     "__pycache__",
@@ -65,12 +68,27 @@ def should_ignore(path: Path) -> bool:
     return False
 
 
-def discover_files(platform_dir: Path) -> List[Tuple[Path, Path]]:
+def map_dest_rel_path(rel_path: Path) -> Path:
+    """
+    Map repository relative path to destination relative path.
+    Converts path segments starting with 'dot-' to start with '.'.
+    e.g., 'dot-config/nvim/init.vim' -> '.config/nvim/init.vim'
+          'dot-tmux.conf'            -> '.tmux.conf'
+          'bin/dot-hosts.bak'        -> 'bin/.hosts.bak'
+    """
+    new_parts = [
+        ("." + part[4:]) if part.startswith("dot-") else part
+        for part in rel_path.parts
+    ]
+    return Path(*new_parts)
+
+
+def discover_files(platform_dir: Path) -> List[Tuple[Path, Path, Path]]:
     """
     Recursively discover all files under platform_dir.
-    Returns a list of (source_path, relative_path) tuples.
+    Returns a list of (source_path, dest_rel_path, repo_rel_path) tuples.
     """
-    results: List[Tuple[Path, Path]] = []
+    results: List[Tuple[Path, Path, Path]] = []
     if not platform_dir.is_dir():
         return results
 
@@ -81,8 +99,9 @@ def discover_files(platform_dir: Path) -> List[Tuple[Path, Path]]:
         for file_name in files:
             file_path = Path(root) / file_name
             if not should_ignore(file_path):
-                rel_path = file_path.relative_to(platform_dir)
-                results.append((file_path, rel_path))
+                repo_rel_path = file_path.relative_to(platform_dir)
+                dest_rel_path = map_dest_rel_path(repo_rel_path)
+                results.append((file_path, dest_rel_path, repo_rel_path))
 
     # Sort files for deterministic execution order
     results.sort(key=lambda item: str(item[1]))
@@ -184,7 +203,7 @@ def link_file(
 
     Returns:
         (action, message) where action is one of:
-        'HARDLINK', 'SYMLINK', 'UP_TO_DATE', 'BACKUP', 'CONFLICT', 'ERROR'
+        'HARDLINK', 'SYMLINK', 'FALLBACK_SYMLINK', 'UP_TO_DATE', 'CONFLICT', 'ERROR', 'DRY_RUN'
     """
     status = check_link_status(src, dest)
 
@@ -237,6 +256,14 @@ def link_file(
     if dry_run:
         mode = "symlink" if symlink_only else "hard link (with symlink fallback)"
         return "DRY_RUN", f"[dry-run] Would install {dest} -> {src} via {mode}"
+
+    if src.is_symlink():
+        try:
+            target = os.readlink(src)
+            dest.symlink_to(target)
+            return "SYMLINK", f"Replicated symlink: {dest} -> {target}"
+        except OSError as e:
+            return "ERROR", f"Failed replicating symlink {dest}: {e}"
 
     if symlink_only:
         try:
@@ -296,6 +323,10 @@ Directory Mapping:
   common/   -> $HOME/ (installed on all platforms)
   linux/    -> $HOME/ (installed on Linux)
   macos/    -> $HOME/ (installed on macOS)
+
+Naming Convention:
+  Files and folders prefixed with 'dot-' (e.g. dot-config/, dot-tmux.conf)
+  map to their hidden counterpart in $HOME (e.g. .config/, .tmux.conf).
 
 Linking Strategy:
   Uses hard links whenever supported by the filesystem, with automatic
@@ -399,19 +430,19 @@ Linking Strategy:
         print(f"Link mode: {'Symlink only' if args.symlink_only else 'Hard link (fallback to symlink)'}")
         print("-" * 60)
 
-    # Discover files
-    all_files: List[Tuple[str, Path, Path]] = []
+    # Discover files: (platform_name, src_path, dest_rel_path, repo_rel_path)
+    all_files: List[Tuple[str, Path, Path, Path]] = []
     for platform_name in active_platforms:
         p_dir = HERE / platform_name
-        for src_path, rel_path in discover_files(p_dir):
-            all_files.append((platform_name, src_path, rel_path))
+        for src_path, dest_rel_path, repo_rel_path in discover_files(p_dir):
+            all_files.append((platform_name, src_path, dest_rel_path, repo_rel_path))
 
     if args.list:
         print(f"Found {len(all_files)} dotfile(s):")
-        for p_name, src, rel in all_files:
-            target = args.dest / rel
+        for p_name, src, dest_rel, repo_rel in all_files:
+            target = args.dest / dest_rel
             status = check_link_status(src, target)
-            print(f"  [{p_name:6}] {rel} -> {target} ({status})")
+            print(f"  [{p_name:6}] {p_name}/{repo_rel} -> {target} ({status})")
         return 0
 
     counts: Dict[str, int] = {
@@ -424,8 +455,8 @@ Linking Strategy:
         "DRY_RUN": 0,
     }
 
-    for p_name, src_path, rel_path in all_files:
-        dest_path = args.dest / rel_path
+    for p_name, src_path, dest_rel_path, repo_rel_path in all_files:
+        dest_path = args.dest / dest_rel_path
         action, msg = link_file(
             src=src_path,
             dest=dest_path,

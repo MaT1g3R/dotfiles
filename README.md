@@ -37,31 +37,31 @@ By default, the installer automatically detects your operating system and instal
 
 # Directory Structure Mapping
 
-Instead of a centralized mapping file, configurations are organized directly by platform directory mirroring `$HOME`:
+Instead of a centralized mapping file, configurations are organized directly by platform directory mirroring `$HOME`. To keep config files and folders visible in this repository, items prefixed with `dot-` are automatically installed to their hidden equivalent under `$HOME`:
 
 ```
 dotfiles/
-├── common/             # Installed on all platforms (Linux & macOS)
-│   ├── .config/
-│   │   ├── fish/       # -> ~/.config/fish/
-│   │   ├── nvim/       # -> ~/.config/nvim/
+├── common/                 # Installed on all platforms (Linux & macOS)
+│   ├── dot-config/
+│   │   ├── fish/           # -> ~/.config/fish/
+│   │   ├── nvim/           # -> ~/.config/nvim/
 │   │   └── ...
-│   ├── .tmux.conf      # -> ~/.tmux.conf
-│   └── bin/            # -> ~/bin/
-├── linux/              # Installed on Linux
-│   ├── .local/share/
-│   │   ├── fonts/      # -> ~/.local/share/fonts/
-│   │   └── konsole/    # -> ~/.local/share/konsole/
-│   ├── .config/
-│   │   └── shortcuts.kksrc
-│   └── .Xresources     # -> ~/.Xresources
-├── macos/              # Installed on macOS
-└── setup/              # Platform setup & helper scripts
+│   ├── dot-tmux.conf       # -> ~/.tmux.conf
+│   └── bin/                # -> ~/bin/
+├── linux/                  # Installed on Linux
+│   ├── dot-local/share/
+│   │   ├── fonts/          # -> ~/.local/share/fonts/
+│   │   └── konsole/        # -> ~/.local/share/konsole/
+│   ├── dot-config/
+│   │   └── shortcuts.kksrc # -> ~/.config/shortcuts.kksrc
+│   └── dot-Xresources      # -> ~/.Xresources
+├── macos/                  # Installed on macOS
+└── setup/                  # Platform setup & helper scripts
     ├── fonts/
     └── macos/
 ```
 
-Any file placed under `common/`, `linux/`, or `macos/` automatically maps to the corresponding relative path under `$HOME`.
+Any file placed under `common/`, `linux/`, or `macos/` automatically maps to the corresponding relative path under `$HOME`, replacing `dot-` prefixes with `.`.
 
 Files are linked using hard links by default when on the same filesystem (saving inodes and keeping edits in sync), automatically falling back to symbolic links across filesystems or partitions.
 

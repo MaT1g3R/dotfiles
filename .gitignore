@@ -11,9 +11,9 @@ common/bin/amm
 common/bin/ji2ts
 common/bin/kubectl
 fish_variables
-common/.config/beets/state.pickle
-linux/.local/share/fonts/.uuid
-linux/.local/share/fonts/PragmataPro*
+common/dot-config/beets/state.pickle
+linux/dot-local/share/fonts/.uuid
+linux/dot-local/share/fonts/PragmataPro*
 common/bin/chromium
 common/bin/jetbrains-toolbox
 common/bin/ji2ts.conf
@@ -37,8 +37,8 @@ common/bin/saml2aws-wrapper.sh
 common/bin/confluent
 common/bin/ocb
 common/bin/okta-logind.sh
-common/.config/fish/completions/okta-login.fish
-common/.config/fish/functions/alfred.fish
+common/dot-config/fish/completions/okta-login.fish
+common/dot-config/fish/functions/alfred.fish
 common/bin/display-curse
 common/bin/ModUploader
 common/bin/ModUploader-linux-x64.zip
