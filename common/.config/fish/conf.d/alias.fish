@@ -20,7 +20,7 @@ alias rurithink='cowthink -f ~/scripts/ruri_think.cow'
 alias sudo='sudo '
 alias vi='nvim'
 alias vim='nvim'
-alias vimrc='nvim ~/dotfiles/neovim/init.vim'
+alias vimrc='nvim ~/.config/nvim/init.vim'
 
 # OS dependent
 if [ (uname) = 'Linux' ] # Linux

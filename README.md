@@ -2,53 +2,82 @@
 
 ![](https://github.com/MaT1g3R/dotfiles/raw/master/screenshot.png)
 
-# Install
+# Installation
 
-**Warning**: Before you proceed with the installation, please review the code
-beforehand. Optionally, fork this repository and remove things you don't want.
-Don’t blindly use my settings unless you know what that entails.
-Use at your own risk!
+**Warning**: Before you proceed with the installation, please review the configurations beforehand. Don't blindly use settings unless you know what that entails. Use at your own risk!
 
-After you have reviewed the code, clone the repo, then run the install script:
+Clone the repository and run the install script:
 
 ```bash
 chmod +x install.py
 ./install.py -h
 ```
 
-The `-h` flag will display the help message, and you can proceed to run the
-script again with the options you want. An example might be like this:
+By default, the installer automatically detects your operating system and installs `common/` plus your current platform (`linux/` or `macos/`):
 
 ```bash
-./install.py -v -common -linux
+# Dry run to preview what will be installed
+./install.py -n
+
+# Normal installation (hard links with fallback to symlinks)
+./install.py
+
+# Force overwrite existing conflicting files
+./install.py -f
+
+# Create timestamped backups before overwriting conflicting files
+./install.py -b
+
+# Install using symbolic links only
+./install.py -s
+
+# Run initial setup (global git excludesfile, macOS setup scripts)
+./install.py -i
 ```
 
-# The mapping file
-The `mapping.json` file contains the symbolic link paths from this directory
-to the file system. The top level key names are the categories of the settings.
-They will be read by the install script and show up as options for the install.
-For example `common` will be used by the `-common` flag.
+# Directory Structure Mapping
 
-The keys under the categories are the paths to the config file/directory source
-relative to the `dotfiles` directory, the values are the absolute paths on the
-file system to symbolic link the config files to.
+Instead of a centralized mapping file, configurations are organized directly by platform directory mirroring `$HOME`:
 
-Optionally, you may provide a key called `name` to specify the name that will
-be printed on the screen by the help message for each category.
+```
+dotfiles/
+├── common/             # Installed on all platforms (Linux & macOS)
+│   ├── .config/
+│   │   ├── fish/       # -> ~/.config/fish/
+│   │   ├── nvim/       # -> ~/.config/nvim/
+│   │   └── ...
+│   ├── .tmux.conf      # -> ~/.tmux.conf
+│   ├── bin/            # -> ~/bin/
+│   └── scripts/        # -> ~/scripts/
+├── linux/              # Installed on Linux
+│   ├── .local/share/
+│   │   └── fonts/      # -> ~/.local/share/fonts/
+│   ├── .config/
+│   │   ├── i3/         # -> ~/.config/i3/
+│   │   └── polybar/    # -> ~/.config/polybar/
+│   └── .Xresources     # -> ~/.Xresources
+├── macos/              # Installed on macOS
+│   ├── .chunkwmrc      # -> ~/.chunkwmrc
+│   ├── .skhdrc         # -> ~/.skhdrc
+│   └── Library/
+│       └── Application Support/Übersicht/widgets/
+└── setup/              # Platform setup & helper scripts
+    ├── fonts/
+    └── macos/
+```
+
+Any file placed under `common/`, `linux/`, or `macos/` automatically maps to the corresponding relative path under `$HOME`.
+
+Files are linked using hard links by default when on the same filesystem (saving inodes and keeping edits in sync), automatically falling back to symbolic links across filesystems or partitions.
 
 # Credits and software used
 
-* [zsh](http://www.zsh.org/) with
-  [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
-* Lambda-mod zsh theme: https://github.com/halfo/lambda-mod-zsh-theme
-* Even-better-ls: https://github.com/illinoisjackson/even-better-ls
+* [Fish Shell](https://fishshell.com/)
 * Base16 colour theme: https://github.com/chriskempson/base16
 * [Tmux](https://github.com/tmux/tmux)
 * Tmux config borrowed from: https://github.com/gpakosz/.tmux
-* [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode)
-  for the terminal
-* [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont)
-  for rest of the system
+* [Patched FiraCode font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode) for the terminal
+* [San Francisco Font](https://github.com/supermarin/YosemiteSanFranciscoFont) for rest of the system
 * Latte-dock: https://github.com/psifidotos/Latte-Dock
 * Custom cowsay files: https://github.com/WolfgangAxel/Random-Projects/blob/master/ruri.cow
 * KWin tile script: https://github.com/Jazqa/kwin-quarter-tiling

@@ -1,226 +1,477 @@
 #!/usr/bin/env python3
 
 """
+Dotfiles Installer
+
+Uses the repository directory structure to map files directly to the target environment.
+Files under platform folders ('common', 'linux', 'macos') map directly to relative paths in $HOME.
+
+Preference: Hard link with automatic fallback to symlink.
+Dependencies: Python 3 Standard Library only.
+
 MIT License
-
-Copyright (c) 2017-2019 MaT1g3R
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Copyright (c) 2017-2026 MaT1g3R & contributors
 """
-from argparse import ArgumentParser
-from glob import glob
-from json import loads
+
+import argparse
+import errno
+import os
+import platform
+import shutil
+import subprocess
+import sys
+import time
 from pathlib import Path
-from os.path import expanduser, basename, join
-from subprocess import PIPE, STDOUT, run
+from typing import Dict, List, Optional, Set, Tuple
 
 
-HERE = Path(__file__).parent
+HERE = Path(__file__).resolve().parent
 HOME = Path.home()
 
+# Files and directory names to ignore during discovery
+IGNORED_NAMES: Set[str] = {
+    ".DS_Store",
+    ".git",
+    ".gitignore",
+    ".netrwhist",
+    "Thumbs.db",
+    "__pycache__",
+}
 
-def main():
+IGNORED_SUFFIXES: Tuple[str, ...] = (
+    "~",
+    ".swp",
+    ".swo",
+    ".pyc",
+)
+
+
+def detect_platform() -> str:
+    """Detect current operating system, normalized to 'linux' or 'macos'."""
+    sys_name = platform.system().lower()
+    if sys_name == "darwin":
+        return "macos"
+    if sys_name == "linux":
+        return "linux"
+    return sys_name
+
+
+def should_ignore(path: Path) -> bool:
+    """Determine whether a file or directory should be ignored."""
+    if path.name in IGNORED_NAMES:
+        return True
+    if any(path.name.endswith(suffix) for suffix in IGNORED_SUFFIXES):
+        return True
+    return False
+
+
+def discover_files(platform_dir: Path) -> List[Tuple[Path, Path]]:
     """
-    Main function. Parse the cli arguments.
+    Recursively discover all files under platform_dir.
+    Returns a list of (source_path, relative_path) tuples.
     """
-    mapping = loads((HERE / 'mapping.json').read_text())
-    parse = ArgumentParser(description='Dotfiles Installer')
-    parse.add_argument(
-        '-v', '--verbose', help='verbose mode', action='store_true'
-    )
-    parse.add_argument(
-        '-f', '--force', help='force mode, remove existing configs',
-        action='store_true'
-    )
-    parse.add_argument(
-        '-i', '--init', help='init mode, do some initial setup',
-        action='store_true'
-    )
-    parse.add_argument(
-        'targets', help='installation targets', choices=mapping, nargs='+'
-    )
-    args = parse.parse_args()
-    install(args.verbose, args.force, args.init, args.targets, mapping)
-    return 0
+    results: List[Tuple[Path, Path]] = []
+    if not platform_dir.is_dir():
+        return results
+
+    for root, dirs, files in os.walk(platform_dir):
+        # Prune ignored directories in-place
+        dirs[:] = [d for d in dirs if not should_ignore(Path(d))]
+
+        for file_name in files:
+            file_path = Path(root) / file_name
+            if not should_ignore(file_path):
+                rel_path = file_path.relative_to(platform_dir)
+                results.append((file_path, rel_path))
+
+    # Sort files for deterministic execution order
+    results.sort(key=lambda item: str(item[1]))
+    return results
 
 
-def install(verbose, force, init, targets, mapping):
+def check_link_status(src: Path, dest: Path) -> str:
     """
-    Install function.
+    Check the current status of dest relative to src.
 
-    Parameters
-    ----------
-    verbose
-        True for verbose mode
-    force
-        True to remove existing files
-    init
-        True to run the init scripts
-    targets
-        Installation targets
-    mapping
-        Symlink mapping dictionary
+    Returns:
+        'hardlinked': dest is hard-linked to src (same device and inode)
+        'symlinked': dest is a symlink pointing to src
+        'broken_link': dest is a broken symlink
+        'conflict': dest exists and is different from src
+        'missing': dest does not exist
     """
-    print('Installing...')
-    common_commands(verbose, force, init)
-    for key, val in filter(lambda x: x[0] in targets, mapping.items()):
-        if key == 'macos' and init:
-            mac = HERE / 'macos'
-            sh(f'bash {(mac / "brew.sh")}')
-            sh(f'bash {(mac / "macos.sh")}')
-        link(verbose, force, val)
-    print('Done!')
+    if dest.is_symlink():
+        try:
+            # Check if broken
+            if not dest.exists():
+                return "broken_link"
+            if dest.resolve() == src.resolve():
+                return "symlinked"
+            return "conflict"
+        except OSError:
+            return "broken_link"
+
+    if dest.exists():
+        try:
+            if os.path.samestat(src.stat(), dest.stat()):
+                return "hardlinked"
+            return "conflict"
+        except OSError:
+            return "conflict"
+
+    return "missing"
 
 
-def common_commands(verbose, force, init):
+def clean_parent_symlinks(dest: Path, repo_root: Path, force: bool, dry_run: bool) -> bool:
     """
-    Shell commands for all installation types.
-
-    Parameters
-    ----------
-    verbose
-        True for verbose mode
-    force
-        True to remove existing files on the file system
-    init
-        True to run the init scripts
+    Walk up ancestor directories of dest.
+    If an ancestor is a broken symlink or an old directory symlink pointing into the repo,
+    replace it with a real directory so individual files can be linked.
     """
-    global_gitig_path = HOME / '.gitignore_global'
-    link_one(
-        verbose, force, Path('git').resolve() / '.gitignore_global', global_gitig_path
-    )
-    sh(f'git config --get core.excludesfile {global_gitig_path}')
+    parent = dest.parent
+    ancestors: List[Path] = []
+    curr = parent
+    while curr != curr.parent and curr != HOME.parent:
+        ancestors.append(curr)
+        curr = curr.parent
 
+    for ancestor in reversed(ancestors):
+        if ancestor.is_symlink():
+            is_broken = not ancestor.exists()
+            points_to_repo = False
+            try:
+                resolved = ancestor.resolve()
+                points_to_repo = resolved == repo_root or repo_root in resolved.parents
+            except OSError:
+                is_broken = True
 
-def sh(cmd, print_output=True):
-    """
-    Run a shell command.
-
-    Parameters
-    ----------
-    cmd
-        the shell command
-    print_output
-        if True this will print the output
-
-    Returns
-    -------
-    The process return code
-    """
-    res = run(cmd, shell=True, stdout=PIPE, stderr=STDOUT, encoding='utf8')
-    if print_output:
-        print(res.stdout)
-    return res.returncode
-
-
-def maybe_print(s, verbose):
-    """
-    Print string ``s`` if verbose
-
-    Parameters
-    ----------
-    s
-        the string to print
-    verbose
-        wether to print or not
-    """
-    if verbose:
-        print(s)
-
-
-def process_paths(files):
-    """
-    Process source, destination pairs
-
-    Parameters
-    ----------
-    files
-        A dictionary of {src: dest} file paths
-
-    Returns
-    -------
-    A generator of resolved file paths
-    """
-    for src, dest in files.items():
-        for file in glob(src):
-            if dest.endswith('*'):
-                yield file, join(expanduser(dest.rstrip('*')), basename(file))
+            if is_broken or points_to_repo:
+                if not dry_run:
+                    ancestor.unlink()
+                    ancestor.mkdir(parents=True, exist_ok=True)
+            elif force:
+                if not dry_run:
+                    ancestor.unlink()
+                    ancestor.mkdir(parents=True, exist_ok=True)
             else:
-                yield file, dest
+                return False
+
+    if not dry_run:
+        parent.mkdir(parents=True, exist_ok=True)
+    return True
 
 
-def link(verbose, force, files):
+def backup_path(path: Path, dry_run: bool) -> Optional[Path]:
+    """Create a backup of path with a .bak timestamp suffix."""
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    backup = path.with_name(f"{path.name}.bak.{timestamp}")
+    if not dry_run:
+        shutil.move(str(path), str(backup))
+    return backup
+
+
+def link_file(
+    src: Path,
+    dest: Path,
+    symlink_only: bool,
+    force: bool,
+    backup: bool,
+    dry_run: bool,
+    verbose: bool,
+) -> Tuple[str, str]:
     """
-    Make symlinks from a set of files.
+    Install a single file using hard link (or fallback/explicit symlink).
 
-    Parameters
-    ----------
-    verbose
-        True for verbose mode
-    force
-        True to remove existing files on the file system
-    files
-        The set of files
+    Returns:
+        (action, message) where action is one of:
+        'HARDLINK', 'SYMLINK', 'UP_TO_DATE', 'BACKUP', 'CONFLICT', 'ERROR'
     """
-    for src, dest in process_paths(files):
-        link_one(verbose, force, src, dest)
+    status = check_link_status(src, dest)
 
+    # Already matching
+    if status == "hardlinked" and not symlink_only:
+        return "UP_TO_DATE", f"Already hard-linked: {dest}"
+    if status == "symlinked" and symlink_only:
+        return "UP_TO_DATE", f"Already symlinked: {dest}"
 
-def link_one(verbose, force, src, dest):
-    """
-    Make one symlink
-
-    Parameters
-    ----------
-    verbose
-        True for verbose mode
-    force
-        True to remove existing files on the file system
-    src
-        The source file
-    dest
-        The destination path
-    """
-    if not isinstance(src, Path):
-        src = (HERE / src).resolve()
-    if not isinstance(dest, Path):
-        dest = Path(dest).expanduser().absolute()
-
-    if not dest.parent.exists():
-        dest.parent.mkdir(parents=True)
-
-    if dest.exists() and force:
-        if dest.is_dir() and not dest.is_symlink():
-            dest.rmdir()
-        else:
+    # Target is already a symlink to src, but we prefer hardlinks
+    if status == "symlinked" and not symlink_only:
+        if not dry_run:
             dest.unlink()
-        maybe_print(f'Removed {dest}', verbose)
+            try:
+                os.link(src, dest)
+                return "HARDLINK", f"Upgraded symlink to hard link: {dest} -> {src}"
+            except OSError:
+                # Re-create symlink if hard link fails
+                dest.symlink_to(src.resolve())
+                return "UP_TO_DATE", f"Already symlinked (hard link unsupported): {dest}"
+        else:
+            return "HARDLINK", f"[dry-run] Would upgrade symlink to hard link: {dest} -> {src}"
 
+    # Handle broken symlink
+    if status == "broken_link":
+        if not dry_run:
+            dest.unlink()
+
+    # Handle conflict with existing file
+    if status == "conflict":
+        if backup:
+            b_path = backup_path(dest, dry_run)
+            msg_b = f"Backed up {dest} to {b_path}"
+        elif force:
+            if not dry_run:
+                if dest.is_dir() and not dest.is_symlink():
+                    shutil.rmtree(dest)
+                else:
+                    dest.unlink()
+        else:
+            return "CONFLICT", f"Target exists and differs: {dest} (use --force or --backup)"
+
+    # Ensure parent directories are clean and exist
     try:
-        dest.symlink_to(src, src.is_dir())
-    except OSError as e:
-        if force:
-            raise e
-        maybe_print(f'{dest} already exists, skipping', verbose)
+        clean_parent_symlinks(dest, HERE, force, dry_run)
+    except Exception as e:
+        return "ERROR", f"Failed preparing parent directories for {dest}: {e}"
+
+    # Execute linking
+    if dry_run:
+        mode = "symlink" if symlink_only else "hard link (with symlink fallback)"
+        return "DRY_RUN", f"[dry-run] Would install {dest} -> {src} via {mode}"
+
+    if symlink_only:
+        try:
+            dest.symlink_to(src.resolve())
+            return "SYMLINK", f"Symlinked: {dest} -> {src}"
+        except OSError as e:
+            return "ERROR", f"Failed creating symlink {dest}: {e}"
+
+    # Default: Try hard link first
+    try:
+        os.link(src, dest)
+        return "HARDLINK", f"Hard-linked: {dest} -> {src}"
+    except OSError as err:
+        # Cross-device link or unsupported filesystem fallback to symlink
+        try:
+            dest.symlink_to(src.resolve())
+            return "FALLBACK_SYMLINK", f"Symlinked (hard link fallback): {dest} -> {src}"
+        except OSError as sym_err:
+            return "ERROR", f"Failed hardlink ({err}) and symlink fallback ({sym_err}) for {dest}"
+
+
+def setup_git_config(home_dir: Path, dry_run: bool, verbose: bool) -> None:
+    """Configure global git ignore if .gitignore_global is installed."""
+    gitig = home_dir / ".gitignore_global"
+    if gitig.exists():
+        cmd = ["git", "config", "--global", "core.excludesfile", str(gitig)]
+        if dry_run:
+            print(f"[dry-run] Would run: {' '.join(cmd)}")
+        else:
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            if res.returncode == 0:
+                print(f"[INIT] Configured git global excludesfile: {gitig}")
+            elif verbose:
+                print(f"[INIT] Git config error: {res.stderr.strip()}", file=sys.stderr)
+
+
+def run_init_scripts(active_platforms: List[str], dry_run: bool) -> None:
+    """Run platform initialization scripts when --init is specified."""
+    if "macos" in active_platforms:
+        setup_mac = HERE / "setup" / "macos"
+        for script_name in ("brew.sh", "macos.sh"):
+            script_path = setup_mac / script_name
+            if script_path.is_file():
+                if dry_run:
+                    print(f"[dry-run] Would execute setup script: bash {script_path}")
+                else:
+                    print(f"[INIT] Running {script_path}...")
+                    subprocess.run(["bash", str(script_path)])
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Clean, minimal dotfiles installer mapping directories to $HOME.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""\
+Directory Mapping:
+  common/   -> $HOME/ (installed on all platforms)
+  linux/    -> $HOME/ (installed on Linux)
+  macos/    -> $HOME/ (installed on macOS)
+
+Linking Strategy:
+  Uses hard links whenever supported by the filesystem, with automatic
+  fallback to symbolic links (e.g. across partitions/filesystems).
+""",
+    )
+
+    parser.add_argument(
+        "targets",
+        nargs="*",
+        help="Specific platform directories to install (default: auto-detected, e.g. common + current OS).",
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        action="store_true",
+        help="Verbose output (shows up-to-date and skipped files).",
+    )
+    parser.add_argument(
+        "-q", "--quiet",
+        action="store_true",
+        help="Quiet mode (only print summary and errors).",
+    )
+    parser.add_argument(
+        "-f", "--force",
+        action="store_true",
+        help="Force overwrite of conflicting destination files.",
+    )
+    parser.add_argument(
+        "-b", "--backup",
+        action="store_true",
+        help="Create backup of conflicting destination files before overwriting.",
+    )
+    parser.add_argument(
+        "-n", "--dry-run",
+        action="store_true",
+        help="Show what would be installed without making any changes.",
+    )
+    parser.add_argument(
+        "-s", "--symlink-only",
+        action="store_true",
+        help="Always use symbolic links instead of attempting hard links.",
+    )
+    parser.add_argument(
+        "-i", "--init",
+        action="store_true",
+        help="Run initial environment setup (e.g. git global config, macOS scripts).",
+    )
+    parser.add_argument(
+        "--os",
+        choices=["linux", "macos", "all"],
+        help="Explicitly override OS detection ('linux', 'macos', or 'all').",
+    )
+    parser.add_argument(
+        "--dest",
+        type=Path,
+        default=HOME,
+        help="Destination directory root (default: $HOME).",
+    )
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        help="List all discoverable dotfiles without installing.",
+    )
+
+    args = parser.parse_args()
+
+    # Determine available platform directories
+    available_platforms = [
+        d.name for d in HERE.iterdir()
+        if d.is_dir() and d.name in {"common", "linux", "macos"}
+    ]
+
+    current_os = args.os if args.os else detect_platform()
+
+    # Determine which platform directories to process
+    if args.targets:
+        selected_platforms = []
+        for t in args.targets:
+            t_lower = t.lower()
+            if t_lower == "all":
+                selected_platforms = ["common", "linux", "macos"]
+                break
+            elif t_lower in available_platforms:
+                selected_platforms.append(t_lower)
+            else:
+                print(f"Error: Unknown target platform '{t}'. Available: {available_platforms}", file=sys.stderr)
+                return 1
+    elif current_os == "all":
+        selected_platforms = ["common", "linux", "macos"]
     else:
-        maybe_print(f'{src} -> {dest}', verbose)
+        selected_platforms = ["common"]
+        if current_os in available_platforms:
+            selected_platforms.append(current_os)
+
+    # Ensure uniqueness while preserving order
+    active_platforms = list(dict.fromkeys(selected_platforms))
+
+    if not args.quiet:
+        print(f"Platform: {current_os} | Active targets: {', '.join(active_platforms)}")
+        print(f"Destination: {args.dest}")
+        print(f"Link mode: {'Symlink only' if args.symlink_only else 'Hard link (fallback to symlink)'}")
+        print("-" * 60)
+
+    # Discover files
+    all_files: List[Tuple[str, Path, Path]] = []
+    for platform_name in active_platforms:
+        p_dir = HERE / platform_name
+        for src_path, rel_path in discover_files(p_dir):
+            all_files.append((platform_name, src_path, rel_path))
+
+    if args.list:
+        print(f"Found {len(all_files)} dotfile(s):")
+        for p_name, src, rel in all_files:
+            target = args.dest / rel
+            status = check_link_status(src, target)
+            print(f"  [{p_name:6}] {rel} -> {target} ({status})")
+        return 0
+
+    counts: Dict[str, int] = {
+        "HARDLINK": 0,
+        "SYMLINK": 0,
+        "FALLBACK_SYMLINK": 0,
+        "UP_TO_DATE": 0,
+        "CONFLICT": 0,
+        "ERROR": 0,
+        "DRY_RUN": 0,
+    }
+
+    for p_name, src_path, rel_path in all_files:
+        dest_path = args.dest / rel_path
+        action, msg = link_file(
+            src=src_path,
+            dest=dest_path,
+            symlink_only=args.symlink_only,
+            force=args.force,
+            backup=args.backup,
+            dry_run=args.dry_run,
+            verbose=args.verbose,
+        )
+
+        counts[action] = counts.get(action, 0) + 1
+
+        if action in {"HARDLINK", "SYMLINK", "FALLBACK_SYMLINK"}:
+            if not args.quiet:
+                print(f"[{action}] {msg}")
+        elif action == "DRY_RUN":
+            if not args.quiet:
+                print(msg)
+        elif action == "UP_TO_DATE":
+            if args.verbose and not args.quiet:
+                print(f"[OK] {msg}")
+        elif action == "CONFLICT":
+            print(f"[CONFLICT] {msg}", file=sys.stderr)
+        elif action == "ERROR":
+            print(f"[ERROR] {msg}", file=sys.stderr)
+
+    # Post-install hooks / init
+    if args.init:
+        setup_git_config(args.dest, args.dry_run, args.verbose)
+        run_init_scripts(active_platforms, args.dry_run)
+
+    if not args.quiet:
+        print("-" * 60)
+        summary = (
+            f"Done! Hard-linked: {counts['HARDLINK']}, "
+            f"Symlinked: {counts['SYMLINK'] + counts['FALLBACK_SYMLINK']}, "
+            f"Up-to-date: {counts['UP_TO_DATE']}, "
+            f"Conflicts: {counts['CONFLICT']}, "
+            f"Errors: {counts['ERROR']}"
+        )
+        if args.dry_run:
+            summary += f" (Dry-run: {counts['DRY_RUN']} planned)"
+        print(summary)
+
+    return 1 if counts["ERROR"] > 0 else 0
 
 
-if __name__ == '__main__':
-    exit(main())
+if __name__ == "__main__":
+    sys.exit(main())

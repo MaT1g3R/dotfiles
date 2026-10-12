@@ -6,7 +6,7 @@
  '(flycheck-python-flake8-executable "python3")
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
- '(ispell-personal-dictionary "~/dotfiles/emacs/emacs.d/word-list")
+ '(ispell-personal-dictionary "~/.emacs.d/word-list")
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote

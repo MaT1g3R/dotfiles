@@ -128,7 +128,7 @@ toggle-off-foreground = ${colors.base03}
 [module/pacman]
 type = custom/script
 format = %{o#ec5f67}<label>%{o-}
-exec = $HOME/dotfiles/polybar/updates-arch-combined.sh
+exec = $HOME/.config/polybar/updates-arch-combined.sh
 interval = 600
 
 [module/date]
@@ -146,7 +146,7 @@ format = %{o#f99157} <label>%{o-}
 format-foreground = ${colors.foreground}
 
 type = custom/script
-exec = $HOME/dotfiles/polybar/task_polybar.sh
+exec = $HOME/.config/polybar/task_polybar.sh
 click-left = task "$((`cat /tmp/tw_polybar_id`))" done
 
 [module/cpu]
@@ -217,7 +217,7 @@ animation-packetloss-framerate = 500
 
 [module/disk]
 type = custom/script
-exec = $HOME/dotfiles/polybar/disk.py / /home /run/media/umi/HDD /home/umi/nfs
+exec = $HOME/.config/polybar/disk.py / /home /run/media/umi/HDD /home/umi/nfs
 format = %{o#6699cc}  <label>%{o-}
 interval = 60
 
