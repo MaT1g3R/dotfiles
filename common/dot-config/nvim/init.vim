@@ -1,27 +1,42 @@
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/nerdcommenter'
-Plug 'chriskempson/base16-vim'
+" Color scheme
+Plug 'tinted-theming/base16-vim'
+
+" Statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'majutsushi/tagbar'
-Plug 'reedes/vim-lexical'
-Plug 'w0rp/ale'
-Plug 'psliwka/vim-smoothie'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'neomake/neomake'
-Plug 'terrastruct/d2-vim'
+
+" Navigation
 Plug 'christoomey/vim-tmux-navigator'
+
+" Smooth scrolling
+Plug 'karb94/neoscroll.nvim'
+
+" Spelling, thesaurus, dictionary
+Plug 'preservim/vim-lexical'
+
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+
+" ANSI escape sequences
+Plug 'powerman/vim-plugin-AnsiEsc'
+
+" Language syntax
+Plug 'terrastruct/d2-vim'
+
+" Native LSP & Completion
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'saghen/blink.cmp', { 'tag': '*', 'do': 'cargo build --release' }
 call plug#end()
 
-" :imap ii <Esc>
+" Disable unused remote plugin providers for faster startup and clean checkhealth
+let g:loaded_python3_provider = 0
+let g:loaded_node_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
 
-let g:coc_global_extensions=[
-\   'coc-pyright',
-\   'coc-json',
-\   'coc-rust-analyzer',
-\]
 set mouse=a
 " Default format: 4 spaces, 79 line length, unix line ending
 set sw=4
@@ -29,23 +44,21 @@ set ts=4
 set et
 set autoindent
 
-set encoding=utf8
 set ignorecase
 set smartcase
 set magic
 " Line number
 set number
-" if hidden is not set, TextEdit might fail.
-set hidden
+set signcolumn=yes
 
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
 
-" You will have bad experience for diagnostic messages when it's default 4000.
+" Diagnostic message update interval
 set updatetime=300
 
-" don't give |ins-completion-menu| messages.
+" Don't give |ins-completion-menu| messages
 set shortmess+=c
 
 " Clipboard
@@ -58,18 +71,20 @@ filetype plugin indent on
 set colorcolumn=80
 
 " Shortcuts
-
     " Leader key
     let mapleader = ","
     let maplocalleader = ","
 
-    " Map C-/ to toggle comments
-    " Vim sees / as _ for some reason
-    map <C-_> <leader>c<space>
-    
+    " Map C-/ to toggle comments (using Neovim native commenting)
+    " Terminal may send <C-_> or <C-/> for Ctrl-/
+    nmap <C-_> gcc
+    xmap <C-_> gc
+    nmap <C-/> gcc
+    xmap <C-/> gc
+
     " Esc to exit terminal mode
     tnoremap <Esc> <C-\><C-n>
-    
+
     " Moving around windows (seamlessly across Vim splits and Tmux panes)
     let g:tmux_navigator_no_mappings = 1
     if has('macunix')
@@ -125,7 +140,7 @@ colorscheme base16-oceanicnext
     let g:airline_symbols.linenr = '☰'
     let g:airline_symbols.maxlinenr = ''
     let g:airline_powerline_fonts = 1
-    let g:airline_detect_spelllang=1
+    let g:airline_detect_spelllang = 1
     let g:airline_mode_map = {
         \ '__' : '-',
         \ 'n'  : 'N',
@@ -134,10 +149,10 @@ colorscheme base16-oceanicnext
         \ 'c'  : 'C',
         \ 'v'  : 'V',
         \ 'V'  : 'V',
-        \ '' : 'V',
+        \ "\<C-v>" : 'V',
         \ 's'  : 'S',
         \ 'S'  : 'S',
-        \ '' : 'S',
+        \ "\<C-s>" : 'S',
         \ }
 
     " Extensions
@@ -148,18 +163,12 @@ colorscheme base16-oceanicnext
         let g:airline#extensions#tabline#show_close_button = 1 
         let g:airline#extensions#tabline#close_symbol = 'X'
 
-        " ALE
-        let g:airline#extensions#ale#enabled = 1
-        let airline#extensions#ale#error_symbol = 'E:'
-        let airline#extensions#ale#warning_symbol = 'W:'
-        let airline#extensions#ale#open_lnum_symbol = '(L'
-        let airline#extensions#ale#close_lnum_symbol = ')'
-
-" nerdcommenter
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
+        " Neovim native LSP diagnostics in Airline
+        let g:airline#extensions#nvimlsp#enabled = 1
+        let g:airline#extensions#nvimlsp#error_symbol = 'E:'
+        let g:airline#extensions#nvimlsp#warning_symbol = 'W:'
+        let g:airline#extensions#nvimlsp#open_lnum_symbol = '(L'
+        let g:airline#extensions#nvimlsp#close_lnum_symbol = ')'
 
 " vim-lexical
 augroup lexical
@@ -177,125 +186,25 @@ let g:lexical#spell_key = '<leader>s'
 let g:lexical#thesaurus_key = '<leader>t'
 let g:lexical#dictionary_key = '<leader>k'
 
-" shell
-" if &shell =~# 'fish$'
-  " set shell=/bin/zsh
-" endif
-
 " Source local vimrc if there's any
 if filereadable(".vimrc_local")
     source .vimrc_local
 endif
 
-function! CheckBackSpace() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" Insert <tab> when previous text is space, refresh completion if not.
-inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#pum#next(1):
-    \ CheckBackSpace() ? "\<Tab>" :
-    \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
 " Jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-" markdown
+" Markdown preview browser
 if has('macunix')
     let g:mkdp_browser = 'Firefox Nightly'
 else
-    let g:mkdp_browser = 'firefox-nightly'
+    if executable('firefox-nightly')
+        let g:mkdp_browser = 'firefox-nightly'
+    elseif executable('firefox')
+        let g:mkdp_browser = 'firefox'
+    endif
 endif
 
+" Load Lua configurations
+lua require('config.lsp')
+lua require('config.neoscroll')
